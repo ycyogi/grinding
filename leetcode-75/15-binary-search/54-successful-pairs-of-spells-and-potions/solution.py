@@ -1,0 +1,41 @@
+"""
+LeetCode 2300. Successful Pairs of Spells and Potions
+https://leetcode.com/problems/successful-pairs-of-spells-and-potions/
+
+Approach: sort potions, then for each spell binary search for the
+leftmost potion whose product with the spell meets `success`; every
+potion from that index onward also qualifies.
+
+Time:  O((n + m) log m) - sort potions once, binary search per spell
+Space: O(n) for the output array (sort can be done in place)
+"""
+
+from bisect import bisect_left
+from typing import List
+
+
+class Solution:
+    def successfulPairs(
+        self, spells: List[int], potions: List[int], success: int
+    ) -> List[int]:
+        sorted_potions = sorted(potions)
+        m = len(sorted_potions)
+        pairs = []
+
+        for s in spells:
+            lo, hi = 0, m
+            while lo < hi:
+                mid = lo + (hi - lo) // 2
+                if s * sorted_potions[mid] >= success:
+                    hi = mid
+                else:
+                    lo = mid + 1
+            pairs.append(m - lo)
+
+        return pairs
+
+
+if __name__ == "__main__":
+    sol = Solution()
+    print(sol.successfulPairs([5, 1, 3], [1, 2, 3, 4, 5], 7))  # [4, 0, 3]
+    print(sol.successfulPairs([3, 1, 2], [8, 5, 8], 16))  # [2, 0, 2]
