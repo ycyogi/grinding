@@ -25,9 +25,9 @@ Return the string after **all** stars have been removed.
 ```
 Input:  s = "leet**cod*e"
 Output: "lecoe"
-Explanation: remove the 't' and the first '*': "lee*cod*e" -> "le*cod*e"
-becomes "leecod*e" wait, tracing carefully left to right with a stack
-gives "lecoe" (see Approach for the precise trace).
+Explanation: the first '*' removes the 't' before it; the second '*'
+then removes the 'e' before that; the third '*' removes the 'd' before
+it. What remains, in order, is "lecoe" (see Approach for the full trace).
 ```
 
 **Example 2**
