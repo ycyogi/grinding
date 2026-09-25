@@ -75,6 +75,16 @@ The key trick is starting the BFS with *all* rotten oranges in the
 queue at once (rather than one), which makes the BFS "layers" line up
 exactly with elapsed minutes.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `grid = [[2,0],[0,2]]` (rotten and empty cells only, no fresh oranges) | `0` | With zero fresh oranges, the answer must be `0` immediately, without ever entering the BFS loop. |
+| `grid = [[1,1],[1,1]]` (fresh oranges only, no rotten source at all) | `-1` | The BFS queue starts empty, so the `while` loop body never runs even once; must still detect leftover fresh oranges and return `-1` rather than `0`. |
+| `grid = [[1,0,2]]` (a fresh orange separated from the only rotten one by an empty cell) | `-1` | Rot only spreads 4-directionally through fresh cells — a `0` cell blocks it completely, so that fresh orange can never be reached even though it's in the same row. |
+| `grid = [[2]]` (single-cell grid, already rotten) | `0` | Smallest possible grid (`m=n=1`); no fresh oranges exist so the answer is immediate, with no neighbors to even examine. |
+| `grid = [[2,1,1,1,2]]` (two rotten sources at both ends of a row, fresh oranges in between) | `2` | Multi-source BFS: the middle cell (index 2) is equidistant (2 steps) from both rotten sources, and must rot at minute 2, not be double-counted or make the answer the *sum* of two independent single-source BFS runs. |
+
 ## Complexity
 
 - **Time:** `O(m * n)` — every cell is enqueued and processed at most
