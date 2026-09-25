@@ -18,9 +18,10 @@ function singleNumber(nums: number[]): number {
 
   return result;
 }
-
-// Example usage:
-// console.log(singleNumber([2, 2, 1])); // 1
-// console.log(singleNumber([4, 1, 2, 1, 2])); // 4
+if (require.main === module) {
+  // Example usage:
+  console.log(singleNumber([2, 2, 1])); // 1
+  console.log(singleNumber([4, 1, 2, 1, 2])); // 4
+}
 
 export { singleNumber };

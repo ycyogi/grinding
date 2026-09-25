@@ -25,9 +25,10 @@ function tribonacci(n: number): number {
 
   return c;
 }
-
-// Example usage:
-// console.log(tribonacci(4)); // 4
-// console.log(tribonacci(25)); // 1389537
+if (require.main === module) {
+  // Example usage:
+  console.log(tribonacci(4)); // 4
+  console.log(tribonacci(25)); // 1389537
+}
 
 export { tribonacci };

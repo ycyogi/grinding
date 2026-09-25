@@ -35,10 +35,11 @@ function closeStrings(word1: string, word2: string): boolean {
 
   return true;
 }
-
-// Example usage:
-// console.log(closeStrings('abc', 'bca')); // true
-// console.log(closeStrings('cabbba', 'abbccc')); // true
-// console.log(closeStrings('cabbba', 'aabbss')); // false
+if (require.main === module) {
+  // Example usage:
+  console.log(closeStrings('abc', 'bca')); // true
+  console.log(closeStrings('cabbba', 'abbccc')); // true
+  console.log(closeStrings('cabbba', 'aabbss')); // false
+}
 
 export { closeStrings };

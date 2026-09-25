@@ -24,9 +24,10 @@ function findPeakElement(nums: number[]): number {
 
   return lo;
 }
-
-// Example usage:
-// console.log(findPeakElement([1, 2, 3, 1])); // 2
-// console.log(findPeakElement([1, 2, 1, 3, 5, 6, 4])); // 1 or 5
+if (require.main === module) {
+  // Example usage:
+  console.log(findPeakElement([1, 2, 3, 1])); // 2
+  console.log(findPeakElement([1, 2, 1, 3, 5, 6, 4])); // 1 or 5
+}
 
 export { findPeakElement };

@@ -32,9 +32,10 @@ function maxOperations(nums: number[], k: number): number {
 
   return count;
 }
-
-// Example usage:
-// console.log(maxOperations([1, 2, 3, 4], 5));       // 2
-// console.log(maxOperations([3, 1, 3, 4, 3], 6));     // 1
+if (require.main === module) {
+  // Example usage:
+  console.log(maxOperations([1, 2, 3, 4], 5));       // 2
+  console.log(maxOperations([3, 1, 3, 4, 3], 6));     // 1
+}
 
 export { maxOperations };

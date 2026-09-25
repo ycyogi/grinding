@@ -31,9 +31,10 @@ function eraseOverlapIntervals(intervals: number[][]): number {
 
   return removals;
 }
-
-// Example usage:
-// console.log(eraseOverlapIntervals([[1,2],[2,3],[3,4],[1,3]])); // 1
-// console.log(eraseOverlapIntervals([[1,2],[1,2],[1,2]])); // 2
+if (require.main === module) {
+  // Example usage:
+  console.log(eraseOverlapIntervals([[1,2],[2,3],[3,4],[1,3]])); // 1
+  console.log(eraseOverlapIntervals([[1,2],[1,2],[1,2]])); // 2
+}
 
 export { eraseOverlapIntervals };

@@ -85,9 +85,10 @@ function maxScore(nums1: number[], nums2: number[], k: number): number {
 
   return best;
 }
-
-// Example usage:
-// console.log(maxScore([1,3,3,2], [2,1,3,4], 3)); // 12
-// console.log(maxScore([4,2,3,1,1], [7,5,10,9,6], 1)); // 30
+if (require.main === module) {
+  // Example usage:
+  console.log(maxScore([1,3,3,2], [2,1,3,4], 3)); // 12
+  console.log(maxScore([4,2,3,1,1], [7,5,10,9,6], 1)); // 30
+}
 
 export { maxScore, MinHeap };

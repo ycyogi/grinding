@@ -33,11 +33,12 @@ function guessNumber(n: number): number {
 
   return -1; // unreachable given valid input
 }
-
-// Example usage:
-// __pick = 6;
-// console.log(guessNumber(10)); // 6
-// __pick = 1;
-// console.log(guessNumber(1)); // 1
+if (require.main === module) {
+  // Example usage:
+  __pick = 6;
+  console.log(guessNumber(10)); // 6
+  __pick = 1;
+  console.log(guessNumber(1)); // 1
+}
 
 export { guessNumber };

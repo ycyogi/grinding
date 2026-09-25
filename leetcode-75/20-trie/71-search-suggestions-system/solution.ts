@@ -37,13 +37,14 @@ function suggestedProducts(products: string[], searchWord: string): string[][] {
 
   return result;
 }
-
-// Example usage:
-// console.log(suggestedProducts(
-//   ['mobile', 'mouse', 'moneypot', 'monitor', 'mousepad'],
-//   'mouse'
-// ));
-// [["mobile","moneypot","monitor"], ["mobile","moneypot","monitor"],
-//  ["mouse","mousepad"], ["mouse","mousepad"], ["mouse","mousepad"]]
+if (require.main === module) {
+  // Example usage:
+  console.log(suggestedProducts(
+    ['mobile', 'mouse', 'moneypot', 'monitor', 'mousepad'],
+    'mouse'
+  ));
+  // [["mobile","moneypot","monitor"], ["mobile","moneypot","monitor"],
+  //  ["mouse","mousepad"], ["mouse","mousepad"], ["mouse","mousepad"]]
+}
 
 export { suggestedProducts };

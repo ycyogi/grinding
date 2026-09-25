@@ -25,9 +25,10 @@ function canPlaceFlowers(flowerbed: number[], n: number): boolean {
 
   return need <= 0;
 }
-
-// Example usage:
-// console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1)); // true
-// console.log(canPlaceFlowers([1, 0, 0, 0, 1], 2)); // false
+if (require.main === module) {
+  // Example usage:
+  console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1)); // true
+  console.log(canPlaceFlowers([1, 0, 0, 0, 1], 2)); // false
+}
 
 export { canPlaceFlowers };

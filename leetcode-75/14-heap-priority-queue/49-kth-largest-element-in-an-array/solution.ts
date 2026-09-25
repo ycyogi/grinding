@@ -74,9 +74,10 @@ function findKthLargest(nums: number[], k: number): number {
 
   return heap.peek();
 }
-
-// Example usage:
-// console.log(findKthLargest([3,2,1,5,6,4], 2)); // 5
-// console.log(findKthLargest([3,2,3,1,2,4,5,5,6], 4)); // 4
+if (require.main === module) {
+  // Example usage:
+  console.log(findKthLargest([3,2,1,5,6,4], 2)); // 5
+  console.log(findKthLargest([3,2,3,1,2,4,5,5,6], 4)); // 4
+}
 
 export { findKthLargest, MinHeap };

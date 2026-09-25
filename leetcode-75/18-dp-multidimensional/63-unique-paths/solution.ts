@@ -20,9 +20,10 @@ function uniquePaths(m: number, n: number): number {
 
   return row[n - 1];
 }
-
-// Example usage:
-// console.log(uniquePaths(3, 7)); // 28
-// console.log(uniquePaths(3, 2)); // 3
+if (require.main === module) {
+  // Example usage:
+  console.log(uniquePaths(3, 7)); // 28
+  console.log(uniquePaths(3, 2)); // 3
+}
 
 export { uniquePaths };

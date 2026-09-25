@@ -34,11 +34,12 @@ function compress(chars: string[]): number {
 
   return write;
 }
-
-// Example usage:
-// const c1 = ['a', 'a', 'b', 'b', 'c', 'c', 'c'];
-// console.log(compress(c1), c1.slice(0, 6)); // 6 ["a","2","b","2","c","3"]
-// const c2 = ['a'];
-// console.log(compress(c2), c2.slice(0, 1)); // 1 ["a"]
+if (require.main === module) {
+  // Example usage:
+  const c1 = ['a', 'a', 'b', 'b', 'c', 'c', 'c'];
+  console.log(compress(c1), c1.slice(0, 6)); // 6 ["a","2","b","2","c","3"]
+  const c2 = ['a'];
+  console.log(compress(c2), c2.slice(0, 1)); // 1 ["a"]
+}
 
 export { compress };

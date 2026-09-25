@@ -31,20 +31,21 @@ function reverseList(head: ListNode | null): ListNode | null {
 
   return prev;
 }
-
 // Helper for building a list from an array (not part of the LeetCode API).
-// function buildList(values: number[]): ListNode | null {
-//   const dummy = new ListNode();
-//   let curr = dummy;
-//   for (const v of values) {
-//     curr.next = new ListNode(v);
-//     curr = curr.next;
-//   }
-//   return dummy.next;
-// }
+function buildList(values: number[]): ListNode | null {
+  const dummy = new ListNode();
+  let curr = dummy;
+  for (const v of values) {
+    curr.next = new ListNode(v);
+    curr = curr.next;
+  }
+  return dummy.next;
+}
 
-// Example usage:
-// console.log(reverseList(buildList([1, 2, 3, 4, 5]))); // 5 -> 4 -> 3 -> 2 -> 1
-// console.log(reverseList(buildList([1, 2])));           // 2 -> 1
+if (require.main === module) {
+  // Example usage:
+  console.log(reverseList(buildList([1, 2, 3, 4, 5]))); // 5 -> 4 -> 3 -> 2 -> 1
+  console.log(reverseList(buildList([1, 2])));           // 2 -> 1
+}
 
 export { reverseList, ListNode };

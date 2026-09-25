@@ -29,9 +29,10 @@ function maxArea(height: number[]): number {
 
   return best;
 }
-
-// Example usage:
-// console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])); // 49
-// console.log(maxArea([1, 1]));                       // 1
+if (require.main === module) {
+  // Example usage:
+  console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])); // 49
+  console.log(maxArea([1, 1]));                       // 1
+}
 
 export { maxArea };

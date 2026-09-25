@@ -46,11 +46,12 @@ function pathSum(root: TreeNode | null, targetSum: number): number {
 
   return total;
 }
-
-// Example usage:
-// const tree = new TreeNode(10,
-//   new TreeNode(5, new TreeNode(3, new TreeNode(3), new TreeNode(-2)), new TreeNode(2, null, new TreeNode(1))),
-//   new TreeNode(-3, null, new TreeNode(11)));
-// console.log(pathSum(tree, 8)); // 3
+if (require.main === module) {
+  // Example usage:
+  const tree = new TreeNode(10,
+    new TreeNode(5, new TreeNode(3, new TreeNode(3), new TreeNode(-2)), new TreeNode(2, null, new TreeNode(1))),
+    new TreeNode(-3, null, new TreeNode(11)));
+  console.log(pathSum(tree, 8)); // 3
+}
 
 export { pathSum, TreeNode };

@@ -54,9 +54,10 @@ function nearestExit(maze: string[][], entrance: number[]): number {
 
   return -1;
 }
-
-// Example usage:
-// console.log(nearestExit([["+","+",".","+"],[".",".",".","+"],["+","+","+","."]], [1,2])); // 1
-// console.log(nearestExit([["+","+","+"],[".",".","."],["+","+","+"]], [1,0])); // 2
+if (require.main === module) {
+  // Example usage:
+  console.log(nearestExit([["+","+",".","+"],[".",".",".","+"],["+","+","+","."]], [1,2])); // 1
+  console.log(nearestExit([["+","+","+"],[".",".","."],["+","+","+"]], [1,0])); // 2
+}
 
 export { nearestExit };

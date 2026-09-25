@@ -37,20 +37,21 @@ function oddEvenList(head: ListNode | null): ListNode | null {
 
   return head;
 }
-
 // Helper for building a list from an array (not part of the LeetCode API).
-// function buildList(values: number[]): ListNode | null {
-//   const dummy = new ListNode();
-//   let curr = dummy;
-//   for (const v of values) {
-//     curr.next = new ListNode(v);
-//     curr = curr.next;
-//   }
-//   return dummy.next;
-// }
+function buildList(values: number[]): ListNode | null {
+  const dummy = new ListNode();
+  let curr = dummy;
+  for (const v of values) {
+    curr.next = new ListNode(v);
+    curr = curr.next;
+  }
+  return dummy.next;
+}
 
-// Example usage:
-// console.log(oddEvenList(buildList([1, 2, 3, 4, 5])));       // 1 -> 3 -> 5 -> 2 -> 4
-// console.log(oddEvenList(buildList([2, 1, 3, 5, 6, 4, 7])));  // 2 -> 3 -> 6 -> 7 -> 1 -> 5 -> 4
+if (require.main === module) {
+  // Example usage:
+  console.log(oddEvenList(buildList([1, 2, 3, 4, 5])));       // 1 -> 3 -> 5 -> 2 -> 4
+  console.log(oddEvenList(buildList([2, 1, 3, 5, 6, 4, 7])));  // 2 -> 3 -> 6 -> 7 -> 1 -> 5 -> 4
+}
 
 export { oddEvenList, ListNode };

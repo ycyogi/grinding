@@ -31,10 +31,11 @@ function searchBST(root: TreeNode | null, val: number): TreeNode | null {
 
   return node;
 }
-
-// Example usage:
-// const root = new TreeNode(4, new TreeNode(2, new TreeNode(1), new TreeNode(3)), new TreeNode(7));
-// console.log(searchBST(root, 2)); // TreeNode { val: 2, left: TreeNode{1}, right: TreeNode{3} }
-// console.log(searchBST(root, 5)); // null
+if (require.main === module) {
+  // Example usage:
+  const root = new TreeNode(4, new TreeNode(2, new TreeNode(1), new TreeNode(3)), new TreeNode(7));
+  console.log(searchBST(root, 2)); // TreeNode { val: 2, left: TreeNode{1}, right: TreeNode{3} }
+  console.log(searchBST(root, 5)); // null
+}
 
 export { searchBST, TreeNode };

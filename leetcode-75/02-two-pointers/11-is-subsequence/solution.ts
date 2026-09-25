@@ -20,10 +20,11 @@ function isSubsequence(s: string, t: string): boolean {
 
   return i === s.length;
 }
-
-// Example usage:
-// console.log(isSubsequence('abc', 'ahbgdc')); // true
-// console.log(isSubsequence('axc', 'ahbgdc')); // false
-// console.log(isSubsequence('', 'ahbgdc'));     // true
+if (require.main === module) {
+  // Example usage:
+  console.log(isSubsequence('abc', 'ahbgdc')); // true
+  console.log(isSubsequence('axc', 'ahbgdc')); // false
+  console.log(isSubsequence('', 'ahbgdc'));     // true
+}
 
 export { isSubsequence };

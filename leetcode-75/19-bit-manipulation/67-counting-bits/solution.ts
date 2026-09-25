@@ -17,9 +17,10 @@ function countBits(n: number): number[] {
 
   return ans;
 }
-
-// Example usage:
-// console.log(countBits(2)); // [0,1,1]
-// console.log(countBits(5)); // [0,1,1,2,1,2]
+if (require.main === module) {
+  // Example usage:
+  console.log(countBits(2)); // [0,1,1]
+  console.log(countBits(5)); // [0,1,1,2,1,2]
+}
 
 export { countBits };

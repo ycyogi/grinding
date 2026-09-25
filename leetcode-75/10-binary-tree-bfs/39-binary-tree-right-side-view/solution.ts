@@ -44,9 +44,10 @@ function rightSideView(root: TreeNode | null): number[] {
 
   return result;
 }
-
-// Example usage:
-// const root = new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3, null, new TreeNode(4)));
-// console.log(rightSideView(root)); // [1, 3, 4]
+if (require.main === module) {
+  // Example usage:
+  const root = new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3, null, new TreeNode(4)));
+  console.log(rightSideView(root)); // [1, 3, 4]
+}
 
 export { rightSideView, TreeNode };

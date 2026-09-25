@@ -21,9 +21,10 @@ function pivotIndex(nums: number[]): number {
 
   return -1;
 }
-
-// Example usage:
-// console.log(pivotIndex([1, 7, 3, 6, 5, 6])); // 3
-// console.log(pivotIndex([1, 2, 3])); // -1
+if (require.main === module) {
+  // Example usage:
+  console.log(pivotIndex([1, 7, 3, 6, 5, 6])); // 3
+  console.log(pivotIndex([1, 2, 3])); // -1
+}
 
 export { pivotIndex };

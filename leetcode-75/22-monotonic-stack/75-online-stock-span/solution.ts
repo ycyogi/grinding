@@ -25,15 +25,16 @@ class StockSpanner {
     return span;
   }
 }
-
-// Example usage:
-// const spanner = new StockSpanner();
-// spanner.next(100); // 1
-// spanner.next(80);  // 1
-// spanner.next(60);  // 1
-// spanner.next(70);  // 2
-// spanner.next(60);  // 1
-// spanner.next(75);  // 4
-// spanner.next(85);  // 6
+if (require.main === module) {
+  // Example usage:
+  const spanner = new StockSpanner();
+  console.log(spanner.next(100)); // 1
+  console.log(spanner.next(80));  // 1
+  console.log(spanner.next(60));  // 1
+  console.log(spanner.next(70));  // 2
+  console.log(spanner.next(60));  // 1
+  console.log(spanner.next(75));  // 4
+  console.log(spanner.next(85));  // 6
+}
 
 export { StockSpanner };

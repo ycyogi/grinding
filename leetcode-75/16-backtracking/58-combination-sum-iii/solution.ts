@@ -35,9 +35,10 @@ function combinationSum3(k: number, n: number): number[][] {
   backtrack(1, k, n);
   return result;
 }
-
-// Example usage:
-// console.log(combinationSum3(3, 7)); // [[1,2,4]]
-// console.log(combinationSum3(3, 9)); // [[1,2,6],[1,3,5],[2,3,4]]
+if (require.main === module) {
+  // Example usage:
+  console.log(combinationSum3(3, 7)); // [[1,2,4]]
+  console.log(combinationSum3(3, 9)); // [[1,2,6],[1,3,5],[2,3,4]]
+}
 
 export { combinationSum3 };

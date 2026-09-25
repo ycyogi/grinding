@@ -29,9 +29,10 @@ function longestCommonSubsequence(text1: string, text2: string): number {
 
   return dp[m][n];
 }
-
-// Example usage:
-// console.log(longestCommonSubsequence('abcde', 'ace')); // 3
-// console.log(longestCommonSubsequence('abc', 'abc')); // 3
+if (require.main === module) {
+  // Example usage:
+  console.log(longestCommonSubsequence('abcde', 'ace')); // 3
+  console.log(longestCommonSubsequence('abc', 'abc')); // 3
+}
 
 export { longestCommonSubsequence };

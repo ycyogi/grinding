@@ -28,12 +28,13 @@ class RecentCounter {
     return this.requests.length;
   }
 }
-
-// Example usage:
-// const counter = new RecentCounter();
-// console.log(counter.ping(1));    // 1
-// console.log(counter.ping(100));  // 2
-// console.log(counter.ping(3001)); // 3
-// console.log(counter.ping(3002)); // 3
+if (require.main === module) {
+  // Example usage:
+  const counter = new RecentCounter();
+  console.log(counter.ping(1));    // 1
+  console.log(counter.ping(100));  // 2
+  console.log(counter.ping(3001)); // 3
+  console.log(counter.ping(3002)); // 3
+}
 
 export { RecentCounter };

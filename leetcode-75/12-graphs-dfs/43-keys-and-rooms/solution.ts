@@ -27,9 +27,10 @@ function canVisitAllRooms(rooms: number[][]): boolean {
 
   return visited.size === n;
 }
-
-// Example usage:
-// console.log(canVisitAllRooms([[1],[2],[3],[]])); // true
-// console.log(canVisitAllRooms([[1,3],[3,0,1],[2],[0]])); // false
+if (require.main === module) {
+  // Example usage:
+  console.log(canVisitAllRooms([[1],[2],[3],[]])); // true
+  console.log(canVisitAllRooms([[1,3],[3,0,1],[2],[0]])); // false
+}
 
 export { canVisitAllRooms };

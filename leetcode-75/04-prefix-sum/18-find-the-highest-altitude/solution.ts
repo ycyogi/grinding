@@ -19,9 +19,10 @@ function largestAltitude(gain: number[]): number {
 
   return maxAltitude;
 }
-
-// Example usage:
-// console.log(largestAltitude([-5, 1, 5, 0, -7])); // 1
-// console.log(largestAltitude([-4, -3, -2, -1, 4, 3, 2])); // 0
+if (require.main === module) {
+  // Example usage:
+  console.log(largestAltitude([-5, 1, 5, 0, -7])); // 1
+  console.log(largestAltitude([-4, -3, -2, -1, 4, 3, 2])); // 0
+}
 
 export { largestAltitude };

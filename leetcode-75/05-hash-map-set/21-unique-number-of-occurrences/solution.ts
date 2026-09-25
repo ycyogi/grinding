@@ -18,9 +18,10 @@ function uniqueOccurrences(arr: number[]): boolean {
   const uniqueCounts = new Set(counts.values());
   return uniqueCounts.size === counts.size;
 }
-
-// Example usage:
-// console.log(uniqueOccurrences([1, 2, 2, 1, 1, 3])); // true
-// console.log(uniqueOccurrences([1, 2])); // false
+if (require.main === module) {
+  // Example usage:
+  console.log(uniqueOccurrences([1, 2, 2, 1, 1, 3])); // true
+  console.log(uniqueOccurrences([1, 2])); // false
+}
 
 export { uniqueOccurrences };

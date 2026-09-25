@@ -37,9 +37,10 @@ function successfulPairs(
 
   return pairs;
 }
-
-// Example usage:
-// console.log(successfulPairs([5, 1, 3], [1, 2, 3, 4, 5], 7)); // [4, 0, 3]
-// console.log(successfulPairs([3, 1, 2], [8, 5, 8], 16)); // [2, 0, 2]
+if (require.main === module) {
+  // Example usage:
+  console.log(successfulPairs([5, 1, 3], [1, 2, 3, 4, 5], 7)); // [4, 0, 3]
+  console.log(successfulPairs([3, 1, 2], [8, 5, 8], 16)); // [2, 0, 2]
+}
 
 export { successfulPairs };

@@ -32,9 +32,10 @@ function minEatingSpeed(piles: number[], h: number): number {
 
   return lo;
 }
-
-// Example usage:
-// console.log(minEatingSpeed([3, 6, 7, 11], 8)); // 4
-// console.log(minEatingSpeed([30, 11, 23, 4, 20], 5)); // 30
+if (require.main === module) {
+  // Example usage:
+  console.log(minEatingSpeed([3, 6, 7, 11], 8)); // 4
+  console.log(minEatingSpeed([30, 11, 23, 4, 20], 5)); // 30
+}
 
 export { minEatingSpeed };

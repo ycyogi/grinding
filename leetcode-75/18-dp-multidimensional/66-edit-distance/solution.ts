@@ -34,9 +34,10 @@ function minDistance(word1: string, word2: string): number {
 
   return dp[m][n];
 }
-
-// Example usage:
-// console.log(minDistance('horse', 'ros')); // 3
-// console.log(minDistance('intention', 'execution')); // 5
+if (require.main === module) {
+  // Example usage:
+  console.log(minDistance('horse', 'ros')); // 3
+  console.log(minDistance('intention', 'execution')); // 5
+}
 
 export { minDistance };

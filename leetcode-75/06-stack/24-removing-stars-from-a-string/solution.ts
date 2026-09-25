@@ -22,9 +22,10 @@ function removeStars(s: string): string {
 
   return stack.join('');
 }
-
-// Example usage:
-// console.log(removeStars('leet**cod*e')); // "lecoe"
-// console.log(removeStars('erase*****')); // ""
+if (require.main === module) {
+  // Example usage:
+  console.log(removeStars('leet**cod*e')); // "lecoe"
+  console.log(removeStars('erase*****')); // ""
+}
 
 export { removeStars };

@@ -21,11 +21,12 @@ function minCostClimbingStairs(cost: number[]): number {
 
   return prev1;
 }
-
-// Example usage:
-// console.log(minCostClimbingStairs([10, 15, 20])); // 15
-// console.log(
-//   minCostClimbingStairs([1, 100, 1, 1, 1, 100, 1, 1, 100, 1])
-// ); // 6
+if (require.main === module) {
+  // Example usage:
+  console.log(minCostClimbingStairs([10, 15, 20])); // 15
+  console.log(
+    minCostClimbingStairs([1, 100, 1, 1, 1, 100, 1, 1, 100, 1])
+  ); // 6
+}
 
 export { minCostClimbingStairs };

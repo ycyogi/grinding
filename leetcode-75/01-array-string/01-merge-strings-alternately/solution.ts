@@ -21,10 +21,11 @@ function mergeAlternately(word1: string, word2: string): string {
 
   return result.join('');
 }
-
-// Example usage:
-// console.log(mergeAlternately('abc', 'pqr')); // "apbqcr"
-// console.log(mergeAlternately('ab', 'pqrs')); // "apbqrs"
-// console.log(mergeAlternately('abcd', 'pq')); // "apbqcd"
+if (require.main === module) {
+  // Example usage:
+  console.log(mergeAlternately('abc', 'pqr')); // "apbqcr"
+  console.log(mergeAlternately('ab', 'pqrs')); // "apbqrs"
+  console.log(mergeAlternately('abcd', 'pq')); // "apbqcd"
+}
 
 export { mergeAlternately };

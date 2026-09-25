@@ -40,15 +40,16 @@ function lowestCommonAncestor(
 
   return dfs(root) as TreeNode;
 }
-
-// Example usage:
-// const n7 = new TreeNode(7), n4 = new TreeNode(4);
-// const n6 = new TreeNode(6), n2 = new TreeNode(2, n7, n4);
-// const n5 = new TreeNode(5, n6, n2);
-// const n0 = new TreeNode(0), n8 = new TreeNode(8);
-// const n1 = new TreeNode(1, n0, n8);
-// const root = new TreeNode(3, n5, n1);
-// console.log(lowestCommonAncestor(root, n5, n1).val); // 3
-// console.log(lowestCommonAncestor(root, n5, n4).val); // 5
+if (require.main === module) {
+  // Example usage:
+  const n7 = new TreeNode(7), n4 = new TreeNode(4);
+  const n6 = new TreeNode(6), n2 = new TreeNode(2, n7, n4);
+  const n5 = new TreeNode(5, n6, n2);
+  const n0 = new TreeNode(0), n8 = new TreeNode(8);
+  const n1 = new TreeNode(1, n0, n8);
+  const root = new TreeNode(3, n5, n1);
+  console.log(lowestCommonAncestor(root, n5, n1).val); // 3
+  console.log(lowestCommonAncestor(root, n5, n4).val); // 5
+}
 
 export { lowestCommonAncestor, TreeNode };

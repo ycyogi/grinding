@@ -44,9 +44,10 @@ function longestZigZag(root: TreeNode | null): number {
 
   return maxLen;
 }
-
-// Example usage:
-// const tree = new TreeNode(1, new TreeNode(1, null, new TreeNode(1, new TreeNode(1, null, new TreeNode(1)), new TreeNode(1))), new TreeNode(1));
-// console.log(longestZigZag(tree)); // 4
+if (require.main === module) {
+  // Example usage:
+  const tree = new TreeNode(1, new TreeNode(1, null, new TreeNode(1, new TreeNode(1, null, new TreeNode(1)), new TreeNode(1))), new TreeNode(1));
+  console.log(longestZigZag(tree)); // 4
+}
 
 export { longestZigZag, TreeNode };

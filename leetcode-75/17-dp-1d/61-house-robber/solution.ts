@@ -20,9 +20,10 @@ function rob(nums: number[]): number {
 
   return prev1;
 }
-
-// Example usage:
-// console.log(rob([1, 2, 3, 1])); // 4
-// console.log(rob([2, 7, 9, 3, 1])); // 12
+if (require.main === module) {
+  // Example usage:
+  console.log(rob([1, 2, 3, 1])); // 4
+  console.log(rob([2, 7, 9, 3, 1])); // 12
+}
 
 export { rob };

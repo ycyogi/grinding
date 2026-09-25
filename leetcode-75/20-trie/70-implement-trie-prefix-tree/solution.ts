@@ -56,14 +56,15 @@ class Trie {
     return node;
   }
 }
-
-// Example usage:
-// const trie = new Trie();
-// trie.insert('apple');
-// trie.search('apple');   // true
-// trie.search('app');     // false
-// trie.startsWith('app'); // true
-// trie.insert('app');
-// trie.search('app');     // true
+if (require.main === module) {
+  // Example usage:
+  const trie = new Trie();
+  trie.insert('apple');
+  console.log(trie.search('apple'));   // true
+  console.log(trie.search('app'));     // false
+  console.log(trie.startsWith('app')); // true
+  trie.insert('app');
+  console.log(trie.search('app'));     // true
+}
 
 export { Trie };

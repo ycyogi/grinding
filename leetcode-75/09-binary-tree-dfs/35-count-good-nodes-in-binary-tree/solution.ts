@@ -35,9 +35,10 @@ function goodNodes(root: TreeNode): number {
 
   return dfs(root, -Infinity);
 }
-
-// Example usage:
-// const tree = new TreeNode(3, new TreeNode(1, new TreeNode(3)), new TreeNode(4, new TreeNode(1), new TreeNode(5)));
-// console.log(goodNodes(tree)); // 4
+if (require.main === module) {
+  // Example usage:
+  const tree = new TreeNode(3, new TreeNode(1, new TreeNode(3)), new TreeNode(4, new TreeNode(1), new TreeNode(5)));
+  console.log(goodNodes(tree)); // 4
+}
 
 export { goodNodes, TreeNode };

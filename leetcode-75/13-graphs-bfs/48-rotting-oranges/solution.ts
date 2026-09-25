@@ -66,9 +66,10 @@ function orangesRotting(grid: number[][]): number {
 
   return freshCount === 0 ? minutes : -1;
 }
-
-// Example usage:
-// console.log(orangesRotting([[2,1,1],[1,1,0],[0,1,1]])); // 4
-// console.log(orangesRotting([[2,1,1],[0,1,1],[1,0,1]])); // -1
+if (require.main === module) {
+  // Example usage:
+  console.log(orangesRotting([[2,1,1],[1,1,0],[0,1,1]])); // 4
+  console.log(orangesRotting([[2,1,1],[0,1,1],[1,0,1]])); // -1
+}
 
 export { orangesRotting };

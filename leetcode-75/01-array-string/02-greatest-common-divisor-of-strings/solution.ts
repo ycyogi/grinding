@@ -22,10 +22,11 @@ function gcd(a: number, b: number): number {
   }
   return a;
 }
-
-// Example usage:
-// console.log(gcdOfStrings('ABCABC', 'ABC'));   // "ABC"
-// console.log(gcdOfStrings('ABABAB', 'ABAB'));   // "AB"
-// console.log(gcdOfStrings('LEET', 'CODE'));     // ""
+if (require.main === module) {
+  // Example usage:
+  console.log(gcdOfStrings('ABCABC', 'ABC'));   // "ABC"
+  console.log(gcdOfStrings('ABABAB', 'ABAB'));   // "AB"
+  console.log(gcdOfStrings('LEET', 'CODE'));     // ""
+}
 
 export { gcdOfStrings };

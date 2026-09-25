@@ -24,9 +24,10 @@ function findMaxAverage(nums: number[], k: number): number {
 
   return maxSum / k;
 }
-
-// Example usage:
-// console.log(findMaxAverage([1, 12, -5, -6, 50, 3], 4)); // 12.75
-// console.log(findMaxAverage([5], 1)); // 5
+if (require.main === module) {
+  // Example usage:
+  console.log(findMaxAverage([1, 12, -5, -6, 50, 3], 4)); // 12.75
+  console.log(findMaxAverage([5], 1)); // 5
+}
 
 export { findMaxAverage };

@@ -18,9 +18,10 @@ function findDifference(nums1: number[], nums2: number[]): number[][] {
 
   return [onlyInNums1, onlyInNums2];
 }
-
-// Example usage:
-// console.log(findDifference([1, 2, 3], [2, 4, 6])); // [[1,3],[4,6]]
-// console.log(findDifference([1, 2, 3, 3], [1, 1, 2, 2])); // [[3],[]]
+if (require.main === module) {
+  // Example usage:
+  console.log(findDifference([1, 2, 3], [2, 4, 6])); // [[1,3],[4,6]]
+  console.log(findDifference([1, 2, 3, 3], [1, 1, 2, 2])); // [[3],[]]
+}
 
 export { findDifference };

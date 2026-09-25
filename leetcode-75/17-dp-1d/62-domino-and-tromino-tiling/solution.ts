@@ -29,9 +29,10 @@ function numTilings(n: number): number {
 
   return c;
 }
-
-// Example usage:
-// console.log(numTilings(3)); // 5
-// console.log(numTilings(1)); // 1
+if (require.main === module) {
+  // Example usage:
+  console.log(numTilings(3)); // 5
+  console.log(numTilings(1)); // 1
+}
 
 export { numTilings };

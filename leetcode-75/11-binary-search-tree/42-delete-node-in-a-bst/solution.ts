@@ -47,10 +47,11 @@ function deleteNode(root: TreeNode | null, key: number): TreeNode | null {
 
   return root;
 }
-
-// Example usage:
-// const root = new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7)));
-// deleteNode(root, 3); // tree with 3 removed, BST property preserved
-// deleteNode(root, 0); // unchanged, key not present
+if (require.main === module) {
+  // Example usage:
+  const root = new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7)));
+  console.log(deleteNode(root, 3)); // tree with 3 removed, BST property preserved
+  console.log(deleteNode(root, 0)); // unchanged, key not present
+}
 
 export { deleteNode, TreeNode };

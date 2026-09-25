@@ -27,9 +27,10 @@ function longestSubarray(nums: number[]): number {
 
   return maxLen;
 }
-
-// Example usage:
-// console.log(longestSubarray([1, 1, 0, 1])); // 3
-// console.log(longestSubarray([0, 1, 1, 1, 0, 1, 1, 0, 1])); // 5
+if (require.main === module) {
+  // Example usage:
+  console.log(longestSubarray([1, 1, 0, 1])); // 3
+  console.log(longestSubarray([0, 1, 1, 1, 0, 1, 1, 0, 1])); // 5
+}
 
 export { longestSubarray };

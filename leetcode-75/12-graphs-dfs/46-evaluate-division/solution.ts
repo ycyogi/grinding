@@ -57,9 +57,10 @@ function calcEquation(
     return dfs(c, d, new Set<string>(), 1.0);
   });
 }
-
-// Example usage:
-// console.log(calcEquation([["a","b"],["b","c"]], [2.0,3.0], [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]));
-// [6, 0.5, -1, 1, -1]
+if (require.main === module) {
+  // Example usage:
+  console.log(calcEquation([["a","b"],["b","c"]], [2.0,3.0], [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]));
+  // [6, 0.5, -1, 1, -1]
+}
 
 export { calcEquation };

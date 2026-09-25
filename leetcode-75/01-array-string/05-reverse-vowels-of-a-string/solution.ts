@@ -31,9 +31,10 @@ function reverseVowels(s: string): string {
 
   return chars.join('');
 }
-
-// Example usage:
-// console.log(reverseVowels('IceCreAm')); // "AceCreIm"
-// console.log(reverseVowels('leetcode')); // "leotcede"
+if (require.main === module) {
+  // Example usage:
+  console.log(reverseVowels('IceCreAm')); // "AceCreIm"
+  console.log(reverseVowels('leetcode')); // "leotcede"
+}
 
 export { reverseVowels };

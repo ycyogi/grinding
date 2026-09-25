@@ -29,10 +29,11 @@ function maxDepth(root: TreeNode | null): number {
 
   return 1 + Math.max(leftDepth, rightDepth);
 }
-
-// Example usage:
-// const tree = new TreeNode(3, new TreeNode(9), new TreeNode(20, new TreeNode(15), new TreeNode(7)));
-// console.log(maxDepth(tree)); // 3
-// console.log(maxDepth(new TreeNode(1, null, new TreeNode(2)))); // 2
+if (require.main === module) {
+  // Example usage:
+  const tree = new TreeNode(3, new TreeNode(9), new TreeNode(20, new TreeNode(15), new TreeNode(7)));
+  console.log(maxDepth(tree)); // 3
+  console.log(maxDepth(new TreeNode(1, null, new TreeNode(2)))); // 2
+}
 
 export { maxDepth, TreeNode };

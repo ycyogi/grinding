@@ -31,9 +31,10 @@ function minFlips(a: number, b: number, c: number): number {
 
   return flips;
 }
-
-// Example usage:
-// console.log(minFlips(2, 6, 5)); // 3
-// console.log(minFlips(4, 2, 7)); // 1
+if (require.main === module) {
+  // Example usage:
+  console.log(minFlips(2, 6, 5)); // 3
+  console.log(minFlips(4, 2, 7)); // 1
+}
 
 export { minFlips };

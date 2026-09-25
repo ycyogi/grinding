@@ -46,11 +46,12 @@ function leafSimilar(root1: TreeNode | null, root2: TreeNode | null): boolean {
 
   return true;
 }
-
-// Example usage:
-// const t1 = new TreeNode(3, new TreeNode(5, new TreeNode(6), new TreeNode(2, new TreeNode(7), new TreeNode(4))), new TreeNode(1, new TreeNode(9), new TreeNode(8)));
-// const t2 = new TreeNode(1, new TreeNode(2), new TreeNode(3));
-// console.log(leafSimilar(t1, t1)); // true (same tree)
-// console.log(leafSimilar(t2, new TreeNode(1, new TreeNode(3), new TreeNode(2)))); // false
+if (require.main === module) {
+  // Example usage:
+  const t1 = new TreeNode(3, new TreeNode(5, new TreeNode(6), new TreeNode(2, new TreeNode(7), new TreeNode(4))), new TreeNode(1, new TreeNode(9), new TreeNode(8)));
+  const t2 = new TreeNode(1, new TreeNode(2), new TreeNode(3));
+  console.log(leafSimilar(t1, t1)); // true (same tree)
+  console.log(leafSimilar(t2, new TreeNode(1, new TreeNode(3), new TreeNode(2)))); // false
+}
 
 export { leafSimilar, TreeNode };

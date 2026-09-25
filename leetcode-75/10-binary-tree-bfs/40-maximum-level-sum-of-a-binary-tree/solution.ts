@@ -51,9 +51,10 @@ function maxLevelSum(root: TreeNode | null): number {
 
   return bestLevel;
 }
-
-// Example usage:
-// const root = new TreeNode(1, new TreeNode(7, new TreeNode(7), new TreeNode(-8)), new TreeNode(0));
-// console.log(maxLevelSum(root)); // 2
+if (require.main === module) {
+  // Example usage:
+  const root = new TreeNode(1, new TreeNode(7, new TreeNode(7), new TreeNode(-8)), new TreeNode(0));
+  console.log(maxLevelSum(root)); // 2
+}
 
 export { maxLevelSum, TreeNode };

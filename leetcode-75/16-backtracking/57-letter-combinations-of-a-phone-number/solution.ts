@@ -42,10 +42,11 @@ function letterCombinations(digits: string): string[] {
   backtrack(0);
   return result;
 }
-
-// Example usage:
-// console.log(letterCombinations('23'));
-// // ["ad","ae","af","bd","be","bf","cd","ce","cf"]
-// console.log(letterCombinations('')); // []
+if (require.main === module) {
+  // Example usage:
+  console.log(letterCombinations('23'));
+  // ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+  console.log(letterCombinations('')); // []
+}
 
 export { letterCombinations };

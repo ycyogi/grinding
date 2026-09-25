@@ -107,9 +107,10 @@ function totalCost(costs: number[], k: number, candidates: number): number {
 
   return total;
 }
-
-// Example usage:
-// console.log(totalCost([17,12,10,2,7,2,11,20,8], 3, 4)); // 11
-// console.log(totalCost([1,2,4,1], 3, 3)); // 4
+if (require.main === module) {
+  // Example usage:
+  console.log(totalCost([17,12,10,2,7,2,11,20,8], 3, 4)); // 11
+  console.log(totalCost([1,2,4,1], 3, 3)); // 4
+}
 
 export { totalCost, MinHeap };

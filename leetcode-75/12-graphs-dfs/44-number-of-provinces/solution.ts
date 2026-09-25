@@ -32,9 +32,10 @@ function findCircleNum(isConnected: number[][]): number {
 
   return provinces;
 }
-
-// Example usage:
-// console.log(findCircleNum([[1,1,0],[1,1,0],[0,0,1]])); // 2
-// console.log(findCircleNum([[1,0,0],[0,1,0],[0,0,1]])); // 3
+if (require.main === module) {
+  // Example usage:
+  console.log(findCircleNum([[1,1,0],[1,1,0],[0,0,1]])); // 2
+  console.log(findCircleNum([[1,0,0],[0,1,0],[0,0,1]])); // 3
+}
 
 export { findCircleNum };

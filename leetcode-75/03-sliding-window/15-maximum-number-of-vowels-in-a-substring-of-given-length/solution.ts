@@ -27,9 +27,10 @@ function maxVowels(s: string, k: number): number {
 
   return maxCount;
 }
-
-// Example usage:
-// console.log(maxVowels('abciiidef', 3)); // 3
-// console.log(maxVowels('leetcode', 3)); // 2
+if (require.main === module) {
+  // Example usage:
+  console.log(maxVowels('abciiidef', 3)); // 3
+  console.log(maxVowels('leetcode', 3)); // 2
+}
 
 export { maxVowels };

@@ -16,10 +16,11 @@ function reverseWords(s: string): string {
     .reverse()
     .join(' ');
 }
-
-// Example usage:
-// console.log(reverseWords('the sky is blue'));   // "blue is sky the"
-// console.log(reverseWords('  hello world  '));   // "world hello"
-// console.log(reverseWords('a good   example'));  // "example good a"
+if (require.main === module) {
+  // Example usage:
+  console.log(reverseWords('the sky is blue'));   // "blue is sky the"
+  console.log(reverseWords('  hello world  '));   // "world hello"
+  console.log(reverseWords('a good   example'));  // "example good a"
+}
 
 export { reverseWords };

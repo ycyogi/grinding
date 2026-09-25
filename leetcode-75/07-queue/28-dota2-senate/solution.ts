@@ -35,9 +35,10 @@ function predictPartyVictory(senate: string): string {
 
   return radiant.length > 0 ? 'Radiant' : 'Dire';
 }
-
-// Example usage:
-// console.log(predictPartyVictory('RD'));  // "Radiant"
-// console.log(predictPartyVictory('RDD')); // "Dire"
+if (require.main === module) {
+  // Example usage:
+  console.log(predictPartyVictory('RD'));  // "Radiant"
+  console.log(predictPartyVictory('RDD')); // "Dire"
+}
 
 export { predictPartyVictory };

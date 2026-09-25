@@ -38,9 +38,10 @@ function minReorder(n: number, connections: number[][]): number {
 
   return changes;
 }
-
-// Example usage:
-// console.log(minReorder(6, [[0,1],[1,3],[2,3],[4,0],[4,5]])); // 3
-// console.log(minReorder(5, [[1,0],[1,2],[3,2],[3,4]])); // 2
+if (require.main === module) {
+  // Example usage:
+  console.log(minReorder(6, [[0,1],[1,3],[2,3],[4,0],[4,5]])); // 3
+  console.log(minReorder(5, [[1,0],[1,2],[3,2],[3,4]])); // 2
+}
 
 export { minReorder };

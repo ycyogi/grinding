@@ -89,14 +89,15 @@ class SmallestInfiniteSet {
     }
   }
 }
-
-// Example usage:
-// const s = new SmallestInfiniteSet();
-// s.addBack(2);
-// console.log(s.popSmallest()); // 1
-// console.log(s.popSmallest()); // 2
-// console.log(s.popSmallest()); // 3
-// s.addBack(1);
-// console.log(s.popSmallest()); // 1
+if (require.main === module) {
+  // Example usage:
+  const s = new SmallestInfiniteSet();
+  s.addBack(2);
+  console.log(s.popSmallest()); // 1
+  console.log(s.popSmallest()); // 2
+  console.log(s.popSmallest()); // 3
+  s.addBack(1);
+  console.log(s.popSmallest()); // 1
+}
 
 export { SmallestInfiniteSet };

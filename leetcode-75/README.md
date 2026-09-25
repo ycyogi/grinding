@@ -12,8 +12,37 @@ solutions) so it can be read and worked through with **no internet access**.
   - `solution.ts` — an optimal TypeScript solution using LeetCode's actual function/class signature, paste-ready.
   - `solution.py` — an optimal Python solution as a `class Solution` (or the required class API), paste-ready, with a runnable `__main__` demo.
 - Suggested workflow: read the `## Problem` section only, try to solve it from scratch on paper or in a scratch file, *then* open `## Approach` to check your reasoning, then compare against the code.
-- Python files run standalone: `python3 solution.py`. TypeScript files need a TS runtime (`ts-node solution.ts`) — if you don't have one on the ship, just read/trace them by hand, which is good practice anyway.
-- All solutions were verified (type-checked under `tsc --strict` / executed against the worked examples) before being committed.
+- All 75 solutions are directly runnable and were verified (type-checked under `tsc --strict`, executed end to end) before being committed — see **Running the solutions** below.
+
+## Running the solutions
+
+**Python — zero setup.** Every `solution.py` uses only the standard library
+(`typing`, `collections`, `heapq`, `bisect`, `math`) and ends with an
+`if __name__ == "__main__":` block that runs a couple of worked examples.
+
+```bash
+python3 leetcode-75/01-array-string/01-merge-strings-alternately/solution.py
+```
+
+**TypeScript — one-time setup, then run directly.** From the repo root:
+
+```bash
+npm install       # installs ts-node, typescript, @types/node (devDependencies)
+npx ts-node leetcode-75/01-array-string/01-merge-strings-alternately/solution.ts
+```
+
+Every `solution.ts` ends with an `if (require.main === module) { ... }`
+block (Node's equivalent of Python's `__main__` guard) with the same worked
+examples, so running the file directly prints output — no need to edit
+anything first. Type-checking the whole set works too:
+
+```bash
+npx tsc --noEmit --strict
+```
+
+If you don't have `npm`/Node available at all once you're offline, the
+Python version is the one to run — same algorithm, same complexity, no
+setup required.
 
 ## Suggested 3-day pace
 
