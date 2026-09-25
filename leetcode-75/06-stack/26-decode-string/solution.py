@@ -38,8 +38,30 @@ class Solution:
         return current_string
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.decodeString("3[a]2[bc]"))  # aaabcbc
     print(sol.decodeString("3[a2[c]]"))  # accaccacc
     print(sol.decodeString("2[abc]3[cd]ef"))  # abcabccdcdcdef
+
+    # Edge cases
+    assert_equal(sol.decodeString("1[a]"), "a", "minimal repeat count k == 1")
+    assert_equal(sol.decodeString("10[a]"), "a" * 10, "multi-digit repeat count")
+    assert_equal(
+        sol.decodeString("100[leetcode]"),
+        "leetcode" * 100,
+        "large multi-digit repeat count, multi-char word",
+    )
+    assert_equal(sol.decodeString("xyz"), "xyz", "no brackets at all")
+    assert_equal(
+        sol.decodeString("2[ab3[cd]]"),
+        "abcdcdcdabcdcdcd",
+        "nested brackets with multi-digit inner count",
+    )

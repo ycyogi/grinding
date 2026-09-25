@@ -77,3 +77,12 @@ special case, because step 1 returns immediately upon matching `p` or
   both targets are located.
 - **Space:** `O(h)` for the recursion stack, where `h` is the tree's
   height (`O(log n)` balanced, `O(n)` worst-case skewed).
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| 2-node tree, `p = root`, `q = root.left` | `root` | Minimum size (`n = 2`) — `p` is the root itself, must return immediately without descending further. |
+| Chain `A -> B -> C`, `p = B`, `q = C` | `B` | `p` is an ancestor of `q` — the LCA is `p` itself, per the "a node is its own descendant" rule. |
+| Same chain, `p = C`, `q = B` (arguments swapped) | `B` | Confirms the result doesn't depend on which of `p`/`q` is passed first. |
+| Balanced tree, `p` and `q` in different subtrees of the root | `root` | Standard split case with a fresh `p`/`q` pair, confirming both-sides-non-null detection at the true split point. |

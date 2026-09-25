@@ -25,7 +25,23 @@ class Solution:
         return max_sum / k
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.findMaxAverage([1, 12, -5, -6, 50, 3], 4))  # 12.75
     print(sol.findMaxAverage([5], 1))  # 5.0
+
+    # Edge cases
+    assert_equal(sol.findMaxAverage([3, -2, 5], 3), 2.0, "k == n (whole array)")
+    assert_equal(sol.findMaxAverage([-5, 3, -1, 7, -2], 1), 7.0, "k == 1")
+    assert_equal(sol.findMaxAverage([-1, -2, -3, -4], 2), -1.5, "all negative")
+    assert_equal(
+        sol.findMaxAverage([10000, 10000, -10000], 2), 10000.0, "boundary values"
+    )
+    assert_equal(sol.findMaxAverage([-7], 1), -7.0, "single-element array")

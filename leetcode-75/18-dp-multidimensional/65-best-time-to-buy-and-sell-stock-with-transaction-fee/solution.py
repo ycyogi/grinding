@@ -26,7 +26,25 @@ class Solution:
         return cash
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.maxProfit([1, 3, 2, 8, 4, 9], 2))  # 8
     print(sol.maxProfit([1, 3, 7, 5, 10, 3], 3))  # 6
+
+    # Edge cases
+    assert_equal(sol.maxProfit([5], 0), 0, "single day, no transaction possible")
+    assert_equal(sol.maxProfit([10, 5], 0), 0, "price only drops, never trade")
+    assert_equal(sol.maxProfit([1, 3], 5), 0, "raw profit smaller than fee")
+    assert_equal(sol.maxProfit([1, 5], 0), 4, "fee=0 boundary, full profit kept")
+    assert_equal(
+        sol.maxProfit([3, 3, 3, 3], 1),
+        0,
+        "flat prices with positive fee, never worth trading",
+    )

@@ -85,3 +85,13 @@ efficient given the constraints:
 - **Space:** `O(log n)` to `O(n)` for the sort's internal space
   (implementation dependent), plus `O(m)` for the output lists, not
   counting the output itself.
+
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `products = ["ab","abc"]`, `searchWord = "abcde"` | `[["ab","abc"],["ab","abc"],["abc"],[],[]]` | `searchWord` is longer than every product; once the window collapses to empty it must stay empty (no crash) for all remaining characters. |
+| `products = ["x"]`, `searchWord = "xy"` | `[["x"],[]]` | Single-product array (minimum length) combined with a `searchWord` longer than the product. |
+| `products = ["zebra","zoo"]`, `searchWord = "a"` | `[[]]` | No product shares even the first character — window collapses to empty immediately, on the very first index. |
+
+(The two required behaviors — "searchWord longer than any product yields empty lists, not a crash" and "fewer than 3 matches" — are both exercised by the first case above, where the match count drops from 2 to 0.)

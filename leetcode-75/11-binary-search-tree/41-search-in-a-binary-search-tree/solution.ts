@@ -31,11 +31,31 @@ function searchBST(root: TreeNode | null, val: number): TreeNode | null {
 
   return node;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   const root = new TreeNode(4, new TreeNode(2, new TreeNode(1), new TreeNode(3)), new TreeNode(7));
   console.log(searchBST(root, 2)); // TreeNode { val: 2, left: TreeNode{1}, right: TreeNode{3} }
   console.log(searchBST(root, 5)); // null
+
+  // Edge cases
+  assertEqual(searchBST(new TreeNode(5), 5), new TreeNode(5), "single node, match");
+  assertEqual(searchBST(new TreeNode(5), 3), null, "single node, no match");
+  assertEqual(searchBST(root, 4), root, "match is the root itself");
+
+  const rightChain = new TreeNode(1, null, new TreeNode(2, null, new TreeNode(3, null, new TreeNode(4))));
+  assertEqual(searchBST(rightChain, 4), new TreeNode(4), "deepest leaf of a right-only chain");
+
+  assertEqual(searchBST(root, 6), null, "value falls in a gap, descends right then left before running off");
 }
 
 export { searchBST, TreeNode };

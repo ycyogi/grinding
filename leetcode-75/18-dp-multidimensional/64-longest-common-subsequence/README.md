@@ -87,3 +87,13 @@ keeps `O(m*n)` well within limits.
 - **Space:** `O(m * n)` for the full table (can be reduced to `O(n)`
   with the two-rolling-rows optimization noted above, since only the
   previous row is ever needed).
+
+## Edge Cases
+
+| Input (`text1`, `text2`) | Expected | Why it matters |
+| --- | --- | --- |
+| `""`, `"abc"` | `0` | One string empty — even though the stated constraints require length `>= 1`, the base-case row/column of zeros should still handle this gracefully without special-casing. |
+| `"abc"`, `"xyz"` | `0` | No common characters at all — every cell should fall back to `max(dp[i-1][j], dp[i][j-1])` and stay `0` throughout. |
+| `"a"`, `"a"` | `1` | Minimum valid length (`1`) per constraints, identical single character. |
+| `"abcde"`, `"bd"` | `2` | `text2` is a proper (non-contiguous) subsequence of `text1` — checks the "match extends diagonal" path chains correctly across skipped characters. |
+| `"aaaa"`, `"aa"` | `2` | Repeated identical character — LCS length is capped by the shorter string, not inflated by extra matching opportunities. |

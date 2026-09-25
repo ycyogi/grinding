@@ -27,10 +27,27 @@ function productExceptSelf(nums: number[]): number[] {
 
   return answer;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(productExceptSelf([1, 2, 3, 4]));      // [24,12,8,6]
   console.log(productExceptSelf([-1, 1, 0, -3, 3])); // [0,0,9,0,0]
+
+  // Edge cases
+  assertEqual(productExceptSelf([1, 2, 0, 4]), [0, 0, 8, 0], 'exactly one zero');
+  assertEqual(productExceptSelf([0, 2, 0, 4]), [0, 0, 0, 0], 'two zeros');
+  assertEqual(productExceptSelf([-1, -2, 3]), [-6, -3, 2], 'negative numbers');
+  assertEqual(productExceptSelf([3, 5]), [5, 3], 'minimum length n=2');
+  assertEqual(productExceptSelf([2, 2, 2, 2]), [8, 8, 8, 8], 'all-equal elements');
 }
 
 export { productExceptSelf };

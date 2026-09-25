@@ -91,3 +91,13 @@ Tracing `"3[a2[c]]"`: digit `3` -> `currentNum=3`; `[` -> push
 - **Space:** `O(maxK * n)` for the same reason — the stack holds
   intermediate strings, and the final decoded string can be much longer
   than the input.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `s = "1[a]"` | `"a"` | Minimal repeat count (`k == 1`). |
+| `s = "10[a]"` | `"a" * 10` (`"aaaaaaaaaa"`) | Multi-digit repeat count parsed correctly (`currentNum` must accumulate digit by digit, not just use the last digit). |
+| `s = "100[leetcode]"` | `"leetcode" * 100` | Larger multi-digit count within the stated `k <= 300` bound, on a multi-character word. |
+| `s = "xyz"` | `"xyz"` | No brackets at all: the string must pass through unchanged. |
+| `s = "2[ab3[cd]]"` | `"abcdcdcdabcdcdcd"` | Nested brackets combined with a multi-digit inner count, verifying the stack correctly splices multiple nesting levels. |

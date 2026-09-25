@@ -53,6 +53,16 @@ both `len(str1)` and `len(str2)`, so the *largest* possible length is
 their numeric GCD, and the commuting check guarantees a divisor of
 exactly that length actually works.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `str1="AAAAAA", str2="AAA"` | `"AAA"` | `str1` is an exact multiple of `str2`. |
+| `str1="AAAAA", str2="AAAA"` | `"A"` | Coprime lengths (5, 4); the commuting check must still find the length-1 root. |
+| `str1="A", str2="A"` | `"A"` | Minimum length (1) on both sides, equal strings. |
+| `str1="AB", str2="BA"` | `""` | Same multiset of characters, different arrangement — a naive "shares characters" check would wrongly accept this; `str1+str2 != str2+str1`. |
+| `str1="ABCDEF", str2="ABC"` | `""` | Same length ratio as a valid case, but different letters, so no divisor exists. |
+
 ## Complexity
 
 - **Time:** `O(m + n)` — the concatenation/comparison in step 1 is

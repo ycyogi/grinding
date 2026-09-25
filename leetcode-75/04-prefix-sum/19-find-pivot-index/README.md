@@ -62,3 +62,13 @@ while sweeping left to right with a running left sum.
   for the pivot. Brute force recomputing sums at each index would be
   `O(n^2)`.
 - **Space:** `O(1)` — only a couple of running totals are kept.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `nums = [5]` | `0` | Minimum-size input: the single element trivially has an empty left sum and empty right sum. |
+| `nums = [0,-1,1]` | `0` | Pivot at index `0`: left sum is `0` by definition, and the right sum happens to be `0` too. |
+| `nums = [1,-1,5]` | `2` | Pivot at the last index: right sum is `0` by definition, and the left sum happens to be `0` too. |
+| `nums = [2,3,4]` | `-1` | No valid pivot exists anywhere in the array. |
+| `nums = [0,0,0,0]` | `0` | All-zero array: every index is technically a valid pivot, so the leftmost (`0`) must be returned. |

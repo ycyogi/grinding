@@ -23,10 +23,31 @@ function maxProfit(prices: number[], fee: number): number {
 
   return cash;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(maxProfit([1, 3, 2, 8, 4, 9], 2)); // 8
   console.log(maxProfit([1, 3, 7, 5, 10, 3], 3)); // 6
+
+  // Edge cases
+  assertEqual(maxProfit([5], 0), 0, 'single day, no transaction possible');
+  assertEqual(maxProfit([10, 5], 0), 0, 'price only drops, never trade');
+  assertEqual(maxProfit([1, 3], 5), 0, 'raw profit smaller than fee');
+  assertEqual(maxProfit([1, 5], 0), 4, 'fee=0 boundary, full profit kept');
+  assertEqual(
+    maxProfit([3, 3, 3, 3], 1),
+    0,
+    'flat prices with positive fee, never worth trading'
+  );
 }
 
 export { maxProfit };

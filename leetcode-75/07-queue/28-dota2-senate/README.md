@@ -87,3 +87,13 @@ queues instead of an actual circular buffer.
   constant number of times before being eliminated or the simulation
   ends.
 - **Space:** `O(n)` for the two queues holding senator indices.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `"R"` | `"Radiant"` | Minimum length (`n = 1`), single-party trivial case, empty opponent queue. |
+| `"D"` | `"Dire"` | Same as above for the other party. |
+| `"RRRR"` | `"Radiant"` | All one party — the opposing queue is empty from the start, loop never runs. |
+| `"DR"` | `"Dire"` | Order reversed from the README's `"RD"` example — checks the smaller-original-index tiebreak isn't hardcoded to favor Radiant. |
+| `"RDRD"` | `"Radiant"` | Alternating pattern requiring the `index + n` requeue trick across two full rounds to resolve correctly. |

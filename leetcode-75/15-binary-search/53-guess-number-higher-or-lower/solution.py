@@ -40,9 +40,34 @@ class Solution:
         return -1  # unreachable given valid input
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     _pick = 6
     print(sol.guessNumber(10))  # 6
     _pick = 1
     print(sol.guessNumber(1))  # 1
+
+    # Edge cases
+    _pick = 1
+    assert_equal(sol.guessNumber(1), 1, "n=1, pick=1 (smallest window)")
+    _pick = 1
+    assert_equal(sol.guessNumber(2), 1, "n=2, pick=1 (lower bound of 2-window)")
+    _pick = 2
+    assert_equal(sol.guessNumber(2), 2, "n=2, pick=2 (upper bound of 2-window)")
+    _pick = 1
+    assert_equal(
+        sol.guessNumber(2147483647), 1, "n=2^31-1, pick=1 (max n, answer at start)"
+    )
+    _pick = 2147483647
+    assert_equal(
+        sol.guessNumber(2147483647),
+        2147483647,
+        "n=2^31-1, pick=2^31-1 (max n, answer at end)",
+    )

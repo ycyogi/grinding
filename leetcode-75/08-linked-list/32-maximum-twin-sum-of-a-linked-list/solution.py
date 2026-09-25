@@ -65,7 +65,20 @@ def build_list(values):
     return dummy.next
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.pairSum(build_list([5, 4, 2, 1])))  # 6
     print(sol.pairSum(build_list([4, 2, 2, 3])))  # 7
+
+    # Edge cases
+    assert_equal(sol.pairSum(build_list([7, 3])), 10, "minimum valid input (n=2)")
+    assert_equal(sol.pairSum(build_list([5, 100, 1, 5])), 101, "max twin sum pair is the inner pair, not outermost")
+    assert_equal(sol.pairSum(build_list([4, 4, 4, 4])), 8, "all-equal values")
+    assert_equal(sol.pairSum(build_list([1, 2, 3, 3, 2, 1])), 6, "n=6, max pair is the middle pair")

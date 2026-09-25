@@ -31,10 +31,27 @@ function minFlips(a: number, b: number, c: number): number {
 
   return flips;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(minFlips(2, 6, 5)); // 3
   console.log(minFlips(4, 2, 7)); // 1
+
+  // Edge cases
+  assertEqual(minFlips(0, 0, 0), 0, 'all zero');
+  assertEqual(minFlips(1, 1, 0), 2, 'both bits set, target 0 (2 flips)');
+  assertEqual(minFlips(1, 0, 0), 1, 'one bit set, target 0');
+  assertEqual(minFlips(0, 0, 8), 1, 'c has a bit beyond a/b length');
+  assertEqual(minFlips(8, 0, 0), 1, 'a has a bit beyond b/c length');
 }
 
 export { minFlips };

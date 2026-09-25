@@ -90,3 +90,12 @@ Algorithm:
   "try all subsets and filter" approach, which would be `O(2^9 * k)`.
 - **Space:** `O(k)` for the recursion depth and the `path` buffer,
   excluding the output.
+
+## Edge Cases
+
+| Input (`k`, `n`) | Expected | Why it matters |
+| --- | --- | --- |
+| `k=9, n=1` | `[]` | `k=9` forces using every digit 1-9, whose minimum possible sum is `45`; `n=1` is far too small, so there must be zero valid combinations (and pruning must not falsely emit one). |
+| `k=9, n=45` | `[[1,2,3,4,5,6,7,8,9]]` | The unique maximum case — the only way to pick 9 distinct digits from 1-9 is all of them, and they happen to sum to exactly 45. |
+| `k=2, n=1` | `[]` | Minimum `k`; the smallest possible 2-digit sum is `1+2=3`, so `n=1` yields nothing — checks the sum-pruning `break` doesn't over- or under-prune. |
+| `k=2, n=17` | `[[8,9]]` | Maximum possible sum for `k=2` (`8+9=17`) — only one combination reaches it. |

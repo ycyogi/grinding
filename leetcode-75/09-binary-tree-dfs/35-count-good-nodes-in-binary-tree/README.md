@@ -77,3 +77,13 @@ recursion:
 - **Time:** `O(n)` — every node is visited exactly once.
 - **Space:** `O(h)` for the recursion stack, where `h` is the tree's
   height (`O(log n)` balanced, `O(n)` worst-case skewed).
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| Single node `[5]` | `1` | Minimum size (`n = 1`) — the root is always good by definition. |
+| All-equal chain `5 -> 5 -> 5` | `3` | Ties count as good (`>=`, not `>`) — every node in an all-equal chain must be counted. |
+| Strictly decreasing chain `5 -> 3 -> 1` | `1` | Only the root is good; every descendant is strictly smaller than an ancestor. |
+| Negative values, root `-1` with children `-5`, `0` | `2` | Negative values are allowed by constraints (`[-10^4, 10^4]`); checks comparisons don't assume non-negative values. |
+| Tree `[3,3,null,4,2]` (left-only root, then right, then left) | `3` | A deeper mixed-shape tree exercising both "good" and "not good" branches together. |

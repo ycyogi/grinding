@@ -22,10 +22,27 @@ function removeStars(s: string): string {
 
   return stack.join('');
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(removeStars('leet**cod*e')); // "lecoe"
   console.log(removeStars('erase*****')); // ""
+
+  // Edge cases
+  assertEqual(removeStars('abc***'), '', 'consecutive stars remove all chars');
+  assertEqual(removeStars('a*'), '', 'minimal single-char-then-star');
+  assertEqual(removeStars('abcdef'), 'abcdef', 'no stars at all');
+  assertEqual(removeStars('ab*cd*'), 'ac', 'scattered non-adjacent stars');
+  assertEqual(removeStars('ab*'), 'a', 'two-char prefix, trailing star');
 }
 
 export { removeStars };

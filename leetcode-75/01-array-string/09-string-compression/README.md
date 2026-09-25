@@ -74,6 +74,16 @@ for all `k >= 1`, checked directly for small `k` and true in general
 since digit count grows logarithmically), it's always safe to write
 in-place without clobbering characters not yet read.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `["a"]*10` | length `3`, `["a","1","0"]` | A run of exactly 10 — the count first crosses into two digits. |
+| `["b"]*9` | length `2`, `["b","9"]` | A run of exactly 9 — the single-digit boundary just below 10. |
+| `["a","b","c"]` | length `3`, `["a","b","c"]` | No repeated characters at all — nothing compresses, every group has length 1. |
+| `["a","b","a","b"]` | length `4`, `["a","b","a","b"]` | Alternating characters — every run has length 1 even though characters repeat overall. |
+| `["c"]*11 + ["d"]` | length `4`, `["c","1","1","d"]` | A run just above the two-digit boundary (11), immediately followed by a singleton. |
+
 ## Complexity
 
 - **Time:** `O(n)` — the `read` pointer visits every character exactly

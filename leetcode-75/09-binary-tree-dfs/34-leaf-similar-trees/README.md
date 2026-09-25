@@ -60,3 +60,12 @@ or indexing.
   `n` and `m` are the node counts of `root1` and `root2`.
 - **Space:** `O(n + m)` for the two leaf-value lists, plus `O(h1 + h2)`
   for the recursion stacks (heights of the two trees).
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| Single node `5` vs. single node `5` | `true` | Minimum size (`n = 1`) — the root itself is the only leaf, and its own value forms the whole sequence. |
+| Single node `5` vs. single node `6` | `false` | Same shape, single differing value — smallest possible mismatch. |
+| Different shapes, same leaf sequence `[2,3]` | `true` | Confirms comparison is purely about the leaf sequence, not tree structure/depth. |
+| `[5,6,7]` vs. `[5,7,6]` | `false` | Same values, same depth, but leaves visited in a different left-to-right order. |

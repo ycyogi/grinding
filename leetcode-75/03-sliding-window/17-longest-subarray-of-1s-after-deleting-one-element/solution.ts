@@ -27,10 +27,27 @@ function longestSubarray(nums: number[]): number {
 
   return maxLen;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(longestSubarray([1, 1, 0, 1])); // 3
   console.log(longestSubarray([0, 1, 1, 1, 0, 1, 1, 0, 1])); // 5
+
+  // Edge cases
+  assertEqual(longestSubarray([1, 1, 1, 1]), 3, 'all ones');
+  assertEqual(longestSubarray([0, 0, 0]), 0, 'all zeros');
+  assertEqual(longestSubarray([1]), 0, 'single one');
+  assertEqual(longestSubarray([0]), 0, 'single zero');
+  assertEqual(longestSubarray([1, 0, 0, 1]), 1, 'two adjacent zeros');
 }
 
 export { longestSubarray };

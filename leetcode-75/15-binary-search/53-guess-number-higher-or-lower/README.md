@@ -64,3 +64,13 @@ Each call halves the remaining search space, so the loop terminates in
   iteration; brute force calling `guess` on every number from `1` to `n`
   would be `O(n)`.
 - **Space:** `O(1)` — only a few pointer variables are kept.
+
+## Edge Cases
+
+| Input (`n`, `pick`) | Expected | Why it matters |
+| --- | --- | --- |
+| `n=1, pick=1` | `1` | Smallest possible window — `lo == hi` on the very first iteration. |
+| `n=2, pick=1` | `1` | Two-element window, pick sits at the *lower* bound — checks `hi = mid - 1` doesn't overshoot. |
+| `n=2, pick=2` | `2` | Two-element window, pick sits at the *upper* bound — checks `lo = mid + 1` reaches it. |
+| `n=2147483647, pick=1` | `1` | Max `n` (`2^31 - 1`) with the answer at the very start — stresses the mid-point formula against overflow/precision at the upper constraint bound. |
+| `n=2147483647, pick=2147483647` | `2147483647` | Max `n` with the answer at the very end — same overflow stress, opposite direction. |

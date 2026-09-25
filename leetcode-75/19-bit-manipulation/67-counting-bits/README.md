@@ -53,3 +53,12 @@ right and adding back 1 if that dropped bit was a `1`.)
   computed smaller value, instead of recounting bits from scratch
   (`O(n log n)` brute force).
 - **Space:** `O(n)` for the output array (`O(1)` extra beyond the output).
+
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `n = 0` | `[0]` | Minimum-size input (constraint floor); array of length 1. |
+| `n = 1` | `[0,1]` | Smallest case exercising the recurrence once. |
+| `n = 8` | `[0,1,1,2,1,2,2,3,1]` | Verifies every power of two (`1,2,4,8`) always has bit-count `1`. |
+| `n = 100000` | `ans.length === 100001` and `ans[100000] === 6` | Upper constraint bound; `100000 = 0b11000011010100000` has 6 set bits. |

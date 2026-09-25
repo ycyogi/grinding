@@ -57,3 +57,13 @@ every intermediate value.
 - **Time:** `O(n)` — one pass over the `gain` array.
 - **Space:** `O(1)` — a running altitude and a max tracker; no auxiliary
   array is built.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `gain = [-1]` | `0` | Minimum-size input, single negative gain: the start point (altitude 0) remains the highest. |
+| `gain = [5]` | `5` | Minimum-size input, single positive gain: the only other point is the highest. |
+| `gain = [-1,-1,-1]` | `0` | Monotonically decreasing: the starting point is always the max, never a later one. |
+| `gain = [1,2,3]` | `6` | Monotonically increasing: the max is only reached at the very last point. |
+| `gain = [100,-100,100]` | `100` | Boundary gain values (`+/-100`); also confirms the max can be re-achieved after dropping back to 0. |

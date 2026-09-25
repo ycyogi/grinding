@@ -48,6 +48,13 @@ class Trie:
         return node
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     trie = Trie()
     trie.insert("apple")
@@ -56,3 +63,28 @@ if __name__ == "__main__":
     print(trie.startsWith("app"))  # True
     trie.insert("app")
     print(trie.search("app"))  # True
+
+    # Edge cases
+
+    # Scenario: fresh trie, nothing inserted
+    empty_trie = Trie()
+    assert_equal(empty_trie.startsWith(""), True, "empty trie startsWith('')")
+    assert_equal(empty_trie.search(""), False, "empty trie search('')")
+    assert_equal(empty_trie.search("cat"), False, "search word never inserted")
+
+    # Scenario: a word that is also a prefix of another inserted word
+    t2 = Trie()
+    t2.insert("app")
+    t2.insert("apple")
+    assert_equal(t2.search("app"), True, "prefix that is also a complete word")
+    assert_equal(t2.search("appl"), False, "incomplete partial path is not a word")
+    assert_equal(t2.startsWith("appl"), True, "startsWith on partial path")
+    assert_equal(t2.search("apple"), True, "longer inserted word still found")
+
+    # Scenario: single-character word (minimum length)
+    t3 = Trie()
+    t3.insert("a")
+    assert_equal(t3.search("a"), True, "single-char word search")
+    assert_equal(t3.search("ab"), False, "single-char word, longer search miss")
+    assert_equal(t3.startsWith("a"), True, "single-char startsWith")
+    assert_equal(t3.startsWith("b"), False, "unrelated single-char startsWith")

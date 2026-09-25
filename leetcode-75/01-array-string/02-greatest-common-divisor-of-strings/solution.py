@@ -22,8 +22,22 @@ class Solution:
         return str1[:gcd_len]
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.gcdOfStrings("ABCABC", "ABC"))   # ABC
     print(sol.gcdOfStrings("ABABAB", "ABAB"))  # AB
     print(sol.gcdOfStrings("LEET", "CODE"))    # (empty string)
+
+    # Edge cases
+    assert_equal(sol.gcdOfStrings("AAAAAA", "AAA"), "AAA", "str1 exact multiple of str2")
+    assert_equal(sol.gcdOfStrings("AAAAA", "AAAA"), "A", "coprime lengths, same char")
+    assert_equal(sol.gcdOfStrings("A", "A"), "A", "minimum length both sides")
+    assert_equal(sol.gcdOfStrings("AB", "BA"), "", "same chars, different arrangement")
+    assert_equal(sol.gcdOfStrings("ABCDEF", "ABC"), "", "different letters, no divisor")

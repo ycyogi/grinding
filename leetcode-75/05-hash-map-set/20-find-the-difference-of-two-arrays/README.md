@@ -61,3 +61,13 @@ in TypeScript).
   each difference is `O(m)` or `O(n)` with `O(1)` average lookups. Brute
   force comparing every pair would be `O(m * n)`.
 - **Space:** `O(m + n)` — for the two sets and the output lists.
+
+## Edge Cases
+
+| Input | Expected (order-independent) | Why it matters |
+| --- | --- | --- |
+| `nums1 = [1,2,3], nums2 = [1,2,3]` | `[[],[]]` | Identical arrays: nothing is unique to either side. |
+| `nums1 = [1,2], nums2 = [3,4]` | `[[1,2],[3,4]]` | Completely disjoint arrays: every element is unique to its side. |
+| `nums1 = [5,5,5], nums2 = [5,5]` | `[[],[]]` | Duplicates-only input on both sides collapsing to the same single value. |
+| `nums1 = [1,2,3,4], nums2 = [2,3]` | `[[1,4],[]]` | One array is a strict subset of the other. |
+| `nums1 = [-1,-2,-3], nums2 = [-2,-4]` | `[[-1,-3],[-4]]` | Negative numbers, which the constraints explicitly allow. |

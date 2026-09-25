@@ -30,10 +30,35 @@ function findMinArrowShots(points: number[][]): number {
 
   return arrows;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(findMinArrowShots([[10,16],[2,8],[1,6],[7,12]])); // 2
   console.log(findMinArrowShots([[1,2],[3,4],[5,6],[7,8]])); // 4
+
+  // Edge cases
+  assertEqual(findMinArrowShots([[1, 2], [2, 3]]), 1, 'balloons touching at a point');
+  assertEqual(findMinArrowShots([[5, 10]]), 1, 'single balloon');
+  assertEqual(findMinArrowShots([[3, 6], [3, 6], [3, 6]]), 1, 'identical balloons');
+  assertEqual(
+    findMinArrowShots([[1, 2], [2, 3], [3, 4], [4, 5]]),
+    2,
+    'chain of touching balloons needs more than one arrow'
+  );
+  assertEqual(
+    findMinArrowShots([[-2147483648, 2147483647]]),
+    1,
+    'extreme int32 boundary coordinates'
+  );
 }
 
 export { findMinArrowShots };

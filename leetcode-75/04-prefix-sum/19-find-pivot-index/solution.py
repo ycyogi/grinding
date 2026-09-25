@@ -27,7 +27,21 @@ class Solution:
         return -1
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.pivotIndex([1, 7, 3, 6, 5, 6]))  # 3
     print(sol.pivotIndex([1, 2, 3]))  # -1
+
+    # Edge cases
+    assert_equal(sol.pivotIndex([5]), 0, "single-element array")
+    assert_equal(sol.pivotIndex([0, -1, 1]), 0, "pivot at index 0")
+    assert_equal(sol.pivotIndex([1, -1, 5]), 2, "pivot at last index")
+    assert_equal(sol.pivotIndex([2, 3, 4]), -1, "no valid pivot")
+    assert_equal(sol.pivotIndex([0, 0, 0, 0]), 0, "all-zero array, leftmost pivot")

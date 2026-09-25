@@ -27,8 +27,21 @@ class Solution:
         return "".join(result)
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.mergeAlternately("abc", "pqr"))  # apbqcr
     print(sol.mergeAlternately("ab", "pqrs"))  # apbqrs
     print(sol.mergeAlternately("abcd", "pq"))  # apbqcd
+
+    # Edge cases
+    assert_equal(sol.mergeAlternately("a", "b"), "ab", "min length both sides")
+    assert_equal(sol.mergeAlternately("a", "bcde"), "abcde", "word1 exhausted immediately")
+    assert_equal(sol.mergeAlternately("abcd", "e"), "aebcd", "word2 exhausted immediately")
+    assert_equal(sol.mergeAlternately("aaa", "bbb"), "ababab", "equal lengths, no leftover")

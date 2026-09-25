@@ -20,10 +20,26 @@ function rob(nums: number[]): number {
 
   return prev1;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(rob([1, 2, 3, 1])); // 4
   console.log(rob([2, 7, 9, 3, 1])); // 12
+
+  // Edge cases
+  assertEqual(rob([5]), 5, 'single house, must rob it');
+  assertEqual(rob([5, 10]), 10, 'two houses, pick the max not the sum');
+  assertEqual(rob([4, 4, 4, 4]), 8, 'all houses equal, even count');
+  assertEqual(rob([4, 4, 4]), 8, 'all houses equal, odd count');
 }
 
 export { rob };

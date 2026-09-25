@@ -32,7 +32,22 @@ class Solution:
         return need <= 0
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.canPlaceFlowers([1, 0, 0, 0, 1], 1))  # True
     print(sol.canPlaceFlowers([1, 0, 0, 0, 1], 2))  # False
+
+    # Edge cases
+    assert_equal(sol.canPlaceFlowers([1, 0, 1, 0, 1], 0), True, "n=0 always satisfiable")
+    assert_equal(sol.canPlaceFlowers([0], 1), True, "single empty plot")
+    assert_equal(sol.canPlaceFlowers([1], 1), False, "single occupied plot")
+    assert_equal(sol.canPlaceFlowers([1, 0, 0, 1], 1), False, "gap of exactly 2 is insufficient")
+    assert_equal(sol.canPlaceFlowers([0, 0], 2), False, "two adjacent empties fit only 1 flower")
+    assert_equal(sol.canPlaceFlowers([0, 0, 0], 2), True, "three empties fit max of 2 flowers")

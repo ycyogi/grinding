@@ -39,8 +39,28 @@ class Solution:
         return stack
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.asteroidCollision([5, 10, -5]))  # [5, 10]
     print(sol.asteroidCollision([8, -8]))  # []
     print(sol.asteroidCollision([10, 2, -5]))  # [10]
+
+    # Edge cases
+    assert_equal(
+        sol.asteroidCollision([10, -4, -3, -2]),
+        [10],
+        "chain reaction, decreasing incoming sizes",
+    )
+    assert_equal(sol.asteroidCollision([1, 2, 3]), [1, 2, 3], "all moving right")
+    assert_equal(sol.asteroidCollision([-1, -2, -3]), [-1, -2, -3], "all moving left")
+    assert_equal(sol.asteroidCollision([3, -3]), [], "equal-size collision")
+    assert_equal(
+        sol.asteroidCollision([1, -2, 3, -4]), [-2, -4], "mixed sequence"
+    )

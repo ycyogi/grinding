@@ -71,3 +71,14 @@ Algorithm:
   `n` piles to compute `hours(k)`. Brute force trying every speed from 1
   upward and checking feasibility would be `O(n * m)`.
 - **Space:** `O(1)` — only a few scalar variables beyond the input.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `piles=[5], h=1` | `5` | Single pile, `h=1` forces eating it all in one hour — smallest possible input. |
+| `piles=[3,6,7,11], h=4` | `11` | `h == piles.length`, so Koko must finish exactly one pile per hour — `k` must be `max(piles)`, the largest pile. |
+| `piles=[1], h=1` | `1` | Absolute minimum values for both `piles` and `h`. |
+| `piles=[1000000000], h=1` | `1000000000` | Single very large pile (`piles[i]` up to `1e9`) at the upper bound of the binary search range. |
+
+

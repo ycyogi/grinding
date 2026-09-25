@@ -48,6 +48,16 @@ space and single-pass: each swap places the correct non-zero value at
 `insertPos` while pushing whatever was there (always a zero already
 passed over, or itself) to the position we just vacated.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `[5]` | `[5]` | Single non-zero element (minimum length). |
+| `[0,0,0]` | `[0,0,0]` | All zeros. |
+| `[1,2,3]` | `[1,2,3]` | Already all non-zero — nothing should move. |
+| `[1,2,0,0]` | `[1,2,0,0]` | Zeros already at the end. |
+| `[-1,0,-2,0,3]` | `[-1,-2,3,0,0]` | Negative numbers must not be confused with "falsy" zero, and their relative order must be preserved. |
+
 ## Complexity
 
 - **Time:** `O(n)` — a single pass through the array with `i`, `O(1)` work

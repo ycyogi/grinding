@@ -34,7 +34,35 @@ class Solution:
         return removals
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.eraseOverlapIntervals([[1, 2], [2, 3], [3, 4], [1, 3]]))  # 1
     print(sol.eraseOverlapIntervals([[1, 2], [1, 2], [1, 2]]))  # 2
+
+    # Edge cases
+    assert_equal(sol.eraseOverlapIntervals([[1, 5]]), 0, "single interval")
+    assert_equal(
+        sol.eraseOverlapIntervals([[1, 2], [2, 3], [3, 4]]),
+        0,
+        "chain of touching intervals",
+    )
+    assert_equal(
+        sol.eraseOverlapIntervals([[1, 2], [2, 3]]), 0, "two intervals touching at a point"
+    )
+    assert_equal(
+        sol.eraseOverlapIntervals([[5, 7], [5, 7], [5, 7], [5, 7]]),
+        3,
+        "four identical intervals",
+    )
+    assert_equal(
+        sol.eraseOverlapIntervals([[-5, -1], [-3, 0], [-2, 2]]),
+        2,
+        "negative-coordinate boundary values",
+    )

@@ -54,3 +54,12 @@ is preferred when space matters.
 - **Time:** `O(n)` — each node's pointer is reversed exactly once.
 - **Space:** `O(1)` for the iterative approach (a few pointers only); the
   recursive approach is `O(n)` due to the call stack.
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| `[]` (empty) | `[]` | Minimum size per constraints (`n` can be `0`); `head` starts `null`, loop must not run. |
+| `[1]` | `[1]` | Single node — reversal is a no-op but must still return the node itself. |
+| `[-3,-2,-1]` | `[-1,-2,-3]` | Negative values are allowed by the constraints; confirms no assumption of positive values. |
+| `[4,4,4]` | `[4,4,4]` | All-equal values — reversal isn't observable by value, so this checks node count/structure isn't silently dropped. |

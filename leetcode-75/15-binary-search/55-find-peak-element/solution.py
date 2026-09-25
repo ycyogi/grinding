@@ -27,7 +27,28 @@ class Solution:
         return lo
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.findPeakElement([1, 2, 3, 1]))  # 2
     print(sol.findPeakElement([1, 2, 1, 3, 5, 6, 4]))  # 1 or 5
+
+    # Edge cases
+    assert_equal(sol.findPeakElement([1]), 0, "single-element array is trivially a peak")
+    assert_equal(
+        sol.findPeakElement([1, 2, 3, 4, 5]),
+        4,
+        "strictly ascending, peak at the last index",
+    )
+    assert_equal(
+        sol.findPeakElement([5, 4, 3, 2, 1]),
+        0,
+        "strictly descending, peak at index 0",
+    )
+    assert_equal(sol.findPeakElement([1, 3, 2]), 1, "small interior peak")

@@ -22,7 +22,23 @@ class Solution:
         return row[-1]
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.uniquePaths(3, 7))  # 28
     print(sol.uniquePaths(3, 2))  # 3
+
+    # Edge cases
+    assert_equal(sol.uniquePaths(1, 1), 1, "m=1, n=1: start equals end")
+    assert_equal(
+        sol.uniquePaths(1, 5), 1, "m=1: single row, only path is straight right"
+    )
+    assert_equal(
+        sol.uniquePaths(5, 1), 1, "n=1: single column, only path is straight down"
+    )

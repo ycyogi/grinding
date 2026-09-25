@@ -59,6 +59,16 @@ at some point in the scan — so if we later see something bigger than
 `second`, a real increasing triple is guaranteed to exist, even if we
 don't track the exact indices.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `nums=[2,1]` | `false` | Length-2 array — structurally impossible to form a triple. |
+| `nums=[7]` | `false` | Single-element array (minimum length). |
+| `nums=[1,1,1]` | `false` | All duplicates — the `<=` comparisons must not fabricate a strict increasing triple out of equal values. |
+| `nums=[1,2,2,3]` | `true` | Duplicate middle value; a later distinct larger value still completes a valid strict triple (`1<2<3`). |
+| `nums=[20,100,10,12,5,13]` | `true` | An early `first`/`second` pair gets undercut by smaller values later, but a genuine triple (`10,12,13`) still exists downstream. |
+
 ## Complexity
 
 - **Time:** `O(n)` — a single pass over `nums`, constant work per element.

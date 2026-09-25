@@ -64,6 +64,15 @@ is the only move that has a chance of finding a taller limiting height
 to compensate for the reduced width. So the greedy "always move the
 shorter side" rule never discards a potentially optimal pair.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `height=[5,2]` | `2` | Minimum length `n=2` with distinct heights — width is fixed at 1. |
+| `height=[4,4,4,4]` | `12` | All-equal heights — the widest pair should win, and equal heights must not stall the pointer movement. |
+| `height=[0,0,0]` | `0` | All-zero heights — no container can ever hold water. |
+| `height=[1,2,3,4,5]` | `6` | Strictly increasing heights — the optimal pair (`2` and `5`, area `3*2=6`) is not the two array endpoints. |
+
 ## Complexity
 
 - **Time:** `O(n)` — each pointer moves inward at most `n` times total,

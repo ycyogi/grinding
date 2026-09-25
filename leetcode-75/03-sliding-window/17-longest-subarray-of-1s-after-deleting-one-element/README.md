@@ -62,3 +62,13 @@ Ones III, with `K = 1`:
   force testing every subarray (and every possible deleted index) would
   be `O(n^2)`.
 - **Space:** `O(1)` — only pointers and a counter are used.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `nums = [1,1,1,1]` | `3` | All-ones: exactly one element (a `1`) must still be deleted, so the answer is `n - 1`, not `n`. |
+| `nums = [0,0,0]` | `0` | All-zeros: no `1`'s exist at all, so nothing survives. |
+| `nums = [1]` | `0` | Minimum-size input, single one: deleting the only element leaves nothing. |
+| `nums = [0]` | `0` | Minimum-size input, single zero: deleting it still leaves nothing. |
+| `nums = [1,0,0,1]` | `1` | Two adjacent zeros: only one can be "deleted", so the window can never bridge both sides. |

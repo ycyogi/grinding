@@ -48,10 +48,39 @@ function buildList(values: number[]): ListNode | null {
   return dummy.next;
 }
 
+function toArray(head: ListNode | null): number[] {
+  const out: number[] = [];
+  let curr = head;
+  let guard = 0;
+  while (curr !== null && guard < 10000) {
+    out.push(curr.val);
+    curr = curr.next;
+    guard++;
+  }
+  return out;
+}
+
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(oddEvenList(buildList([1, 2, 3, 4, 5])));       // 1 -> 3 -> 5 -> 2 -> 4
   console.log(oddEvenList(buildList([2, 1, 3, 5, 6, 4, 7])));  // 2 -> 3 -> 6 -> 7 -> 1 -> 5 -> 4
+
+  // Edge cases (toArray has a guard against infinite loops in case of an
+  // accidental cycle from a bad splice).
+  assertEqual(toArray(oddEvenList(buildList([]))), [], 'empty list stays empty');
+  assertEqual(toArray(oddEvenList(buildList([1]))), [1], 'single node unchanged');
+  assertEqual(toArray(oddEvenList(buildList([1, 2]))), [1, 2], 'two nodes unchanged, no cycle');
+  assertEqual(toArray(oddEvenList(buildList([1, 2, 3]))), [1, 3, 2], 'three nodes: odd/even splice terminates cleanly');
 }
 
 export { oddEvenList, ListNode };

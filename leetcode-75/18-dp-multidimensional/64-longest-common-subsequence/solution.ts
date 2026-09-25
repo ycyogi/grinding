@@ -29,10 +29,47 @@ function longestCommonSubsequence(text1: string, text2: string): number {
 
   return dp[m][n];
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(longestCommonSubsequence('abcde', 'ace')); // 3
   console.log(longestCommonSubsequence('abc', 'abc')); // 3
+
+  // Edge cases
+  assertEqual(
+    longestCommonSubsequence('', 'abc'),
+    0,
+    'one string empty (below stated constraint, but should degrade gracefully)'
+  );
+  assertEqual(
+    longestCommonSubsequence('abc', 'xyz'),
+    0,
+    'no common characters at all'
+  );
+  assertEqual(
+    longestCommonSubsequence('a', 'a'),
+    1,
+    'minimum length, identical single character'
+  );
+  assertEqual(
+    longestCommonSubsequence('abcde', 'bd'),
+    2,
+    'text2 is a non-contiguous subsequence of text1'
+  );
+  assertEqual(
+    longestCommonSubsequence('aaaa', 'aa'),
+    2,
+    'repeated identical character, LCS capped by shorter string'
+  );
 }
 
 export { longestCommonSubsequence };

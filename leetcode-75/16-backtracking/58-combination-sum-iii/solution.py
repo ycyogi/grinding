@@ -36,7 +36,38 @@ class Solution:
         return result
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.combinationSum3(3, 7))  # [[1, 2, 4]]
     print(sol.combinationSum3(3, 9))  # [[1, 2, 6], [1, 3, 5], [2, 3, 4]]
+
+    # Edge cases
+    # Order is deterministic (ascending-candidate backtracking), so exact
+    # list equality is valid here -- no sorting needed.
+    assert_equal(
+        sol.combinationSum3(9, 1),
+        [],
+        "k=9, n=1: min sum of 9 distinct digits is 45, so no combinations",
+    )
+    assert_equal(
+        sol.combinationSum3(9, 45),
+        [[1, 2, 3, 4, 5, 6, 7, 8, 9]],
+        "k=9, n=45: unique max case, only combination is all of 1-9",
+    )
+    assert_equal(
+        sol.combinationSum3(2, 1),
+        [],
+        "k=2, n=1: min sum of 2 distinct digits is 3, so no combinations",
+    )
+    assert_equal(
+        sol.combinationSum3(2, 17),
+        [[8, 9]],
+        "k=2, n=17: max possible sum for k=2, only one combination",
+    )

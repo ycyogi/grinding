@@ -55,8 +55,21 @@ def to_list(head):
     return out
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(to_list(sol.deleteMiddle(build_list([1, 3, 4, 7, 1, 2, 6]))))  # [1, 3, 4, 1, 2, 6]
     print(to_list(sol.deleteMiddle(build_list([1, 2, 3, 4]))))          # [1, 2, 4]
     print(to_list(sol.deleteMiddle(build_list([1]))))                  # []
+
+    # Edge cases
+    assert_equal(to_list(sol.deleteMiddle(build_list([1]))), [], "single node becomes empty")
+    assert_equal(to_list(sol.deleteMiddle(build_list([1, 2]))), [1], "two nodes: delete index 1")
+    assert_equal(to_list(sol.deleteMiddle(build_list([1, 2, 3]))), [1, 3], "three nodes: classic fast/slow trap")
+    assert_equal(to_list(sol.deleteMiddle(build_list([1, 2, 3, 4, 5]))), [1, 2, 4, 5], "five nodes: delete index 2")

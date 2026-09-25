@@ -53,6 +53,16 @@ Output: [true,false,false,false,false]
 No sorting or extra data structures are needed — the max is all the
 information required to answer every kid's query.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `candies=[1,1], extraCandies=1` | `[True, True]` | Minimum `n` (2), all-equal starting values. |
+| `candies=[5,5,5,5], extraCandies=1` | `[True, True, True, True]` | All-equal values above the minimum, every kid already ties the max. |
+| `candies=[1,100], extraCandies=50` | `[False, True]` | Extra candies insufficient to close a large gap for the low kid. |
+| `candies=[100,1], extraCandies=1` | `[True, False]` | Minimum `extraCandies` (1) still lets the leader stay ahead, but doesn't help the trailing kid. |
+| `candies=[100,100], extraCandies=50` | `[True, True]` | Both `candies[i]` and `extraCandies` at their maximum constraint values. |
+
 ## Complexity
 
 - **Time:** `O(n)` — one pass to find the max, one pass to build the

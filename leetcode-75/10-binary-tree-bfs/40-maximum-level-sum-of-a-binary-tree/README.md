@@ -60,6 +60,15 @@ level and tracking the best (level, sum) pair seen so far.
      since levels are processed in increasing order.
 3. Return `bestLevel`.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `root = [5]` (single node) | `1` | Constraint minimum is 1 node; the only level is level 1. |
+| `root = [-1,-2,-3]` (all negative values) | `1` | Level 1 sum is `-1`, level 2 sum is `-5`; `-1 > -5` so the smaller-magnitude negative level wins, not the level with the "biggest" numbers by absolute value. |
+| `root = [0,0,0]` (tie between two levels) | `1` | Level 1 sum (`0`) equals level 2 sum (`0`); the algorithm must return the *smallest* level on a tie via strict `>`. |
+| `root = [1,2,null,3,null,4]` (pure left chain, one node per level) | `4` | Each level's sum equals that single node's value and values strictly increase with depth, so the deepest level must win — checks level counting isn't off by one. |
+
 ## Complexity
 
 - **Time:** `O(n)` — every node is visited exactly once during the BFS.

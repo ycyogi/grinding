@@ -33,7 +33,21 @@ class Solution:
         return max_len
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.longestSubarray([1, 1, 0, 1]))  # 3
     print(sol.longestSubarray([0, 1, 1, 1, 0, 1, 1, 0, 1]))  # 5
+
+    # Edge cases
+    assert_equal(sol.longestSubarray([1, 1, 1, 1]), 3, "all ones")
+    assert_equal(sol.longestSubarray([0, 0, 0]), 0, "all zeros")
+    assert_equal(sol.longestSubarray([1]), 0, "single one")
+    assert_equal(sol.longestSubarray([0]), 0, "single zero")
+    assert_equal(sol.longestSubarray([1, 0, 0, 1]), 1, "two adjacent zeros")

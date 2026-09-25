@@ -69,3 +69,12 @@ window always shrinks.
   the ascending slope toward a peak, versus `O(n)` for a linear scan that
   checks every element against its neighbors.
 - **Space:** `O(1)` — only a couple of index variables are used.
+
+## Edge Cases
+
+| Input (`nums`) | Expected | Why it matters |
+| --- | --- | --- |
+| `[1]` | `0` | Single-element array — the loop body never runs (`lo == hi` immediately), so `nums[0]` must be trivially a peak. |
+| `[1,2,3,4,5]` | `4` | Strictly ascending — the slope always says "go right", so the peak is only found at the very last index. |
+| `[5,4,3,2,1]` | `0` | Strictly descending — the slope always says "go left" (`hi = mid`), so the peak sits at index 0 and the window must still collapse there. |
+| `[1,3,2]` | `1` | Small interior peak — sanity check on the general mid-point logic between the two monotonic extremes above. |

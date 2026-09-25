@@ -74,3 +74,13 @@ doubles or Python's arbitrary-precision integers).
   `O(n)`.
 - **Space:** `O(log n)` for the sort's internal space, `O(1)` extra
   otherwise.
+
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `[[1,2],[2,3]]` | `1` | Balloons touching at a single point *are* poppable by one shared arrow — the opposite convention from problem 72's "touching is not overlapping" rule. |
+| `[[5,10]]` | `1` | Minimum-size input (single balloon). |
+| `[[3,6],[3,6],[3,6]]` | `1` | All-identical balloons; one arrow bursts every one of them. |
+| `[[1,2],[2,3],[3,4],[4,5]]` | `2` | A chain of touching balloons does *not* always collapse to one arrow — an arrow at `x=2` only reaches `[1,2]` and `[2,3]`; `[3,4]` and `[4,5]` need a second arrow at `x=4`. |
+| `[[-2147483648, 2147483647]]` | `1` | Extreme `int32` boundary coordinates; sanity-checks there's no overflow at the widest possible range. |

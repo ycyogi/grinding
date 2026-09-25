@@ -79,3 +79,13 @@ Algorithm:
   brute-force `O(n * m)` of checking every pair directly.
 - **Space:** `O(m)` for the sorted copy of potions (or `O(log m)` extra if
   sorting in place), plus `O(n)` for the output array.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `spells=[3], potions=[4], success=12` | `[1]` | Product exactly equals `success` — the `>=` boundary must count as successful. |
+| `spells=[3], potions=[4], success=13` | `[0]` | Product one below `success` — the boundary must *not* count. |
+| `spells=[2], potions=[5,5,5], success=10` | `[3]` | All potions equal and product exactly hits the threshold — every potion must be included, not just one. |
+| `spells=[100000], potions=[100000], success=10000000000` | `[1]` | Max constraint values (`spells[i], potions[i] <= 1e5`, `success <= 1e10`) — product hits `1e10` exactly, checks no overflow/precision loss at the upper bound. |
+| `spells=[1], potions=[1], success=1` | `[1]` | Minimum constraint values (`n=m=1`, `success=1`) — smallest possible valid input. |

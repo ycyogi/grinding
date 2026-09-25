@@ -22,11 +22,28 @@ function gcd(a: number, b: number): number {
   }
   return a;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(gcdOfStrings('ABCABC', 'ABC'));   // "ABC"
   console.log(gcdOfStrings('ABABAB', 'ABAB'));   // "AB"
   console.log(gcdOfStrings('LEET', 'CODE'));     // ""
+
+  // Edge cases
+  assertEqual(gcdOfStrings('AAAAAA', 'AAA'), 'AAA', 'str1 exact multiple of str2');
+  assertEqual(gcdOfStrings('AAAAA', 'AAAA'), 'A', 'coprime lengths, same char');
+  assertEqual(gcdOfStrings('A', 'A'), 'A', 'minimum length both sides');
+  assertEqual(gcdOfStrings('AB', 'BA'), '', 'same chars, different arrangement');
+  assertEqual(gcdOfStrings('ABCDEF', 'ABC'), '', 'different letters, no divisor');
 }
 
 export { gcdOfStrings };

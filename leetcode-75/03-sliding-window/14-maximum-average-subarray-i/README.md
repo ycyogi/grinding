@@ -61,3 +61,13 @@ one that entered, rather than re-summing the whole window.
   `O(n * k)`.
 - **Space:** `O(1)` — only a running sum and a max tracker are kept,
   regardless of input size.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `nums = [3,-2,5], k = 3` | `2.0` | `k == n`: only one window exists (the whole array). |
+| `nums = [-5,3,-1,7,-2], k = 1` | `7.0` | `k == 1`: window degenerates to a single element; answer is just `max(nums)`. |
+| `nums = [-1,-2,-3,-4], k = 2` | `-1.5` | All-negative input; the "best" average is still negative, checks no accidental clamping to 0. |
+| `nums = [10000,10000,-10000], k = 2` | `10000.0` | Boundary values at `+/-10^4`; also confirms sums don't need extra precision handling. |
+| `nums = [-7], k = 1` | `-7.0` | Minimum-size input (`n == 1`), single negative element. |

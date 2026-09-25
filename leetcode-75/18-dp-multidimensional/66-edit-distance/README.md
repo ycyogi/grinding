@@ -96,3 +96,13 @@ keeping `O(m*n)` time. The full table is used below for clarity, and
 - **Space:** `O(m * n)` for the full table (reducible to `O(n)` with the
   two-rolling-rows optimization, since each row only needs the row
   directly above it).
+
+## Edge Cases
+
+| Input (`word1`, `word2`) | Expected | Why it matters |
+| --- | --- | --- |
+| `""`, `""` | `0` | Both empty — a legal input per constraints (`0 <= length <= 500`); the table is just `dp[0][0] = 0` with no loop iterations. |
+| `""`, `"abc"` | `3` | One string empty — distance must equal the length of the other (`3` insertions), exercising the base-case row directly. |
+| `"abc"`, `""` | `3` | Reverse direction — distance equals `word1`'s length (`3` deletions), exercising the base-case column directly. |
+| `"abc"`, `"abc"` | `0` | Identical strings — every character matches, so the diagonal carries `0` all the way through with no edits. |
+| `"a"`, `"b"` | `1` | Single-character mismatch — exactly one replace operation. |

@@ -39,6 +39,13 @@ class Solution:
         return result
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(
@@ -50,3 +57,20 @@ if __name__ == "__main__":
     #  ["mouse","mousepad"], ["mouse","mousepad"], ["mouse","mousepad"]]
     print(sol.suggestedProducts(["havana"], "havana"))
     # [["havana"], ["havana"], ["havana"], ["havana"], ["havana"], ["havana"]]
+
+    # Edge cases
+    assert_equal(
+        sol.suggestedProducts(["ab", "abc"], "abcde"),
+        [["ab", "abc"], ["ab", "abc"], ["abc"], [], []],
+        "searchWord longer than any product",
+    )
+    assert_equal(
+        sol.suggestedProducts(["x"], "xy"),
+        [["x"], []],
+        "single product, searchWord longer than it",
+    )
+    assert_equal(
+        sol.suggestedProducts(["zebra", "zoo"], "a"),
+        [[]],
+        "no product matches even the first character",
+    )

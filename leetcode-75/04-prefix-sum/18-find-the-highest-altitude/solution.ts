@@ -19,10 +19,27 @@ function largestAltitude(gain: number[]): number {
 
   return maxAltitude;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(largestAltitude([-5, 1, 5, 0, -7])); // 1
   console.log(largestAltitude([-4, -3, -2, -1, 4, 3, 2])); // 0
+
+  // Edge cases
+  assertEqual(largestAltitude([-1]), 0, 'single negative gain');
+  assertEqual(largestAltitude([5]), 5, 'single positive gain');
+  assertEqual(largestAltitude([-1, -1, -1]), 0, 'monotonically decreasing');
+  assertEqual(largestAltitude([1, 2, 3]), 6, 'monotonically increasing');
+  assertEqual(largestAltitude([100, -100, 100]), 100, 'boundary gain values');
 }
 
 export { largestAltitude };

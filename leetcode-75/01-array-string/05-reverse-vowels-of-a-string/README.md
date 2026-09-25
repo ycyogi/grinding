@@ -46,6 +46,16 @@ Because strings are immutable in both JS/TS and Python, do the swapping
 on a mutable character array (or list), then join it back into a string
 at the end.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `s="grrl"` | `"grrl"` | No vowels at all — pointers cross without ever swapping. |
+| `s="aeiou"` | `"uoiea"` | Every character is a vowel — degenerates to a full string reversal. |
+| `s="a"` | `"a"` | Single-character string (minimum length) — loop body never runs. |
+| `s="AEIOUaeiou"` | `"uoieaUOIEA"` | Mixed-case vowels; case must travel with the character being swapped in, not the position. |
+| `s="xyzaxyz"` | `"xyzaxyz"` | Exactly one vowel, in the middle — both pointers converge on it and no swap happens. |
+
 ## Complexity
 
 - **Time:** `O(n)` — each pointer moves across the string at most once,

@@ -35,7 +35,21 @@ class Solution:
         return count
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.maxOperations([1, 2, 3, 4], 5))       # 2
     print(sol.maxOperations([3, 1, 3, 4, 3], 6))    # 1
+
+    # Edge cases
+    assert_equal(sol.maxOperations([1, 2, 3], 100), 0, "no pair reaches k")
+    assert_equal(sol.maxOperations([4, 4, 4, 4], 8), 2, "all elements identical")
+    assert_equal(sol.maxOperations([3, 3, 3], 6), 1, "odd count of matching value")
+    assert_equal(sol.maxOperations([1, 4], 5), 1, "minimal length-2 array that matches")
+    assert_equal(sol.maxOperations([1, 2], 5), 0, "minimal length-2 array, no match")

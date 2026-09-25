@@ -33,7 +33,33 @@ class Solution:
         return arrows
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.findMinArrowShots([[10, 16], [2, 8], [1, 6], [7, 12]]))  # 2
     print(sol.findMinArrowShots([[1, 2], [3, 4], [5, 6], [7, 8]]))  # 4
+
+    # Edge cases
+    assert_equal(
+        sol.findMinArrowShots([[1, 2], [2, 3]]), 1, "balloons touching at a point"
+    )
+    assert_equal(sol.findMinArrowShots([[5, 10]]), 1, "single balloon")
+    assert_equal(
+        sol.findMinArrowShots([[3, 6], [3, 6], [3, 6]]), 1, "identical balloons"
+    )
+    assert_equal(
+        sol.findMinArrowShots([[1, 2], [2, 3], [3, 4], [4, 5]]),
+        2,
+        "chain of touching balloons needs more than one arrow",
+    )
+    assert_equal(
+        sol.findMinArrowShots([[-2147483648, 2147483647]]),
+        1,
+        "extreme int32 boundary coordinates",
+    )

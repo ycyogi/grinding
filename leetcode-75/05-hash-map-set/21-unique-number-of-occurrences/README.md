@@ -53,3 +53,13 @@ counts themselves have no duplicates.
   set.
 - **Space:** `O(n)` — the frequency map and the count set can each hold
   up to `n` entries in the worst case.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `arr = [7]` | `true` | Minimum-size input: a single distinct value with count `1` is trivially unique. |
+| `arr = [2,2,2,2]` | `true` | All elements the same: only one count value exists, so it's trivially unique. |
+| `arr = [1,1,2,2]` | `false` | Two distinct values sharing the same occurrence count (`2` each). |
+| `arr = [-1,-1,-2,-3,-3,-3]` | `true` | Negative numbers with distinct counts (`2`, `1`, `3`). |
+| `arr = [1,2,3,1,2,3]` | `false` | Three distinct values that all share the same count (`2` each). |

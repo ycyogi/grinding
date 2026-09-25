@@ -83,3 +83,13 @@ Algorithm:
   is `O(n + m)`.
 - **Space:** `O(k)` — the frequency maps and sorted frequency lists are
   bounded by the 26-letter alphabet, independent of string length.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `word1 = "abc", word2 = "aab"` | `false` | Equal length but a different set of characters (`{a,b,c}` vs `{a,b}`); no amount of swapping/renaming can invent or erase a character. |
+| `word1 = "aaaa", word2 = "bbbb"` | `false` | Each string has only one distinct character, but different ones — renaming needs a second existing character to pair with, which neither string has. |
+| `word1 = "a", word2 = "a"` | `true` | Minimum-length (1) input, identical strings. |
+| `word1 = "a", word2 = "b"` | `false` | Minimum-length (1) input, different characters — impossible to bridge. |
+| `word1 = "aabbcc", word2 = "abcabc"` | `true` | Same characters and same frequency multiset (`{2,2,2}`), just different positions/order. |

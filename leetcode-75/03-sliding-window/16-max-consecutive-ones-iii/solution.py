@@ -33,6 +33,13 @@ class Solution:
         return max_len
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.longestOnes([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2))  # 6
@@ -41,3 +48,11 @@ if __name__ == "__main__":
             [0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1], 3
         )
     )  # 10
+
+    # Edge cases
+    assert_equal(sol.longestOnes([1, 1, 0, 1, 1, 0, 1], 0), 2, "k == 0, mixed")
+    assert_equal(sol.longestOnes([1, 1, 1, 1], 0), 4, "all ones, k == 0")
+    assert_equal(sol.longestOnes([0, 0, 0, 0, 0], 2), 2, "all zeros")
+    assert_equal(sol.longestOnes([0], 0), 0, "single zero, k == 0")
+    assert_equal(sol.longestOnes([1], 0), 1, "single one, k == 0")
+    assert_equal(sol.longestOnes([0, 0, 1, 0], 4), 4, "k >= n, flip everything")

@@ -24,9 +24,29 @@ class Solution:
         return prev1
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.minCostClimbingStairs([10, 15, 20]))  # 15
     print(
         sol.minCostClimbingStairs([1, 100, 1, 1, 1, 100, 1, 1, 100, 1])
     )  # 6
+
+    # Edge cases
+    assert_equal(sol.minCostClimbingStairs([0, 0]), 0, "min length, all-zero costs")
+    assert_equal(
+        sol.minCostClimbingStairs([10, 15]),
+        10,
+        "min length, start at index 0 and jump straight to top",
+    )
+    assert_equal(
+        sol.minCostClimbingStairs([5, 5, 5, 5, 5]),
+        10,
+        "all-equal costs, start at index 1 and take two 2-step jumps",
+    )

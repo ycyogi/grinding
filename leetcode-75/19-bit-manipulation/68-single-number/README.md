@@ -53,3 +53,13 @@ need.
 - **Time:** `O(n)` — one pass over the array.
 - **Space:** `O(1)` — a single accumulator variable, no auxiliary
   structures.
+
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `[5]` | `5` | Minimum-length array (constraint floor); the single element is the whole answer. |
+| `[-1,-1,-2]` | `-2` | Negative numbers XOR correctly via two's-complement cancellation. |
+| `[0,0,7]` | `7` | `0` as a *paired* value must still cancel (`0 ^ 0 = 0`), not be mistaken for "no-op only". |
+| `[-30000,-30000,30000]` | `30000` | Singleton sits at the exact upper constraint boundary. |
+| `[30000,-30000,30000,-30000,-1]` | `-1` | Both extreme boundary magnitudes are paired; singleton is a distinct negative value. |

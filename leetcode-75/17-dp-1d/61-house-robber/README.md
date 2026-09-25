@@ -80,3 +80,12 @@ house beats skipping it.
   force trying every subset of non-adjacent houses (`O(2^n)`).
 - **Space:** `O(1)` — two rolling variables instead of an `O(n)` `dp`
   array.
+
+## Edge Cases
+
+| Input (`nums`) | Expected | Why it matters |
+| --- | --- | --- |
+| `[5]` | `5` | Single house — must rob it, no adjacency constraint applies at all. |
+| `[5,10]` | `10` | Two houses — must pick the *max* of the two, not their sum (they're adjacent, robbing both is forbidden). |
+| `[4,4,4,4]` | `8` | All houses worth the same — optimal is alternating houses (`0,2` or `1,3`), sum `8`; a bug that sums adjacent pairs instead of skipping would overcount. |
+| `[4,4,4]` | `8` | Odd count of equal-valued houses — best is the two non-adjacent end houses (`0,2`), sum `8`, not just one house or an adjacent pair. |

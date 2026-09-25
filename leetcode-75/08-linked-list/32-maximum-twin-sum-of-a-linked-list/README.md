@@ -77,3 +77,12 @@ uses `O(n)` extra space instead of `O(1)`.
 - **Space:** `O(1)` extra space — the reversal happens in place on the
   existing nodes; only a handful of pointers and a running maximum are
   used (versus `O(n)` for the array-copy brute force).
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| `[7,3]` | `10` | Minimum valid input (`n = 2`) — the only twin pair is also the whole list. |
+| `[5,100,1,5]` | `101` | The maximum twin sum pair (`100+1`) is the *inner* pair, not the outermost (`5+5=10`) — checks pairing isn't just "first + last". |
+| `[4,4,4,4]` | `8` | All-equal values — every pair sums the same, checks the max isn't accidentally computed as something other than a real pair sum. |
+| `[1,2,3,3,2,1]` | `6` | `n = 6`; the max pair is the middle pair (`3+3`), not the outer (`1+1=2`) or near-outer (`2+2=4`) pairs. |

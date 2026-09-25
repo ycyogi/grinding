@@ -38,10 +38,35 @@ function minReorder(n: number, connections: number[][]): number {
 
   return changes;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(minReorder(6, [[0,1],[1,3],[2,3],[4,0],[4,5]])); // 3
   console.log(minReorder(5, [[1,0],[1,2],[3,2],[3,4]])); // 2
+
+  // Edge cases
+  assertEqual(minReorder(1, []), 0, "n=1, no edges");
+  assertEqual(minReorder(2, [[1, 0]]), 0, "n=2, single edge already toward city 0");
+  assertEqual(minReorder(2, [[0, 1]]), 1, "n=2, single edge points away from city 0");
+  assertEqual(
+    minReorder(5, [[1, 0], [2, 0], [3, 0], [4, 0]]),
+    0,
+    "star graph, every edge already points toward 0"
+  );
+  assertEqual(
+    minReorder(5, [[0, 1], [0, 2], [0, 3], [0, 4]]),
+    4,
+    "star graph, every edge points away from 0"
+  );
 }
 
 export { minReorder };

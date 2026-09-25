@@ -24,7 +24,21 @@ class Solution:
         return "".join(stack)
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.removeStars("leet**cod*e"))  # lecoe
     print(sol.removeStars("erase*****"))  # (empty string)
+
+    # Edge cases
+    assert_equal(sol.removeStars("abc***"), "", "consecutive stars remove all chars")
+    assert_equal(sol.removeStars("a*"), "", "minimal single-char-then-star")
+    assert_equal(sol.removeStars("abcdef"), "abcdef", "no stars at all")
+    assert_equal(sol.removeStars("ab*cd*"), "ac", "scattered non-adjacent stars")
+    assert_equal(sol.removeStars("ab*"), "a", "two-char prefix, trailing star")

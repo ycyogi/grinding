@@ -27,7 +27,39 @@ class Solution:
         return dp[m][n]
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.longestCommonSubsequence("abcde", "ace"))  # 3
     print(sol.longestCommonSubsequence("abc", "abc"))  # 3
+
+    # Edge cases
+    assert_equal(
+        sol.longestCommonSubsequence("", "abc"),
+        0,
+        "one string empty (below stated constraint, but should degrade gracefully)",
+    )
+    assert_equal(
+        sol.longestCommonSubsequence("abc", "xyz"), 0, "no common characters at all"
+    )
+    assert_equal(
+        sol.longestCommonSubsequence("a", "a"),
+        1,
+        "minimum length, identical single character",
+    )
+    assert_equal(
+        sol.longestCommonSubsequence("abcde", "bd"),
+        2,
+        "text2 is a non-contiguous subsequence of text1",
+    )
+    assert_equal(
+        sol.longestCommonSubsequence("aaaa", "aa"),
+        2,
+        "repeated identical character, LCS capped by shorter string",
+    )

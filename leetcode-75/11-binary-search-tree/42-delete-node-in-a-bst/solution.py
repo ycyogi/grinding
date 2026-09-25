@@ -49,6 +49,20 @@ class Solution:
         return root
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
+def _serialize(node):
+    """Turn a TreeNode subtree into a plain nested tuple for comparison."""
+    if node is None:
+        return None
+    return (node.val, _serialize(node.left), _serialize(node.right))
+
+
 if __name__ == "__main__":
     sol = Solution()
     root = TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7)))
@@ -59,3 +73,42 @@ if __name__ == "__main__":
 
     unchanged = sol.deleteNode(root, 0)
     print(unchanged.val)  # 5 (key not present, tree unchanged)
+
+    # Edge cases
+    assert_equal(_serialize(sol.deleteNode(None, 5)), None, "empty tree")
+
+    assert_equal(
+        _serialize(sol.deleteNode(TreeNode(5), 5)), None, "delete the only node in a single-node tree"
+    )
+
+    only_left_child = TreeNode(5, TreeNode(3, TreeNode(2)), TreeNode(8))
+    assert_equal(
+        _serialize(sol.deleteNode(only_left_child, 3)),
+        _serialize(TreeNode(5, TreeNode(2), TreeNode(8))),
+        "target has only a left child",
+    )
+
+    only_right_child = TreeNode(5, TreeNode(2), TreeNode(8, None, TreeNode(9)))
+    assert_equal(
+        _serialize(sol.deleteNode(only_right_child, 8)),
+        _serialize(TreeNode(5, TreeNode(2), TreeNode(9))),
+        "target has only a right child",
+    )
+
+    not_present = TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7)))
+    not_present_expected = TreeNode(5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7)))
+    assert_equal(
+        _serialize(sol.deleteNode(not_present, 100)),
+        _serialize(not_present_expected),
+        "key not present, tree unchanged",
+    )
+
+    delete_root_two_children = TreeNode(
+        5, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(6, None, TreeNode(7))
+    )
+    expected_after_root_delete = TreeNode(6, TreeNode(3, TreeNode(2), TreeNode(4)), TreeNode(7))
+    assert_equal(
+        _serialize(sol.deleteNode(delete_root_two_children, 5)),
+        _serialize(expected_after_root_delete),
+        "delete the root itself when it has two children",
+    )

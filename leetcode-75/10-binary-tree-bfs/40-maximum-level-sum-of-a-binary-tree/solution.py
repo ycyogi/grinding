@@ -50,6 +50,13 @@ class Solution:
         return best_level
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     root = TreeNode(1, TreeNode(7, TreeNode(7), TreeNode(-8)), TreeNode(0))
@@ -57,3 +64,15 @@ if __name__ == "__main__":
 
     root2 = TreeNode(989, None, TreeNode(10250, TreeNode(98693, None, TreeNode(-32127)), TreeNode(-89388)))
     print(sol.maxLevelSum(root2))  # 2
+
+    # Edge cases
+    assert_equal(sol.maxLevelSum(TreeNode(5)), 1, "single node")
+
+    all_negative = TreeNode(-1, TreeNode(-2), TreeNode(-3))
+    assert_equal(sol.maxLevelSum(all_negative), 1, "all negative values, level 1 sum is least negative")
+
+    tie = TreeNode(0, TreeNode(0), TreeNode(0))
+    assert_equal(sol.maxLevelSum(tie), 1, "tie between levels resolves to smallest level")
+
+    left_chain = TreeNode(1, TreeNode(2, TreeNode(3, TreeNode(4))))
+    assert_equal(sol.maxLevelSum(left_chain), 4, "pure left chain, deepest level has largest sum")

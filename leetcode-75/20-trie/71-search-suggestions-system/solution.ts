@@ -37,6 +37,16 @@ function suggestedProducts(products: string[], searchWord: string): string[][] {
 
   return result;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(suggestedProducts(
@@ -45,6 +55,23 @@ if (require.main === module) {
   ));
   // [["mobile","moneypot","monitor"], ["mobile","moneypot","monitor"],
   //  ["mouse","mousepad"], ["mouse","mousepad"], ["mouse","mousepad"]]
+
+  // Edge cases
+  assertEqual(
+    suggestedProducts(['ab', 'abc'], 'abcde'),
+    [['ab', 'abc'], ['ab', 'abc'], ['abc'], [], []],
+    'searchWord longer than any product'
+  );
+  assertEqual(
+    suggestedProducts(['x'], 'xy'),
+    [['x'], []],
+    'single product, searchWord longer than it'
+  );
+  assertEqual(
+    suggestedProducts(['zebra', 'zoo'], 'a'),
+    [[]],
+    'no product matches even the first character'
+  );
 }
 
 export { suggestedProducts };

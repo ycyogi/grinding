@@ -82,6 +82,16 @@ reversed. So we need to count, over all tree edges, how many point
 4. After the traversal finishes (every node is reachable, per the
    problem's guarantee), return the running total.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `n = 1`, `connections = []` | `0` | Degenerate size below the stated `n >= 2` minimum (single city, no roads); guards against an off-by-one or crash when there's nothing to traverse. |
+| `n = 2`, `connections = [[1,0]]` (the one edge already points toward city 0) | `0` | Smallest valid tree; edge is already correctly oriented, so no reversal is needed. |
+| `n = 2`, `connections = [[0,1]]` (the one edge points away from city 0) | `1` | Smallest valid tree; the single edge must be reversed. |
+| `n = 5`, `connections = [[1,0],[2,0],[3,0],[4,0]]` (star graph, every edge already points *toward* the center, city 0) | `0` | All `n-1` edges are correctly oriented already — the traversal must add 0 cost for every edge instead of miscounting the "walked backward" case. |
+| `n = 5`, `connections = [[0,1],[0,2],[0,3],[0,4]]` (star graph, every edge points *away from* city 0) | `4` (i.e. `n - 1`) | Worst case: every single edge needs reversing; validates the cost-1 tagging is applied uniformly across all outward edges from the root. |
+
 ## Complexity
 
 - **Time:** `O(n)` — the graph is a tree with `n` nodes and `n - 1`

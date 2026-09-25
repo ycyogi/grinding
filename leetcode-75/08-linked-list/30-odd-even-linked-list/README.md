@@ -70,3 +70,12 @@ no extra nodes or arrays are needed.
   happens in place on the existing nodes (a brute-force approach that
   collects values into two arrays and rebuilds the list would take
   `O(n)` extra space).
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| `[]` (empty) | `[]` | Nothing to reorder; must not crash on a null head. |
+| `[1]` | `[1]` | Single node — odd/even loop must not run, list returned unchanged. |
+| `[1,2]` | `[1,2]` | Two nodes — one odd, one even; loop condition (`even && even.next`) must not run and must not create a cycle. |
+| `[1,2,3]` | `[1,3,2]` | Three nodes — tests that `even.next` is explicitly nulled (via the splice) rather than left dangling into a cycle. |

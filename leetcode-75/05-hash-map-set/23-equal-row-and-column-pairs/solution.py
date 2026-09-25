@@ -28,6 +28,13 @@ class Solution:
         return total
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.equalPairs([[3, 2, 1], [1, 7, 6], [2, 7, 7]]))  # 1
@@ -36,3 +43,16 @@ if __name__ == "__main__":
             [[3, 1, 2, 2], [1, 4, 4, 5], [2, 4, 2, 2], [2, 4, 2, 2]]
         )
     )  # 3
+
+    # Edge cases
+    assert_equal(sol.equalPairs([[5]]), 1, "minimum size, n == 1")
+    assert_equal(
+        sol.equalPairs([[1, 1], [1, 1]]), 4, "every row equals every column"
+    )
+    assert_equal(sol.equalPairs([[1, 2], [3, 4]]), 0, "no matches")
+    assert_equal(
+        sol.equalPairs([[1, 23], [12, 3]]),
+        0,
+        "adversarial against naive concatenation signatures",
+    )
+    assert_equal(sol.equalPairs([[3, 3], [3, 3]]), 4, "degenerate all-equal matrix")

@@ -62,3 +62,13 @@ work across the whole scan is linear.
 - **Space:** `O(n)` for the stack in the worst case (e.g. strictly
   decreasing temperatures, where nothing gets popped until the end)
   plus the output array.
+
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `[100,90,80,70]` | `[0,0,0,0]` | Strictly decreasing — no day ever finds a warmer future day, so nothing is ever popped. |
+| `[30,40,50,60,70]` | `[1,1,1,1,0]` | Strictly increasing — every day (but the last) is answered by the very next day. |
+| `[50]` | `[0]` | Minimum-length input (constraint floor). |
+| `[70,70,70,70]` | `[0,0,0,0]` | All-equal temperatures — the comparison is strict `>`, so equal temperatures never trigger a pop. |
+| `[70,70,75]` | `[2,1,0]` | A plateau followed by a rise — both plateau days correctly resolve against the same later warmer day. |

@@ -25,10 +25,28 @@ function canPlaceFlowers(flowerbed: number[], n: number): boolean {
 
   return need <= 0;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1)); // true
   console.log(canPlaceFlowers([1, 0, 0, 0, 1], 2)); // false
+
+  // Edge cases
+  assertEqual(canPlaceFlowers([1, 0, 1, 0, 1], 0), true, 'n=0 always satisfiable');
+  assertEqual(canPlaceFlowers([0], 1), true, 'single empty plot');
+  assertEqual(canPlaceFlowers([1], 1), false, 'single occupied plot');
+  assertEqual(canPlaceFlowers([1, 0, 0, 1], 1), false, 'gap of exactly 2 is insufficient');
+  assertEqual(canPlaceFlowers([0, 0], 2), false, 'two adjacent empties fit only 1 flower');
+  assertEqual(canPlaceFlowers([0, 0, 0], 2), true, 'three empties fit max of 2 flowers');
 }
 
 export { canPlaceFlowers };

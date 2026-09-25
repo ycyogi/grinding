@@ -31,7 +31,21 @@ class Solution:
         return answer
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.productExceptSelf([1, 2, 3, 4]))       # [24, 12, 8, 6]
     print(sol.productExceptSelf([-1, 1, 0, -3, 3]))  # [0, 0, 9, 0, 0]
+
+    # Edge cases
+    assert_equal(sol.productExceptSelf([1, 2, 0, 4]), [0, 0, 8, 0], "exactly one zero")
+    assert_equal(sol.productExceptSelf([0, 2, 0, 4]), [0, 0, 0, 0], "two zeros")
+    assert_equal(sol.productExceptSelf([-1, -2, 3]), [-6, -3, 2], "negative numbers")
+    assert_equal(sol.productExceptSelf([3, 5]), [5, 3], "minimum length n=2")
+    assert_equal(sol.productExceptSelf([2, 2, 2, 2]), [8, 8, 8, 8], "all-equal elements")

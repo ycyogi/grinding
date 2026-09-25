@@ -65,3 +65,13 @@ and shift them each iteration:
   triple recursion without memoization which is exponential, `O(3^n)`.
 - **Space:** `O(1)` — only three rolling variables are kept, instead of
   an `O(n)` array of all computed terms.
+
+## Edge Cases
+
+| Input (`n`) | Expected | Why it matters |
+| --- | --- | --- |
+| `0` | `0` | First base case (`T0`) — must return immediately, no loop iterations. |
+| `1` | `1` | Second base case (`T1`) — easy off-by-one target if the `n===1` check is missing. |
+| `2` | `1` | Third base case (`T2`) — the last value returned without entering the rolling loop; `for i from 3 to n` must not run at all. |
+| `3` | `2` | First value that actually exercises the loop (`i=3`): `T3 = T0+T1+T2 = 0+1+1 = 2`. |
+| `37` | `2082876103` | Max `n` per constraints (`0 <= n <= 37`) — hand-traced the full recurrence to confirm it stays within the guaranteed 32-bit bound (`2147483647`). |

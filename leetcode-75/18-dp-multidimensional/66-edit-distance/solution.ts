@@ -34,10 +34,27 @@ function minDistance(word1: string, word2: string): number {
 
   return dp[m][n];
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(minDistance('horse', 'ros')); // 3
   console.log(minDistance('intention', 'execution')); // 5
+
+  // Edge cases
+  assertEqual(minDistance('', ''), 0, 'both strings empty');
+  assertEqual(minDistance('', 'abc'), 3, 'word1 empty, distance = length of word2');
+  assertEqual(minDistance('abc', ''), 3, 'word2 empty, distance = length of word1');
+  assertEqual(minDistance('abc', 'abc'), 0, 'identical strings, no edits needed');
+  assertEqual(minDistance('a', 'b'), 1, 'single-character mismatch, one replace');
 }
 
 export { minDistance };

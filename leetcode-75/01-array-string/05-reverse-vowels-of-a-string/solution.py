@@ -31,7 +31,21 @@ class Solution:
         return "".join(chars)
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.reverseVowels("IceCreAm"))  # AceCreIm
     print(sol.reverseVowels("leetcode"))  # leotcede
+
+    # Edge cases
+    assert_equal(sol.reverseVowels("grrl"), "grrl", "no vowels at all")
+    assert_equal(sol.reverseVowels("aeiou"), "uoiea", "all vowels, full reversal")
+    assert_equal(sol.reverseVowels("a"), "a", "single-character string")
+    assert_equal(sol.reverseVowels("AEIOUaeiou"), "uoieaUOIEA", "mixed-case vowels")
+    assert_equal(sol.reverseVowels("xyzaxyz"), "xyzaxyz", "single vowel in the middle")

@@ -20,10 +20,25 @@ function uniquePaths(m: number, n: number): number {
 
   return row[n - 1];
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(uniquePaths(3, 7)); // 28
   console.log(uniquePaths(3, 2)); // 3
+
+  // Edge cases
+  assertEqual(uniquePaths(1, 1), 1, 'm=1, n=1: start equals end');
+  assertEqual(uniquePaths(1, 5), 1, 'm=1: single row, only path is straight right');
+  assertEqual(uniquePaths(5, 1), 1, 'n=1: single column, only path is straight down');
 }
 
 export { uniquePaths };

@@ -29,7 +29,21 @@ class Solution:
         return c
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.numTilings(3))  # 5
     print(sol.numTilings(1))  # 1
+
+    # Edge cases
+    assert_equal(sol.numTilings(1), 1, "n=1 base case")
+    assert_equal(sol.numTilings(2), 2, "n=2 base case")
+    assert_equal(sol.numTilings(3), 5, "n=3, first value via the general recurrence")
+    assert_equal(sol.numTilings(4), 11, "n=4, known tiling sequence")
+    assert_equal(sol.numTilings(5), 24, "n=5, known tiling sequence")

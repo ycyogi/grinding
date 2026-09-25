@@ -18,10 +18,31 @@ function singleNumber(nums: number[]): number {
 
   return result;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(singleNumber([2, 2, 1])); // 1
   console.log(singleNumber([4, 1, 2, 1, 2])); // 4
+
+  // Edge cases
+  assertEqual(singleNumber([5]), 5, 'single-element array');
+  assertEqual(singleNumber([-1, -1, -2]), -2, 'negative numbers');
+  assertEqual(singleNumber([0, 0, 7]), 7, 'zero as a paired value');
+  assertEqual(singleNumber([-30000, -30000, 30000]), 30000, 'singleton at upper bound');
+  assertEqual(
+    singleNumber([30000, -30000, 30000, -30000, -1]),
+    -1,
+    'both extremes paired, negative singleton'
+  );
 }
 
 export { singleNumber };

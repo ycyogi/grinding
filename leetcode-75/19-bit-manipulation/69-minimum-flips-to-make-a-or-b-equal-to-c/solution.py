@@ -33,7 +33,21 @@ class Solution:
         return flips
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.minFlips(2, 6, 5))  # 3
     print(sol.minFlips(4, 2, 7))  # 1
+
+    # Edge cases
+    assert_equal(sol.minFlips(0, 0, 0), 0, "all zero")
+    assert_equal(sol.minFlips(1, 1, 0), 2, "both bits set, target 0 (2 flips)")
+    assert_equal(sol.minFlips(1, 0, 0), 1, "one bit set, target 0")
+    assert_equal(sol.minFlips(0, 0, 8), 1, "c has a bit beyond a/b length")
+    assert_equal(sol.minFlips(8, 0, 0), 1, "a has a bit beyond b/c length")

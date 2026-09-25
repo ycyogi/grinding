@@ -59,3 +59,14 @@ linear instead of the `O(n^2)` brute force of testing every subarray.
   for `O(2n) = O(n)` total work. Brute force checking every subarray
   would be `O(n^2)`.
 - **Space:** `O(1)` — only a handful of counters/pointers are used.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `nums = [1,1,0,1,1,0,1], k = 0` | `2` | `k == 0`: no flips allowed, so the answer is just the longest natural run of 1's. |
+| `nums = [1,1,1,1], k = 0` | `4` | All-ones with `k == 0`: the window must still be able to grow to the full length without ever needing to shrink. |
+| `nums = [0,0,0,0,0], k = 2` | `2` | All-zeros: the window can only ever hold `k` zeros, so the answer is exactly `k`. |
+| `nums = [0], k = 0` | `0` | Minimum-size input, single zero, no flips allowed. |
+| `nums = [1], k = 0` | `1` | Minimum-size input, single one, no flips needed. |
+| `nums = [0,0,1,0], k = 4` | `4` | `k >= n`: every zero can be flipped, so the whole array is the answer. |

@@ -51,10 +51,32 @@ function maxLevelSum(root: TreeNode | null): number {
 
   return bestLevel;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   const root = new TreeNode(1, new TreeNode(7, new TreeNode(7), new TreeNode(-8)), new TreeNode(0));
   console.log(maxLevelSum(root)); // 2
+
+  // Edge cases
+  assertEqual(maxLevelSum(new TreeNode(5)), 1, "single node");
+
+  const allNegative = new TreeNode(-1, new TreeNode(-2), new TreeNode(-3));
+  assertEqual(maxLevelSum(allNegative), 1, "all negative values, level 1 sum is least negative");
+
+  const tie = new TreeNode(0, new TreeNode(0), new TreeNode(0));
+  assertEqual(maxLevelSum(tie), 1, "tie between levels resolves to smallest level");
+
+  const leftChain = new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4))));
+  assertEqual(maxLevelSum(leftChain), 4, "pure left chain, deepest level has largest sum");
 }
 
 export { maxLevelSum, TreeNode };

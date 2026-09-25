@@ -29,10 +29,31 @@ function equalPairs(grid: number[][]): number {
 
   return total;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(equalPairs([[3,2,1],[1,7,6],[2,7,7]])); // 1
   console.log(equalPairs([[3,1,2,2],[1,4,4,5],[2,4,2,2],[2,4,2,2]])); // 3
+
+  // Edge cases
+  assertEqual(equalPairs([[5]]), 1, 'minimum size, n == 1');
+  assertEqual(equalPairs([[1, 1], [1, 1]]), 4, 'every row equals every column');
+  assertEqual(equalPairs([[1, 2], [3, 4]]), 0, 'no matches');
+  assertEqual(
+    equalPairs([[1, 23], [12, 3]]),
+    0,
+    'adversarial against naive concatenation signatures'
+  );
+  assertEqual(equalPairs([[3, 3], [3, 3]]), 4, 'degenerate all-equal matrix');
 }
 
 export { equalPairs };

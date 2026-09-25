@@ -45,8 +45,31 @@ class Solution:
         return result
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.letterCombinations("23"))
     # ['ad', 'ae', 'af', 'bd', 'be', 'bf', 'cd', 'ce', 'cf']
     print(sol.letterCombinations(""))  # []
+
+    # Edge cases
+    # Order is deterministic (letters are iterated from a fixed string), so
+    # exact list equality is valid here -- no sorting needed.
+    assert_equal(sol.letterCombinations(""), [], 'empty digits returns [], not [""]')
+    assert_equal(sol.letterCombinations("2"), ["a", "b", "c"], "single digit, 3 letters")
+    assert_equal(
+        sol.letterCombinations("7"),
+        ["p", "q", "r", "s"],
+        "single digit, 4 letters (max branching)",
+    )
+    assert_equal(
+        sol.letterCombinations("23"),
+        ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"],
+        "two digits, full 3x3 combination set",
+    )

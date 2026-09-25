@@ -34,8 +34,22 @@ class Solution:
         return "Radiant" if radiant else "Dire"
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.predictPartyVictory("RD"))   # Radiant
     print(sol.predictPartyVictory("RDD"))  # Dire
     print(sol.predictPartyVictory("DDRRR"))  # Dire
+
+    # Edge cases
+    assert_equal(sol.predictPartyVictory("R"), "Radiant", "n=1 single Radiant senator")
+    assert_equal(sol.predictPartyVictory("D"), "Dire", "n=1 single Dire senator")
+    assert_equal(sol.predictPartyVictory("RRRR"), "Radiant", "all one party (Radiant)")
+    assert_equal(sol.predictPartyVictory("DR"), "Dire", "reversed order of RD example")
+    assert_equal(sol.predictPartyVictory("RDRD"), "Radiant", "alternating pattern across two rounds")

@@ -32,10 +32,67 @@ function findCircleNum(isConnected: number[][]): number {
 
   return provinces;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(findCircleNum([[1,1,0],[1,1,0],[0,0,1]])); // 2
   console.log(findCircleNum([[1,0,0],[0,1,0],[0,0,1]])); // 3
+
+  // Edge cases
+  assertEqual(findCircleNum([[1]]), 1, "n=1, single city");
+
+  assertEqual(
+    findCircleNum([
+      [1, 0, 0, 0],
+      [0, 1, 0, 0],
+      [0, 0, 1, 0],
+      [0, 0, 0, 1],
+    ]),
+    4,
+    "identity matrix, all isolated"
+  );
+
+  assertEqual(
+    findCircleNum([
+      [1, 1, 1],
+      [1, 1, 1],
+      [1, 1, 1],
+    ]),
+    1,
+    "fully connected"
+  );
+
+  assertEqual(
+    findCircleNum([
+      [1, 1, 0, 0],
+      [1, 1, 1, 0],
+      [0, 1, 1, 1],
+      [0, 0, 1, 1],
+    ]),
+    1,
+    "transitive chain, endpoints not directly connected"
+  );
+
+  assertEqual(
+    findCircleNum([
+      [1, 1, 1, 0, 0],
+      [1, 1, 1, 0, 0],
+      [1, 1, 1, 0, 0],
+      [0, 0, 0, 1, 1],
+      [0, 0, 0, 1, 1],
+    ]),
+    2,
+    "two components of uneven size"
+  );
 }
 
 export { findCircleNum };

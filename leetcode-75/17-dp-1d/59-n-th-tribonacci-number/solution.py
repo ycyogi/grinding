@@ -24,7 +24,21 @@ class Solution:
         return c
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.tribonacci(4))  # 4
     print(sol.tribonacci(25))  # 1389537
+
+    # Edge cases
+    assert_equal(sol.tribonacci(0), 0, "n=0 base case (T0)")
+    assert_equal(sol.tribonacci(1), 1, "n=1 base case (T1)")
+    assert_equal(sol.tribonacci(2), 1, "n=2 base case (T2)")
+    assert_equal(sol.tribonacci(3), 2, "n=3, first value computed via the loop")
+    assert_equal(sol.tribonacci(37), 2082876103, "n=37, max n per constraints")

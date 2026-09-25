@@ -43,6 +43,15 @@ Build the result in a list/array and join at the end rather than
 concatenating strings in a loop, since repeated string concatenation is
 O(n) per operation in most languages and would make the whole loop O(n²).
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `word1="a", word2="b"` | `"ab"` | Minimum length (1) on both sides. |
+| `word1="a", word2="bcde"` | `"abcde"` | `word1` exhausted almost immediately; rest of `word2` must be appended in order. |
+| `word1="abcd", word2="e"` | `"aebcd"` | `word2` exhausted almost immediately; rest of `word1` must be appended in order. |
+| `word1="aaa", word2="bbb"` | `"ababab"` | Equal lengths, no leftover tail on either side. |
+
 ## Complexity
 
 - **Time:** `O(m + n)` — every character of both strings is visited once.

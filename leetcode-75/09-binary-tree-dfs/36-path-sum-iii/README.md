@@ -78,3 +78,12 @@ array "subarray sum equals K" problem, adapted to a tree:
 - **Space:** `O(n)` for the hash map in the worst case (a skewed tree
   where every node has a distinct prefix sum), plus `O(h)` for the
   recursion stack.
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| Chain `1 -> -1 -> 1` (all left children), `targetSum = 0` | `2` | Negative node values; two overlapping paths sum to `0` (`(1,-1)` and `(-1,1)`), testing the prefix-sum map handles negatives correctly. |
+| Single node `0`, `targetSum = 0` | `1` | `targetSum = 0` with a zero-valued node — the trivial one-node path itself must count. |
+| Root `100` with a detached chain `A(2) -> B(3)` off the root's left, `targetSum = 5` | `1` | The only valid path (`A -> B`) does **not** start at the root — checks the algorithm doesn't implicitly assume root-anchored paths. |
+| Tree `0` with left child `0` and right child `0`, `targetSum = 0` | `5` | Symmetric zero-sum subtrees on both sides — verifies the backtracking step removes a node's prefix-sum contribution before moving to its sibling, so counts don't leak across branches. |

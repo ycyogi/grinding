@@ -24,7 +24,21 @@ class Solution:
         return max_altitude
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.largestAltitude([-5, 1, 5, 0, -7]))  # 1
     print(sol.largestAltitude([-4, -3, -2, -1, 4, 3, 2]))  # 0
+
+    # Edge cases
+    assert_equal(sol.largestAltitude([-1]), 0, "single negative gain")
+    assert_equal(sol.largestAltitude([5]), 5, "single positive gain")
+    assert_equal(sol.largestAltitude([-1, -1, -1]), 0, "monotonically decreasing")
+    assert_equal(sol.largestAltitude([1, 2, 3]), 6, "monotonically increasing")
+    assert_equal(sol.largestAltitude([100, -100, 100]), 100, "boundary gain values")

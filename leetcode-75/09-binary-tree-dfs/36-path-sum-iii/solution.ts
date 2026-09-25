@@ -46,12 +46,40 @@ function pathSum(root: TreeNode | null, targetSum: number): number {
 
   return total;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   const tree = new TreeNode(10,
     new TreeNode(5, new TreeNode(3, new TreeNode(3), new TreeNode(-2)), new TreeNode(2, null, new TreeNode(1))),
     new TreeNode(-3, null, new TreeNode(11)));
   console.log(pathSum(tree, 8)); // 3
+
+  // Edge cases
+  // Chain 1 -> -1 -> 1 (all left children), targetSum = 0.
+  // Paths summing to 0: (1,-1) and (-1,1) -> 2.
+  const negativeChain = new TreeNode(1, new TreeNode(-1, new TreeNode(1)));
+  assertEqual(pathSum(negativeChain, 0), 2, 'negative values, targetSum=0');
+
+  assertEqual(pathSum(new TreeNode(0), 0), 1, 'single zero-valued node, targetSum=0');
+
+  // Root 100 (irrelevant) with a detached chain A(2) -> B(3) off its left.
+  // Only A->B sums to 5; no root-anchored path does.
+  const offRootChain = new TreeNode(100, new TreeNode(2, new TreeNode(3)));
+  assertEqual(pathSum(offRootChain, 5), 1, 'valid path does not start at the root');
+
+  // Symmetric zero tree: root 0, left child 0, right child 0, targetSum = 0.
+  // 5 valid downward paths: [root], [root,left], [root,right], [left], [right].
+  const symmetricZeroTree = new TreeNode(0, new TreeNode(0), new TreeNode(0));
+  assertEqual(pathSum(symmetricZeroTree, 0), 5, 'symmetric zero-sum subtrees, no leakage across siblings');
 }
 
 export { pathSum, TreeNode };

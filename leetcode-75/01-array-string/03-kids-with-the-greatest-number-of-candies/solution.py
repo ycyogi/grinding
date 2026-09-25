@@ -18,7 +18,21 @@ class Solution:
         return [c + extraCandies >= max_candies for c in candies]
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.kidsWithCandies([2, 3, 5, 1, 3], 3))  # [True, True, True, False, True]
     print(sol.kidsWithCandies([4, 2, 1, 1, 2], 1))  # [True, False, False, False, False]
+
+    # Edge cases
+    assert_equal(sol.kidsWithCandies([1, 1], 1), [True, True], "min n=2, all equal")
+    assert_equal(sol.kidsWithCandies([5, 5, 5, 5], 1), [True, True, True, True], "all equal above min")
+    assert_equal(sol.kidsWithCandies([1, 100], 50), [False, True], "extra insufficient to close gap")
+    assert_equal(sol.kidsWithCandies([100, 1], 1), [True, False], "min extraCandies=1")
+    assert_equal(sol.kidsWithCandies([100, 100], 50), [True, True], "max constraint values")

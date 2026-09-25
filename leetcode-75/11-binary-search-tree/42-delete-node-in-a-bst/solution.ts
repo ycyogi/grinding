@@ -47,11 +47,60 @@ function deleteNode(root: TreeNode | null, key: number): TreeNode | null {
 
   return root;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   const root = new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7)));
   console.log(deleteNode(root, 3)); // tree with 3 removed, BST property preserved
   console.log(deleteNode(root, 0)); // unchanged, key not present
+
+  // Edge cases
+  assertEqual(deleteNode(null, 5), null, "empty tree");
+
+  assertEqual(deleteNode(new TreeNode(5), 5), null, "delete the only node in a single-node tree");
+
+  const onlyLeftChild = new TreeNode(5, new TreeNode(3, new TreeNode(2)), new TreeNode(8));
+  assertEqual(
+    deleteNode(onlyLeftChild, 3),
+    new TreeNode(5, new TreeNode(2), new TreeNode(8)),
+    "target has only a left child"
+  );
+
+  const onlyRightChild = new TreeNode(5, new TreeNode(2), new TreeNode(8, null, new TreeNode(9)));
+  assertEqual(
+    deleteNode(onlyRightChild, 8),
+    new TreeNode(5, new TreeNode(2), new TreeNode(9)),
+    "target has only a right child"
+  );
+
+  const notPresent = new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7)));
+  const notPresentExpected = new TreeNode(5, new TreeNode(3, new TreeNode(2), new TreeNode(4)), new TreeNode(6, null, new TreeNode(7)));
+  assertEqual(deleteNode(notPresent, 100), notPresentExpected, "key not present, tree unchanged");
+
+  const deleteRootTwoChildren = new TreeNode(
+    5,
+    new TreeNode(3, new TreeNode(2), new TreeNode(4)),
+    new TreeNode(6, null, new TreeNode(7))
+  );
+  const expectedAfterRootDelete = new TreeNode(
+    6,
+    new TreeNode(3, new TreeNode(2), new TreeNode(4)),
+    new TreeNode(7)
+  );
+  assertEqual(
+    deleteNode(deleteRootTwoChildren, 5),
+    expectedAfterRootDelete,
+    "delete the root itself when it has two children"
+  );
 }
 
 export { deleteNode, TreeNode };

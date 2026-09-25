@@ -30,8 +30,28 @@ class Solution:
         return sorted(count1.values()) == sorted(count2.values())
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.closeStrings("abc", "bca"))  # True
     print(sol.closeStrings("cabbba", "abbccc"))  # True
     print(sol.closeStrings("cabbba", "aabbss"))  # False
+
+    # Edge cases
+    assert_equal(sol.closeStrings("abc", "aab"), False, "different character sets")
+    assert_equal(
+        sol.closeStrings("aaaa", "bbbb"),
+        False,
+        "single distinct char each, but different chars",
+    )
+    assert_equal(sol.closeStrings("a", "a"), True, "length-1, identical")
+    assert_equal(sol.closeStrings("a", "b"), False, "length-1, different chars")
+    assert_equal(
+        sol.closeStrings("aabbcc", "abcabc"), True, "same char set, permuted"
+    )

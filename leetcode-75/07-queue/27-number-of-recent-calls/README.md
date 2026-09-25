@@ -75,3 +75,13 @@ been confirmed to be in range.
 - **Space:** `O(n)` in the worst case, for the timestamps currently stored
   in the window (at most all `n` calls if they're all within 3000ms of
   each other).
+
+## Edge Cases
+
+| Calls | Expected returns | Why it matters |
+| --- | --- | --- |
+| `ping(1)` | `1` | Single call — smallest possible input (`t >= 1`). |
+| `ping(1)`, `ping(3001)` | `1`, `2` | Window is inclusive: `3001 - 3000 = 1`, so the first call stays in range — tests the boundary isn't off-by-one exclusive. |
+| `ping(1)`, `ping(3002)` | `1`, `1` | `3002 - 3000 = 2 > 1`, so the first call now falls strictly outside `[2, 3002]` and must be popped. |
+| `ping(1)`, `ping(5000)`, `ping(10000)` | `1`, `1`, `1` | Every call is more than 3000ms after the previous one, so the queue never holds more than the latest call. |
+| `ping(1)`, `ping(2)`, `ping(3)` | `1`, `2`, `3` | All calls tightly clustered — nothing ever expires, queue only grows. |

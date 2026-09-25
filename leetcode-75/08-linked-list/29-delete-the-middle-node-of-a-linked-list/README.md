@@ -68,3 +68,12 @@ also works but takes two passes instead of one.
   constant, visiting most nodes twice).
 - **Space:** `O(1)` — only a couple of pointers are used, no extra data
   structures.
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| `[1]` | `[]` | Single node — the whole list is "the middle," classic off-by-one trap for fast/slow setup. |
+| `[1,2]` | `[1]` | Two nodes — middle index `⌊2/2⌋ = 1`, tests `fast = head.next.next` landing exactly at `null`. |
+| `[1,2,3]` | `[1,3]` | Three nodes — middle index `⌊3/2⌋ = 1`; the classic case where fast/slow offset errors show up. |
+| `[1,2,3,4,5]` | `[1,2,4,5]` | Odd length `> 3` — confirms the pattern generalizes past the smallest cases. |

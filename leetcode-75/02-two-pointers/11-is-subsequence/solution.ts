@@ -20,11 +20,29 @@ function isSubsequence(s: string, t: string): boolean {
 
   return i === s.length;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(isSubsequence('abc', 'ahbgdc')); // true
   console.log(isSubsequence('axc', 'ahbgdc')); // false
   console.log(isSubsequence('', 'ahbgdc'));     // true
+
+  // Edge cases
+  assertEqual(isSubsequence('', ''), true, 'both empty');
+  assertEqual(isSubsequence('a', ''), false, 'non-empty s, empty t');
+  assertEqual(isSubsequence('abc', 'abc'), true, 's equals t exactly');
+  assertEqual(isSubsequence('abcd', 'abc'), false, 's longer than t');
+  assertEqual(isSubsequence('aaa', 'aaaa'), true, 'repeated char, enough occurrences');
+  assertEqual(isSubsequence('aaa', 'aa'), false, 'repeated char, one short');
 }
 
 export { isSubsequence };

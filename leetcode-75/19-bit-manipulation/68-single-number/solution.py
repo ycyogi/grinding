@@ -23,7 +23,27 @@ class Solution:
         return result
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.singleNumber([2, 2, 1]))  # 1
     print(sol.singleNumber([4, 1, 2, 1, 2]))  # 4
+
+    # Edge cases
+    assert_equal(sol.singleNumber([5]), 5, "single-element array")
+    assert_equal(sol.singleNumber([-1, -1, -2]), -2, "negative numbers")
+    assert_equal(sol.singleNumber([0, 0, 7]), 7, "zero as a paired value")
+    assert_equal(
+        sol.singleNumber([-30000, -30000, 30000]), 30000, "singleton at upper bound"
+    )
+    assert_equal(
+        sol.singleNumber([30000, -30000, 30000, -30000, -1]),
+        -1,
+        "both extremes paired, negative singleton",
+    )

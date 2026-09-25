@@ -67,3 +67,13 @@ false matches like row `[1, 23]` colliding with row `[12, 3]`.
   pairwise comparison.
 - **Space:** `O(n^2)` — the frequency map can store up to `n` distinct
   row signatures, each of length up to `n`.
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `grid = [[5]]` | `1` | Minimum size (`n == 1`): the single row trivially equals the single column. |
+| `grid = [[1,1],[1,1]]` | `4` | Every row equals every column: all `2 x 2 = 4` combinations are valid pairs. |
+| `grid = [[1,2],[3,4]]` | `0` | No row matches any column at all. |
+| `grid = [[1,23],[12,3]]` | `0` | Adversarial against naive string-concatenation signatures: `[1,23]` and `[12,3]` would collide without a separator (both become `"123"`), but they are not equal sequences. |
+| `grid = [[3,3],[3,3]]` | `4` | Degenerate matrix where every cell is identical, same as the all-equal case but exercising a single repeated value. |

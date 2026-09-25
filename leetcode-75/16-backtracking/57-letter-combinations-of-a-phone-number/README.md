@@ -79,3 +79,12 @@ No pruning is needed here since every path of full length is valid — the
   approach when you must enumerate every combination.
 - **Space:** `O(n)` for the recursion depth and the `path` buffer,
   excluding the output (the output itself is `O(4^n * n)`).
+
+## Edge Cases
+
+| Input (`digits`) | Expected | Why it matters |
+| --- | --- | --- |
+| `""` | `[]` | Empty digits — must return an empty array, **not** `[""]`; the empty-input short-circuit is the whole point of this edge case. |
+| `"2"` | `["a","b","c"]` | Single digit with 3 letters — checks the base case fires after depth 1 with no extra/missing combinations. |
+| `"7"` | `["p","q","r","s"]` | Single digit with 4 letters (max branching factor) — smallest input that exercises the widest fan-out. |
+| `"23"` | `["ad","ae","af","bd","be","bf","cd","ce","cf"]` | Already covered by the original example; order is deterministic here since letters are iterated from a fixed string, not a set. |

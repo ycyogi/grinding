@@ -56,3 +56,13 @@ shift.
 - **Time:** `O(log(max(a, b, c)))` — a constant number of bit positions
   (~30 for the given constraints) are examined once each.
 - **Space:** `O(1)` — only a running counter and shifting integers.
+
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `a=0, b=0, c=0` | `0` | Below the stated `>= 1` floor, but the loop condition (`a>0 \|\| b>0 \|\| c>0`) must still terminate cleanly with no cost. |
+| `a=1, b=1, c=0` | `2` | Both `a` and `b` have a `1` at the same position where `c` wants `0` — both bits must be flipped (the "2 flips on one position" case). |
+| `a=1, b=0, c=0` | `1` | Only one of the two bits is set where `c` wants `0`. |
+| `a=0, b=0, c=8` | `1` | `c` has a set bit beyond `a` and `b`'s bit length — the loop must keep running (and counting) after `a`/`b` reach `0`. |
+| `a=8, b=0, c=0` | `1` | `a` has a set bit beyond `b`/`c`'s bit length — the loop must keep running after `b`/`c` reach `0`. |

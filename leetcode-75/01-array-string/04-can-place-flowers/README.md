@@ -54,6 +54,17 @@ wastes a potential slot without ever helping a later plot, since a `1` at
 `i` only forbids planting at `i-1` and `i+1`, and skipping `i` doesn't
 loosen any other future constraint.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `flowerbed=[1,0,1,0,1], n=0` | `True` | Bed already full at every possible spot, but `n=0` needs nothing planted. |
+| `flowerbed=[0], n=1` | `True` | Single-element bed, empty — both "neighbors" are off the edge. |
+| `flowerbed=[1], n=1` | `False` | Single-element bed, already occupied — nothing can be planted. |
+| `flowerbed=[1,0,0,1], n=1` | `False` | A gap of exactly 2 empty plots between two flowers is one short of the 3 needed for an interior planting. |
+| `flowerbed=[0,0], n=2` | `False` | Two adjacent empty plots can only ever fit one flower (planting either blocks the other). |
+| `flowerbed=[0,0,0], n=2` | `True` | Three empty plots fit exactly at both ends (indices 0 and 2), the maximum possible for this length. |
+
 ## Complexity
 
 - **Time:** `O(m)` — a single pass over the flowerbed, `m = flowerbed.length`.

@@ -82,6 +82,16 @@ the same product.
      disconnected parts of the graph).
 3. Collect the answer for every query, in order, into the result array.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `equations = [["a","b"],["b","c"]]`, `values = [2.0,3.0]`, `queries = [["a","f"]]` (`f` never appears in any equation) | `[-1.0]` | A query variable entirely absent from the graph must short-circuit to `-1.0` without attempting a DFS. |
+| same graph, `queries = [["b","b"]]` (`c == d`, and the variable *does* exist) | `[1.0]` | Any quantity divided by itself is `1.0` — but only once we know the variable is a real node in the graph. |
+| same graph, `queries = [["z","z"]]` (`c == d`, but the variable does *not* exist) | `[-1.0]` | Per LeetCode's own rule, an unknown variable stays `-1.0` even when queried against itself — the "does it exist" check must run *before* the "are they equal" shortcut, not after. |
+| `equations = [["a","b"],["c","d"]]`, `values = [2.0,3.0]`, `queries = [["a","c"]]` (two disconnected components; both variables exist, but no path connects them) | `[-1.0]` | The DFS must exhaust the reachable component from `a` (just `{a,b}`) without finding `c`, and correctly report "no path" rather than crashing or defaulting to some other value. |
+| same first graph, `queries = [["c","a"]]` (reverse of a 2-hop chain: `c/a = 1/(a/b * b/c) = 1/6`) | `[0.16667]` (rounded) | Chained multiplication through inverse edge weights; checks floating-point accumulation and the graph's implicit inverse edges, not just the forward direction shown in the examples. |
+
 ## Complexity
 
 - **Time:** `O(Q * (V + E))` where `Q` is the number of queries, `V` is

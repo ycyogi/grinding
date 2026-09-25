@@ -72,3 +72,11 @@ Let `L` be the length of the word/prefix involved in a call.
 - **Space:** `O(N * L)` in the worst case across all inserted words
   (`N` words of average length `L`), for the trie nodes created; each
   operation itself uses `O(1)` extra space beyond traversal.
+
+## Edge Cases
+
+| Scenario | Calls → Expected | Why it matters |
+|---|---|---|
+| Fresh trie, nothing inserted | `startsWith("")` → `true`; `search("")` → `false`; `search("cat")` → `false` | Empty prefix reaches the root in zero steps, so `startsWith("")` is always `true` even with no words stored; `search("cat")` proves a never-inserted word correctly returns `false`. |
+| `insert("app")`, `insert("apple")` | `search("app")` → `true`; `search("appl")` → `false`; `startsWith("appl")` → `true`; `search("apple")` → `true` | A word that is also a *prefix* of another inserted word must still `search` as `true` (its own `isEnd` flag), while an incomplete partial path (`"appl"`) is only a prefix, not a stored word. |
+| `insert("a")` (single character, minimum length) | `search("a")` → `true`; `search("ab")` → `false`; `startsWith("a")` → `true`; `startsWith("b")` → `false` | Minimum-length word from the constraint floor; also confirms an unrelated single-character prefix fails cleanly. |

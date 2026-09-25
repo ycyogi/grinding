@@ -32,7 +32,20 @@ class Solution:
         return best
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]))  # 49
     print(sol.maxArea([1, 1]))                        # 1
+
+    # Edge cases
+    assert_equal(sol.maxArea([5, 2]), 2, "min length n=2, distinct heights")
+    assert_equal(sol.maxArea([4, 4, 4, 4]), 12, "all-equal heights, widest pair wins")
+    assert_equal(sol.maxArea([0, 0, 0]), 0, "all-zero heights")
+    assert_equal(sol.maxArea([1, 2, 3, 4, 5]), 6, "strictly increasing, optimal pair not the endpoints")

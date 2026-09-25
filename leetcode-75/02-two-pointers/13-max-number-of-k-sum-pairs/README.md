@@ -66,6 +66,20 @@ avoiding the sort — either is considered optimal; the two-pointer version
 is used here to keep the technique consistent with this section's
 pattern.)
 
+## Edge Cases
+
+Note: the constraints state `1 <= k <= 10^9`, so `k = 0` is outside the
+valid input space. The edge case that actually probes "no pairs match"
+is a valid `k` for which no pair sums to it, which is exercised below.
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `nums=[1,2,3], k=100` | `0` | No pair sums to `k` at all (a valid `k`, but unreachably large for this array). |
+| `nums=[4,4,4,4], k=8` | `2` | All elements identical — every element should still end up paired. |
+| `nums=[3,3,3], k=6` | `1` | Odd count (3) of a matching value — one element is necessarily left over unpaired. |
+| `nums=[1,4], k=5` | `1` | Minimal length-2 array that does match. |
+| `nums=[1,2], k=5` | `0` | Minimal length-2 array that does not match. |
+
 ## Complexity
 
 - **Time:** `O(n log n)` — dominated by the sort; the two-pointer scan

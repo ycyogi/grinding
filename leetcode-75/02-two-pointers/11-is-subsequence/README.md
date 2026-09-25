@@ -61,6 +61,17 @@ character — this turns each subsequence check into `O(|s| log |t|)`
 instead of `O(|t|)`, which is a big win when `t` is large and there are
 many queries.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `s="", t=""` | `True` | Both strings empty (constraints allow `t.length == 0` too). |
+| `s="a", t=""` | `False` | Non-empty `s` can never be a subsequence of an empty `t`. |
+| `s="abc", t="abc"` | `True` | `s` equal to `t` exactly. |
+| `s="abcd", t="abc"` | `False` | `s` longer than `t` — can never match, loop should terminate without full match. |
+| `s="aaa", t="aaaa"` | `True` | Repeated character, greedy matching with just enough occurrences. |
+| `s="aaa", t="aa"` | `False` | Repeated character with one occurrence short — greedy must not overcount matches. |
+
 ## Complexity
 
 - **Time:** `O(|t|)` — the two-pointer scan visits each character of `t`

@@ -63,6 +63,16 @@ node `0`.
 Either DFS (explicit stack or recursion) or BFS (queue) works equally
 well here since we only care about reachability, not shortest paths.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `rooms = [[]]` (`n = 1`, only room 0, no keys) | `true` | Degenerate size below the stated `n >= 2` minimum; room 0 is trivially "all rooms" and must not be mishandled by an off-by-one against `n`. |
+| `rooms = [[],[]]` (`n = 2`, room 0 has no keys at all) | `false` | Smallest possible disconnected case — the very first room yields nothing, so nothing beyond it is ever reachable. |
+| `rooms = [[1],[],[]]` (room 2's key is never handed out by any reachable room) | `false` | Matches the "unreachable room" scenario from the constraints/approach note directly — room 2 sits with no incoming key anywhere in the reachable set. |
+| `rooms = [[1],[0,2],[0]]` (a cycle: room 1 hands back a key to room 0) | `true` | Keys can point back to already-visited rooms; the `visited` check must prevent infinite looping on a cycle while still finding room 2. |
+| `rooms = [[0,1],[]]` (room 0 contains a key to itself, alongside a real key) | `true` | A self-referencing key must be a harmless no-op (room 0 is already visited), not a source of duplicate work or an incorrect early return. |
+
 ## Complexity
 
 - **Time:** `O(n + e)` where `n` is the number of rooms and `e` is the

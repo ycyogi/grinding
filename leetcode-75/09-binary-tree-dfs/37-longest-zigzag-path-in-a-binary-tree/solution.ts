@@ -44,10 +44,33 @@ function longestZigZag(root: TreeNode | null): number {
 
   return maxLen;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   const tree = new TreeNode(1, new TreeNode(1, null, new TreeNode(1, new TreeNode(1, null, new TreeNode(1)), new TreeNode(1))), new TreeNode(1));
   console.log(longestZigZag(tree)); // 4
+
+  // Edge cases
+  assertEqual(longestZigZag(new TreeNode(1)), 0, 'single node');
+  assertEqual(longestZigZag(new TreeNode(1, new TreeNode(2))), 1, 'root with only a left child');
+  assertEqual(longestZigZag(new TreeNode(1, null, new TreeNode(2))), 1, 'root with only a right child');
+
+  // Pure 5-node zigzag chain: root -right-> n1 -left-> n2 -right-> n3 -left-> n4
+  const n4 = new TreeNode(5);
+  const n3 = new TreeNode(4, n4);
+  const n2 = new TreeNode(3, null, n3);
+  const n1 = new TreeNode(2, n2);
+  const zigzagChain = new TreeNode(1, null, n1);
+  assertEqual(longestZigZag(zigzagChain), 4, '5-node pure zigzag chain');
 }
 
 export { longestZigZag, TreeNode };

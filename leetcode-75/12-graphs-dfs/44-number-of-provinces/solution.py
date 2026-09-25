@@ -33,7 +33,69 @@ class Solution:
         return provinces
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.findCircleNum([[1, 1, 0], [1, 1, 0], [0, 0, 1]]))  # 2
     print(sol.findCircleNum([[1, 0, 0], [0, 1, 0], [0, 0, 1]]))  # 3
+
+    # Edge cases
+    assert_equal(sol.findCircleNum([[1]]), 1, "n=1, single city")
+
+    assert_equal(
+        sol.findCircleNum(
+            [
+                [1, 0, 0, 0],
+                [0, 1, 0, 0],
+                [0, 0, 1, 0],
+                [0, 0, 0, 1],
+            ]
+        ),
+        4,
+        "identity matrix, all isolated",
+    )
+
+    assert_equal(
+        sol.findCircleNum(
+            [
+                [1, 1, 1],
+                [1, 1, 1],
+                [1, 1, 1],
+            ]
+        ),
+        1,
+        "fully connected",
+    )
+
+    assert_equal(
+        sol.findCircleNum(
+            [
+                [1, 1, 0, 0],
+                [1, 1, 1, 0],
+                [0, 1, 1, 1],
+                [0, 0, 1, 1],
+            ]
+        ),
+        1,
+        "transitive chain, endpoints not directly connected",
+    )
+
+    assert_equal(
+        sol.findCircleNum(
+            [
+                [1, 1, 1, 0, 0],
+                [1, 1, 1, 0, 0],
+                [1, 1, 1, 0, 0],
+                [0, 0, 0, 1, 1],
+                [0, 0, 0, 1, 1],
+            ]
+        ),
+        2,
+        "two components of uneven size",
+    )

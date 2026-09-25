@@ -23,7 +23,46 @@ class Solution:
         return [list(set1 - set2), list(set2 - set1)]
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
+def _normalize(result):
+    """Sort each inner list so order-independent output can be compared."""
+    return [sorted(part) for part in result]
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.findDifference([1, 2, 3], [2, 4, 6]))  # [[1, 3], [4, 6]]
     print(sol.findDifference([1, 2, 3, 3], [1, 1, 2, 2]))  # [[3], []]
+
+    # Edge cases
+    assert_equal(
+        _normalize(sol.findDifference([1, 2, 3], [1, 2, 3])),
+        [[], []],
+        "identical arrays",
+    )
+    assert_equal(
+        _normalize(sol.findDifference([1, 2], [3, 4])),
+        [[1, 2], [3, 4]],
+        "completely disjoint arrays",
+    )
+    assert_equal(
+        _normalize(sol.findDifference([5, 5, 5], [5, 5])),
+        [[], []],
+        "duplicates-only input",
+    )
+    assert_equal(
+        _normalize(sol.findDifference([1, 2, 3, 4], [2, 3])),
+        [[1, 4], []],
+        "one array is a subset of the other",
+    )
+    assert_equal(
+        _normalize(sol.findDifference([-1, -2, -3], [-2, -4])),
+        [[-3, -1], [-4]],
+        "negative numbers",
+    )

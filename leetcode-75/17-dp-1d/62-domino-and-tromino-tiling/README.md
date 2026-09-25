@@ -109,3 +109,13 @@ Algorithm:
   placement would be exponential.
 - **Space:** `O(1)` — three rolling variables instead of an `O(n)` table
   for `full`/`partial`.
+
+## Edge Cases
+
+| Input (`n`) | Expected | Why it matters |
+| --- | --- | --- |
+| `1` | `1` | First base case — only a single vertical domino fits. |
+| `2` | `2` | Second base case — two vertical dominoes or two horizontal dominoes; no tromino fits without overhang. |
+| `3` | `5` | First value computed via the general recurrence (`i=3`): `full[3] = 2*full[2] + full[0] = 2*2 + 1 = 5`, matching the known tiling sequence. |
+| `4` | `11` | Confirms the recurrence continues correctly past the first loop iteration: `full[4] = 2*5 + 1 = 11`. |
+| `5` | `24` | One more step out: `full[5] = 2*11 + 2 = 24` — matches the known sequence `1,2,5,11,24,...`. |

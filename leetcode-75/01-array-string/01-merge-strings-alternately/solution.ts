@@ -21,11 +21,27 @@ function mergeAlternately(word1: string, word2: string): string {
 
   return result.join('');
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(mergeAlternately('abc', 'pqr')); // "apbqcr"
   console.log(mergeAlternately('ab', 'pqrs')); // "apbqrs"
   console.log(mergeAlternately('abcd', 'pq')); // "apbqcd"
+
+  // Edge cases
+  assertEqual(mergeAlternately('a', 'b'), 'ab', 'min length both sides');
+  assertEqual(mergeAlternately('a', 'bcde'), 'abcde', 'word1 exhausted immediately');
+  assertEqual(mergeAlternately('abcd', 'e'), 'aebcd', 'word2 exhausted immediately');
+  assertEqual(mergeAlternately('aaa', 'bbb'), 'ababab', 'equal lengths, no leftover');
 }
 
 export { mergeAlternately };

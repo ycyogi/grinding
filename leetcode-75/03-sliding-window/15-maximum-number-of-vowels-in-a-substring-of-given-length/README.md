@@ -60,3 +60,13 @@ slide is `O(1)`, avoiding the `O(k)` rescan that a brute-force approach
   `O(n * k)`.
 - **Space:** `O(1)` — only a running counter and a max tracker are used
   (the vowel lookup set has constant size).
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `s = "aeiou", k = 5` | `5` | `k == s.length`: only one window exists (the whole string). |
+| `s = "bcdfg", k = 3` | `0` | No vowels at all; count must never go negative or misfire. |
+| `s = "aeiouaeiou", k = 4` | `4` | Every character is a vowel; the window count should saturate at `k`. |
+| `s = "a", k = 1` | `1` | Minimum-size input (`n == 1`), single vowel. |
+| `s = "xxaeioxx", k = 5` | `4` | Vowels clustered off-center; the max window must slide past the initial one to find the true best. |

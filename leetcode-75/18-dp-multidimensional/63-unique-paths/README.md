@@ -80,3 +80,12 @@ formulation above is the standard interview-expected approach.)
 - **Time:** `O(m * n)` — every cell of the grid is computed once.
 - **Space:** `O(n)` — one rolling row of size `n`, instead of the full
   `O(m * n)` 2D table.
+
+## Edge Cases
+
+| Input (`m`, `n`) | Expected | Why it matters |
+| --- | --- | --- |
+| `m=1, n=1` | `1` | Start and end are the same cell — trivially one path, and the outer loop (`i` from `1` to `m-1`) never runs. |
+| `m=1, n=5` | `1` | Single row — the robot can only move right, so there's exactly one path (the outer `i` loop never runs, only the base row of `1`s matters). |
+| `m=5, n=1` | `1` | Single column — the robot can only move down; the inner `j` loop never runs (`n-1 = 0`), so the row stays `[1]` the whole time. |
+| `m=3, n=7` | `28` | Already covered by the original example; kept here as the general-case anchor. |

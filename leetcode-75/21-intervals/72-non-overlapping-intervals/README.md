@@ -66,3 +66,13 @@ equivalent to minimizing the number we *remove* — remove count =
   scan afterward is `O(n)`.
 - **Space:** `O(log n)` to `O(n)` for the sort's internal stack/buffer
   (implementation dependent), `O(1)` extra otherwise.
+
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `[[1,5]]` | `0` | Minimum-size input (single interval); nothing to compare against. |
+| `[[1,2],[2,3],[3,4]]` | `0` | A chain of intervals that only touch at endpoints — confirms touching is *not* overlapping across multiple pairs, not just one. |
+| `[[1,2],[2,3]]` | `0` | The exact touching case named in the problem statement (`start == prevEnd` is kept, not removed). |
+| `[[5,7],[5,7],[5,7],[5,7]]` | `3` | All-equal intervals; only one can ever be kept, so 3 of 4 must go. |
+| `[[-5,-1],[-3,0],[-2,2]]` | `2` | Negative-coordinate boundary values; sorted by end, only the first-ending interval can be kept (both others start before it ends). |

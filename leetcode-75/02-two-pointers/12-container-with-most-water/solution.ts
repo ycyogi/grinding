@@ -29,10 +29,26 @@ function maxArea(height: number[]): number {
 
   return best;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])); // 49
   console.log(maxArea([1, 1]));                       // 1
+
+  // Edge cases
+  assertEqual(maxArea([5, 2]), 2, 'min length n=2, distinct heights');
+  assertEqual(maxArea([4, 4, 4, 4]), 12, 'all-equal heights, widest pair wins');
+  assertEqual(maxArea([0, 0, 0]), 0, 'all-zero heights');
+  assertEqual(maxArea([1, 2, 3, 4, 5]), 6, 'strictly increasing, optimal pair not the endpoints');
 }
 
 export { maxArea };

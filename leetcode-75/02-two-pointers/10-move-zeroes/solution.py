@@ -24,6 +24,13 @@ class Solution:
                 insert_pos += 1
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
 
@@ -34,3 +41,24 @@ if __name__ == "__main__":
     b = [0]
     sol.moveZeroes(b)
     print(b)  # [0]
+
+    # Edge cases
+    c = [5]
+    sol.moveZeroes(c)
+    assert_equal(c, [5], "single non-zero element")
+
+    d = [0, 0, 0]
+    sol.moveZeroes(d)
+    assert_equal(d, [0, 0, 0], "all zeros")
+
+    e = [1, 2, 3]
+    sol.moveZeroes(e)
+    assert_equal(e, [1, 2, 3], "already all non-zero")
+
+    f = [1, 2, 0, 0]
+    sol.moveZeroes(f)
+    assert_equal(f, [1, 2, 0, 0], "zeros already at the end")
+
+    g = [-1, 0, -2, 0, 3]
+    sol.moveZeroes(g)
+    assert_equal(g, [-1, -2, 3, 0, 0], "negative numbers not confused with zero")

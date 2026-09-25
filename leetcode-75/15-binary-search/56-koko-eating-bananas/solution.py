@@ -31,7 +31,28 @@ class Solution:
         return lo
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.minEatingSpeed([3, 6, 7, 11], 8))  # 4
     print(sol.minEatingSpeed([30, 11, 23, 4, 20], 5))  # 30
+
+    # Edge cases
+    assert_equal(sol.minEatingSpeed([5], 1), 5, "single pile, h=1")
+    assert_equal(
+        sol.minEatingSpeed([3, 6, 7, 11], 4),
+        11,
+        "h == piles.length, k must be max(piles)",
+    )
+    assert_equal(sol.minEatingSpeed([1], 1), 1, "minimum piles and h")
+    assert_equal(
+        sol.minEatingSpeed([1000000000], 1),
+        1000000000,
+        "single pile at max constraint value",
+    )

@@ -16,11 +16,28 @@ function reverseWords(s: string): string {
     .reverse()
     .join(' ');
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(reverseWords('the sky is blue'));   // "blue is sky the"
   console.log(reverseWords('  hello world  '));   // "world hello"
   console.log(reverseWords('a good   example'));  // "example good a"
+
+  // Edge cases
+  assertEqual(reverseWords('hello'), 'hello', 'single word, no spaces');
+  assertEqual(reverseWords('  hello  '), 'hello', 'single word with padding');
+  assertEqual(reverseWords('a   b   c   d'), 'd c b a', 'multiple words, multi-space runs');
+  assertEqual(reverseWords('abc123 def456'), 'def456 abc123', 'words containing digits');
+  assertEqual(reverseWords('  a  '), 'a', 'single-char word with padding');
 }
 
 export { reverseWords };

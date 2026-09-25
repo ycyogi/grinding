@@ -62,6 +62,16 @@ Python strings are immutable too, so the split/reverse/join approach
 above is the idiomatic and effectively optimal solution in both
 languages.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `s="hello"` | `"hello"` | Single word, no spaces at all — nothing to reverse or trim. |
+| `s="  hello  "` | `"hello"` | Single word buried in leading/trailing spaces. |
+| `s="a   b   c   d"` | `"d c b a"` | Several words separated by runs of multiple spaces. |
+| `s="abc123 def456"` | `"def456 abc123"` | Words containing digits, per the constraint that `s` may hold letters and digits. |
+| `s="  a  "` | `"a"` | Single-character word surrounded by padding. |
+
 ## Complexity
 
 - **Time:** `O(n)` — splitting, filtering, reversing, and joining are all

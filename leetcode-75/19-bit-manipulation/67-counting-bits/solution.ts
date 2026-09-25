@@ -17,10 +17,28 @@ function countBits(n: number): number[] {
 
   return ans;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(countBits(2)); // [0,1,1]
   console.log(countBits(5)); // [0,1,1,2,1,2]
+
+  // Edge cases
+  assertEqual(countBits(0), [0], 'n=0 minimum size');
+  assertEqual(countBits(1), [0, 1], 'n=1');
+  assertEqual(countBits(8), [0, 1, 1, 2, 1, 2, 2, 3, 1], 'n=8 powers of two have count 1');
+  const big = countBits(100000);
+  assertEqual(big.length, 100001, 'n=100000 output length');
+  assertEqual(big[100000], 6, 'n=100000 popcount of upper bound');
 }
 
 export { countBits };

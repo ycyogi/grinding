@@ -52,8 +52,21 @@ def to_list(head):
     return out
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(to_list(sol.reverseList(build_list([1, 2, 3, 4, 5]))))  # [5, 4, 3, 2, 1]
     print(to_list(sol.reverseList(build_list([1, 2]))))           # [2, 1]
     print(to_list(sol.reverseList(build_list([]))))               # []
+
+    # Edge cases
+    assert_equal(to_list(sol.reverseList(build_list([]))), [], "empty list stays empty")
+    assert_equal(to_list(sol.reverseList(build_list([1]))), [1], "single node unchanged")
+    assert_equal(to_list(sol.reverseList(build_list([-3, -2, -1]))), [-1, -2, -3], "negative values reversed")
+    assert_equal(to_list(sol.reverseList(build_list([4, 4, 4]))), [4, 4, 4], "all-equal values, node count preserved")

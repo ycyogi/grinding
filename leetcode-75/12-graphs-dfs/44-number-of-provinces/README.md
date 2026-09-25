@@ -68,6 +68,16 @@ column `j` where `isConnected[i][j] == 1` and `j` is unvisited, marks
 alternative: union every pair `(i, j)` with `isConnected[i][j] == 1`,
 then count the number of distinct roots.)
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `isConnected = [[1]]` (`n = 1`) | `1` | Smallest valid input; a single city is trivially its own (only) province. |
+| `isConnected = [[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]` (identity matrix, all isolated) | `4` | No off-diagonal edges at all — every city is its own province; confirms the loop doesn't undercount when DFS from each city does nothing. |
+| `isConnected = [[1,1,1],[1,1,1],[1,1,1]]` (fully connected) | `1` | Every city directly connected to every other; a single DFS from city 0 must mark the whole matrix visited. |
+| `isConnected = [[1,1,0,0],[1,1,1,0],[0,1,1,1],[0,0,1,1]]` (a 4-city chain: 0-1, 1-2, 2-3, with city 0 and city 3 *not* directly connected) | `1` | Provinces are transitive even when the matrix itself has no direct `1` between the endpoints — tests that DFS actually chains through intermediate cities rather than only looking at direct pairs. |
+| `isConnected = [[1,1,1,0,0],[1,1,1,0,0],[1,1,1,0,0],[0,0,0,1,1],[0,0,0,1,1]]` (two components of uneven size: 3 cities + 2 cities) | `2` | Multiple components of different sizes in one input — checks the outer loop correctly restarts DFS for the second group after finishing the first. |
+
 ## Complexity
 
 - **Time:** `O(n^2)` — we inspect every entry of the `n x n` matrix once

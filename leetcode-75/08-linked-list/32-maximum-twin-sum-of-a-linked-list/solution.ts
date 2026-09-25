@@ -65,10 +65,26 @@ function buildList(values: number[]): ListNode | null {
   return dummy.next;
 }
 
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(pairSum(buildList([5, 4, 2, 1]))); // 6
   console.log(pairSum(buildList([4, 2, 2, 3]))); // 7
+
+  // Edge cases
+  assertEqual(pairSum(buildList([7, 3])), 10, 'minimum valid input (n=2)');
+  assertEqual(pairSum(buildList([5, 100, 1, 5])), 101, 'max twin sum pair is the inner pair, not outermost');
+  assertEqual(pairSum(buildList([4, 4, 4, 4])), 8, 'all-equal values');
+  assertEqual(pairSum(buildList([1, 2, 3, 3, 2, 1])), 6, 'n=6, max pair is the middle pair');
 }
 
 export { pairSum, ListNode };

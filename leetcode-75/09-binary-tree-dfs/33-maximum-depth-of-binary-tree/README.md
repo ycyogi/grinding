@@ -66,3 +66,12 @@ concern for very unbalanced trees.
 - **Space:** `O(h)` for the recursion call stack, where `h` is the
   tree's height — `O(log n)` for a balanced tree, up to `O(n)` for a
   completely skewed tree.
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| `null` (empty tree) | `0` | Minimum size per constraints (`n` can be `0`) — base case must return `0`, not throw. |
+| `[1]` (single node) | `1` | A lone node has no children but still counts as depth `1`, not `0`. |
+| Left-skewed chain of 4 nodes | `4` | Fully unbalanced tree — checks the recursion accumulates correctly with no off-by-one. |
+| Right-skewed chain of 3 nodes | `3` | Mirror of the left-skewed case, confirms no left/right asymmetry bug. |

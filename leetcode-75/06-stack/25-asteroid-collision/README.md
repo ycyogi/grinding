@@ -74,3 +74,13 @@ left-mover would hit. That LIFO structure is exactly a stack.
   is linear (amortized analysis).
 - **Space:** `O(n)` — the stack holds up to `n` surviving asteroids in
   the worst case (e.g. all moving the same direction).
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `asteroids = [10,-4,-3,-2]` | `[10]` | Chain reaction: one large survivor destroys several incoming asteroids of decreasing size in sequence. |
+| `asteroids = [1,2,3]` | `[1,2,3]` | All moving right (same direction): nothing ever collides. |
+| `asteroids = [-1,-2,-3]` | `[-1,-2,-3]` | All moving left (same direction): nothing ever collides. |
+| `asteroids = [3,-3]` | `[]` | Equal-size collision: both asteroids explode, leaving nothing. |
+| `asteroids = [1,-2,3,-4]` | `[-2,-4]` | Mixed sequence: a right-mover is destroyed by a bigger left-mover, then a fresh right/left pair is added after — no residual state leaks between collisions. |

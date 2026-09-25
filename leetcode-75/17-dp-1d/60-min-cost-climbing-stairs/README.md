@@ -80,3 +80,12 @@ in two variables instead of a full array:
   1-step/2-step jumps without memoization.
 - **Space:** `O(1)` — two rolling variables instead of an `O(n)` `dp`
   array.
+
+## Edge Cases
+
+| Input (`cost`) | Expected | Why it matters |
+| --- | --- | --- |
+| `[0,0]` | `0` | Minimum length (`2`) with all-zero costs — checks the base cases alone (both free starts, one hop to the top) don't accidentally add a spurious cost. |
+| `[10,15]` | `10` | Minimum length, distinct costs — starting at index 0 and jumping straight to the top (`cost[0]=10`) beats starting at index 1 (`cost[1]=15`). |
+| `[5,5,5,5,5]` | `10` | All-equal costs — best path starts at index 1 (free) and takes two 2-step jumps (`5+5=10`); a naive "always start at 0" bug would give `15`. |
+| `[1,100,1,1,1,100,1,1,100,1]` | `6` | Already covered by the original example; kept here as the "typical case" anchor alongside the new boundary cases. |

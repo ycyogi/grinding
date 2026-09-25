@@ -44,10 +44,36 @@ function buildList(values: number[]): ListNode | null {
   return dummy.next;
 }
 
+function toArray(head: ListNode | null): number[] {
+  const out: number[] = [];
+  let curr = head;
+  while (curr !== null) {
+    out.push(curr.val);
+    curr = curr.next;
+  }
+  return out;
+}
+
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(deleteMiddle(buildList([1, 3, 4, 7, 1, 2, 6]))); // 1 -> 3 -> 4 -> 1 -> 2 -> 6
   console.log(deleteMiddle(buildList([1, 2, 3, 4])));          // 1 -> 2 -> 4
+
+  // Edge cases
+  assertEqual(toArray(deleteMiddle(buildList([1]))), [], 'single node becomes empty');
+  assertEqual(toArray(deleteMiddle(buildList([1, 2]))), [1], 'two nodes: delete index 1');
+  assertEqual(toArray(deleteMiddle(buildList([1, 2, 3]))), [1, 3], 'three nodes: classic fast/slow trap');
+  assertEqual(toArray(deleteMiddle(buildList([1, 2, 3, 4, 5]))), [1, 2, 4, 5], 'five nodes: delete index 2');
 }
 
 export { deleteMiddle, ListNode };

@@ -35,11 +35,32 @@ function closeStrings(word1: string, word2: string): boolean {
 
   return true;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(closeStrings('abc', 'bca')); // true
   console.log(closeStrings('cabbba', 'abbccc')); // true
   console.log(closeStrings('cabbba', 'aabbss')); // false
+
+  // Edge cases
+  assertEqual(closeStrings('abc', 'aab'), false, 'different character sets');
+  assertEqual(
+    closeStrings('aaaa', 'bbbb'),
+    false,
+    'single distinct char each, but different chars'
+  );
+  assertEqual(closeStrings('a', 'a'), true, 'length-1, identical');
+  assertEqual(closeStrings('a', 'b'), false, 'length-1, different chars');
+  assertEqual(closeStrings('aabbcc', 'abcabc'), true, 'same char set, permuted');
 }
 
 export { closeStrings };

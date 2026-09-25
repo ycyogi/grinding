@@ -38,9 +38,34 @@ class Solution:
         return leaves1 == leaves2
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     t1 = TreeNode(1, TreeNode(2), TreeNode(3))
     t2 = TreeNode(1, TreeNode(3), TreeNode(2))
     print(sol.leafSimilar(t1, t1))  # True (same tree)
     print(sol.leafSimilar(t1, t2))  # False
+
+    # Edge cases
+    assert_equal(sol.leafSimilar(TreeNode(5), TreeNode(5)), True, "single node, same value")
+    assert_equal(sol.leafSimilar(TreeNode(5), TreeNode(6)), False, "single node, different value")
+
+    # Different shapes, same leaf sequence [2, 3]:
+    shape_a = TreeNode(1, TreeNode(2), TreeNode(3))
+    shape_b = TreeNode(1, TreeNode(10, TreeNode(2)), TreeNode(3))
+    assert_equal(sol.leafSimilar(shape_a, shape_b), True, "different shapes, same leaf sequence")
+
+    assert_equal(
+        sol.leafSimilar(
+            TreeNode(5, TreeNode(6), TreeNode(7)),
+            TreeNode(5, TreeNode(7), TreeNode(6)),
+        ),
+        False,
+        "same values, mirrored leaf order",
+    )

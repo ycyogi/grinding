@@ -29,10 +29,27 @@ function numTilings(n: number): number {
 
   return c;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(numTilings(3)); // 5
   console.log(numTilings(1)); // 1
+
+  // Edge cases
+  assertEqual(numTilings(1), 1, 'n=1 base case');
+  assertEqual(numTilings(2), 2, 'n=2 base case');
+  assertEqual(numTilings(3), 5, 'n=3, first value via the general recurrence');
+  assertEqual(numTilings(4), 11, 'n=4, known tiling sequence');
+  assertEqual(numTilings(5), 24, 'n=5, known tiling sequence');
 }
 
 export { numTilings };

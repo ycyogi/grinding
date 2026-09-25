@@ -23,7 +23,20 @@ class Solution:
         return prev1
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.rob([1, 2, 3, 1]))  # 4
     print(sol.rob([2, 7, 9, 3, 1]))  # 12
+
+    # Edge cases
+    assert_equal(sol.rob([5]), 5, "single house, must rob it")
+    assert_equal(sol.rob([5, 10]), 10, "two houses, pick the max not the sum")
+    assert_equal(sol.rob([4, 4, 4, 4]), 8, "all houses equal, even count")
+    assert_equal(sol.rob([4, 4, 4]), 8, "all houses equal, odd count")

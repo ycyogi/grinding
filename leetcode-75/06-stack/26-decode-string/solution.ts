@@ -34,11 +34,36 @@ function decodeString(s: string): string {
 
   return currentString;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(decodeString('3[a]2[bc]')); // "aaabcbc"
   console.log(decodeString('3[a2[c]]')); // "accaccacc"
   console.log(decodeString('2[abc]3[cd]ef')); // "abcabccdcdcdef"
+
+  // Edge cases
+  assertEqual(decodeString('1[a]'), 'a', 'minimal repeat count k == 1');
+  assertEqual(decodeString('10[a]'), 'a'.repeat(10), 'multi-digit repeat count');
+  assertEqual(
+    decodeString('100[leetcode]'),
+    'leetcode'.repeat(100),
+    'large multi-digit repeat count, multi-char word'
+  );
+  assertEqual(decodeString('xyz'), 'xyz', 'no brackets at all');
+  assertEqual(
+    decodeString('2[ab3[cd]]'),
+    'abcdcdcdabcdcdcd',
+    'nested brackets with multi-digit inner count'
+  );
 }
 
 export { decodeString };

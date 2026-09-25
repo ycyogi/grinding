@@ -80,6 +80,17 @@ handle deletion based on how many children it has:
 This never touches nodes outside the search path plus the successor's
 path, which is what keeps it `O(h)` instead of a full tree scan.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `root = []`, `key = 5` (empty tree) | `null` | Constraint allows 0 nodes; must not dereference a null root. |
+| `root = [5]`, `key = 5` (delete the only node) | `null` | The "no children" case at the very root — result must become an empty tree, not a dangling reference. |
+| `root = [5,3,8]`, `key = 3` (target has only a left child: `3` has left `2`... see below) — concretely `root = [5,[3,[2]],8]`, `key = 3` | `[5,2,8]` | "One child" case: the child (`2`) must be spliced directly into the parent's slot. |
+| `root = [5,2,[8,null,9]]`, `key = 8` (target has only a right child, `9`) | `[5,2,9]` | "One child" case mirrored on the right side. |
+| `root = [5,3,6,2,4,null,7]`, `key = 100` (key not present anywhere) | `[5,3,6,2,4,null,7]` (unchanged) | Must search the full height without finding a match and return the tree structurally untouched. |
+| `root = [5,3,6,2,4,null,7]`, `key = 5` (delete the root itself, which has two children) | `[6,3,7,2,4]` (root value replaces with inorder successor `6`; `6`'s original right child `7` moves up) | Two-children deletion at the root: exercises both the successor-copy step and the recursive removal of the successor from the right subtree, at the trickiest position (root has no parent to repoint). |
+
 ## Complexity
 
 - **Time:** `O(h)` — `O(h)` to find the node, plus at most another

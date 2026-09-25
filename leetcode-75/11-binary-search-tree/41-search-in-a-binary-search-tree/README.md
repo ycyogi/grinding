@@ -56,6 +56,16 @@ This can be written iteratively (as above, `O(1)` extra space) or
 recursively (`O(h)` call stack space); the iterative version is
 preferred for BSTs since we never need to backtrack.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `root = [5]`, `val = 5` (single node, match) | `[5]` (the node itself, no children) | Smallest possible tree; root is both the match and the only node. |
+| `root = [5]`, `val = 3` (single node, no match) | `null` | Search must terminate immediately (one comparison) rather than looping. |
+| `root = [4,2,7,1,3]`, `val = 4` (match is the root itself) | the whole tree `[4,2,7,1,3]` | Loop must not require at least one "descend" step before checking equality. |
+| `root = [1,null,2,null,3,null,4]` (right-only chain), `val = 4` (deepest leaf) | `[4]` (leaf, no children) | Worst-case `O(h)` descent through a degenerate right-leaning tree; confirms the final leaf is returned, not `null`. |
+| `root = [4,2,7,1,3]`, `val = 6` (value falls in a "gap": between existing nodes, requires descending right then left before running off the tree) | `null` | Exercises both branch directions (`val > node.val` then `val < node.val`) before correctly falling off into a `null` child. |
+
 ## Complexity
 
 - **Time:** `O(h)` where `h` is the tree height — each step descends one

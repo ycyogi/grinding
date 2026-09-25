@@ -35,7 +35,25 @@ class Solution:
         return dp[m][n]
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.minDistance("horse", "ros"))  # 3
     print(sol.minDistance("intention", "execution"))  # 5
+
+    # Edge cases
+    assert_equal(sol.minDistance("", ""), 0, "both strings empty")
+    assert_equal(
+        sol.minDistance("", "abc"), 3, "word1 empty, distance = length of word2"
+    )
+    assert_equal(
+        sol.minDistance("abc", ""), 3, "word2 empty, distance = length of word1"
+    )
+    assert_equal(sol.minDistance("abc", "abc"), 0, "identical strings, no edits needed")
+    assert_equal(sol.minDistance("a", "b"), 1, "single-character mismatch, one replace")

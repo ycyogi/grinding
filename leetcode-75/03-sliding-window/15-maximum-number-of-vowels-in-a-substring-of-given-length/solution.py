@@ -28,7 +28,21 @@ class Solution:
         return max_count
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.maxVowels("abciiidef", 3))  # 3
     print(sol.maxVowels("leetcode", 3))  # 2
+
+    # Edge cases
+    assert_equal(sol.maxVowels("aeiou", 5), 5, "k == s.length")
+    assert_equal(sol.maxVowels("bcdfg", 3), 0, "no vowels at all")
+    assert_equal(sol.maxVowels("aeiouaeiou", 4), 4, "all vowels")
+    assert_equal(sol.maxVowels("a", 1), 1, "single-character vowel")
+    assert_equal(sol.maxVowels("xxaeioxx", 5), 4, "vowels clustered off-center")

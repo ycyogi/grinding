@@ -32,10 +32,27 @@ function maxOperations(nums: number[], k: number): number {
 
   return count;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(maxOperations([1, 2, 3, 4], 5));       // 2
   console.log(maxOperations([3, 1, 3, 4, 3], 6));     // 1
+
+  // Edge cases
+  assertEqual(maxOperations([1, 2, 3], 100), 0, 'no pair reaches k');
+  assertEqual(maxOperations([4, 4, 4, 4], 8), 2, 'all elements identical');
+  assertEqual(maxOperations([3, 3, 3], 6), 1, 'odd count of matching value');
+  assertEqual(maxOperations([1, 4], 5), 1, 'minimal length-2 array that matches');
+  assertEqual(maxOperations([1, 2], 5), 0, 'minimal length-2 array, no match');
 }
 
 export { maxOperations };

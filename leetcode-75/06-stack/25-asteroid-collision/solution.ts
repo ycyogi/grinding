@@ -40,11 +40,32 @@ function asteroidCollision(asteroids: number[]): number[] {
 
   return stack;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(asteroidCollision([5, 10, -5])); // [5, 10]
   console.log(asteroidCollision([8, -8])); // []
   console.log(asteroidCollision([10, 2, -5])); // [10]
+
+  // Edge cases
+  assertEqual(
+    asteroidCollision([10, -4, -3, -2]),
+    [10],
+    'chain reaction, decreasing incoming sizes'
+  );
+  assertEqual(asteroidCollision([1, 2, 3]), [1, 2, 3], 'all moving right');
+  assertEqual(asteroidCollision([-1, -2, -3]), [-1, -2, -3], 'all moving left');
+  assertEqual(asteroidCollision([3, -3]), [], 'equal-size collision');
+  assertEqual(asteroidCollision([1, -2, 3, -4]), [-2, -4], 'mixed sequence');
 }
 
 export { asteroidCollision };

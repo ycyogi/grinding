@@ -31,10 +31,27 @@ function reverseVowels(s: string): string {
 
   return chars.join('');
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(reverseVowels('IceCreAm')); // "AceCreIm"
   console.log(reverseVowels('leetcode')); // "leotcede"
+
+  // Edge cases
+  assertEqual(reverseVowels('grrl'), 'grrl', 'no vowels at all');
+  assertEqual(reverseVowels('aeiou'), 'uoiea', 'all vowels, full reversal');
+  assertEqual(reverseVowels('a'), 'a', 'single-character string');
+  assertEqual(reverseVowels('AEIOUaeiou'), 'uoieaUOIEA', 'mixed-case vowels');
+  assertEqual(reverseVowels('xyzaxyz'), 'xyzaxyz', 'single vowel in the middle');
 }
 
 export { reverseVowels };

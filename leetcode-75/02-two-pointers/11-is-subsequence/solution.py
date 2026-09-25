@@ -23,8 +23,23 @@ class Solution:
         return i == n
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.isSubsequence("abc", "ahbgdc"))  # True
     print(sol.isSubsequence("axc", "ahbgdc"))  # False
     print(sol.isSubsequence("", "ahbgdc"))     # True
+
+    # Edge cases
+    assert_equal(sol.isSubsequence("", ""), True, "both empty")
+    assert_equal(sol.isSubsequence("a", ""), False, "non-empty s, empty t")
+    assert_equal(sol.isSubsequence("abc", "abc"), True, "s equals t exactly")
+    assert_equal(sol.isSubsequence("abcd", "abc"), False, "s longer than t")
+    assert_equal(sol.isSubsequence("aaa", "aaaa"), True, "repeated char, enough occurrences")
+    assert_equal(sol.isSubsequence("aaa", "aa"), False, "repeated char, one short")

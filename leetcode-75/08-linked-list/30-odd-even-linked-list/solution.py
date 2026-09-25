@@ -59,7 +59,32 @@ def to_list(head):
     return out
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
+def to_list_guarded(head, limit=10000):
+    """Like to_list, but bounded so an accidental cycle can't hang the run."""
+    out = []
+    curr = head
+    steps = 0
+    while curr is not None and steps < limit:
+        out.append(curr.val)
+        curr = curr.next
+        steps += 1
+    return out
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(to_list(sol.oddEvenList(build_list([1, 2, 3, 4, 5]))))        # [1, 3, 5, 2, 4]
     print(to_list(sol.oddEvenList(build_list([2, 1, 3, 5, 6, 4, 7]))))  # [2, 3, 6, 7, 1, 5, 4]
+
+    # Edge cases
+    assert_equal(to_list_guarded(sol.oddEvenList(build_list([]))), [], "empty list stays empty")
+    assert_equal(to_list_guarded(sol.oddEvenList(build_list([1]))), [1], "single node unchanged")
+    assert_equal(to_list_guarded(sol.oddEvenList(build_list([1, 2]))), [1, 2], "two nodes unchanged, no cycle")
+    assert_equal(to_list_guarded(sol.oddEvenList(build_list([1, 2, 3]))), [1, 3, 2], "three nodes: odd/even splice terminates cleanly")

@@ -27,10 +27,27 @@ function maxVowels(s: string, k: number): number {
 
   return maxCount;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(maxVowels('abciiidef', 3)); // 3
   console.log(maxVowels('leetcode', 3)); // 2
+
+  // Edge cases
+  assertEqual(maxVowels('aeiou', 5), 5, 'k == s.length');
+  assertEqual(maxVowels('bcdfg', 3), 0, 'no vowels at all');
+  assertEqual(maxVowels('aeiouaeiou', 4), 4, 'all vowels');
+  assertEqual(maxVowels('a', 1), 1, 'single-character vowel');
+  assertEqual(maxVowels('xxaeioxx', 5), 4, 'vowels clustered off-center');
 }
 
 export { maxVowels };

@@ -71,3 +71,15 @@ Tracing `"leet**cod*e"`: push `l,e,e,t` -> stack `[l,e,e,t]`; `*` pops
   so the whole string is processed in a single linear pass.
 - **Space:** `O(n)` — the stack holds up to `n` characters in the worst
   case (a string with no stars).
+
+## Edge Cases
+
+| Input | Expected | Why it matters |
+| --- | --- | --- |
+| `s = "abc***"` | `""` | Consecutive stars remove multiple characters in a row (each pops the previous survivor). |
+| `s = "a*"` | `""` | Minimal single-character-then-star case. |
+| `s = "abcdef"` | `"abcdef"` | No stars at all: the string passes through unchanged. |
+| `s = "ab*cd*"` | `"ac"` | Stars scattered non-adjacently, each removing a different, non-adjacent character. |
+| `s = "ab*"` | `"a"` | Two-character prefix with a trailing star removing only the closest character. |
+
+Note: the constraints guarantee "the operation above can be performed on `s`" — i.e. a star is never encountered with an empty stack (no star at the very start of a valid input), so that case is intentionally not exercised here.

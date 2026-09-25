@@ -30,7 +30,21 @@ class Solution:
         return len(visited) == n
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.canVisitAllRooms([[1], [2], [3], []]))  # True
     print(sol.canVisitAllRooms([[1, 3], [3, 0, 1], [2], [0]]))  # False
+
+    # Edge cases
+    assert_equal(sol.canVisitAllRooms([[]]), True, "n=1, only room 0")
+    assert_equal(sol.canVisitAllRooms([[], []]), False, "room 0 has no keys, room 1 unreachable")
+    assert_equal(sol.canVisitAllRooms([[1], [], []]), False, "room 2's key never handed out")
+    assert_equal(sol.canVisitAllRooms([[1], [0, 2], [0]]), True, "cycle back to room 0 doesn't break traversal")
+    assert_equal(sol.canVisitAllRooms([[0, 1], []]), True, "self-referencing key is a harmless no-op")

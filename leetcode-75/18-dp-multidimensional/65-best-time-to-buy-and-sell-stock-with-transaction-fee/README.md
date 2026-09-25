@@ -93,3 +93,13 @@ in two scalar variables instead of two arrays:
   once per day.
 - **Space:** `O(1)` — two rolling variables (`cash`, `hold`) instead of
   two `O(n)` arrays.
+
+## Edge Cases
+
+| Input (`prices`, `fee`) | Expected | Why it matters |
+| --- | --- | --- |
+| `[5]`, `fee=0` | `0` | Single day — no transaction is even possible, so profit must stay `0` (the answer must come from `cash`, never `hold`). |
+| `[10,5]`, `fee=0` | `0` | Price only drops — buying and selling would lose money, so the optimal choice is to never trade. |
+| `[1,3]`, `fee=5` | `0` | Raw profit (`2`) is smaller than the fee (`5`) — must recognize the trade isn't worth it, not force a loss. |
+| `[1,5]`, `fee=0` | `4` | Minimum fee boundary (`fee=0`) — profit should equal the full price difference with nothing subtracted. |
+| `[3,3,3,3]`, `fee=1` | `0` | Flat prices with a positive fee — every possible trade nets zero or negative, so no transaction should ever be taken. |

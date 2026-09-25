@@ -31,6 +31,20 @@ class Solution:
         return node
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
+def _serialize(node):
+    """Turn a TreeNode subtree into a plain nested tuple for comparison."""
+    if node is None:
+        return None
+    return (node.val, _serialize(node.left), _serialize(node.right))
+
+
 if __name__ == "__main__":
     sol = Solution()
     root = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7))
@@ -40,3 +54,17 @@ if __name__ == "__main__":
 
     not_found = sol.searchBST(root, 5)
     print(not_found)  # None
+
+    # Edge cases
+    assert_equal(_serialize(sol.searchBST(TreeNode(5), 5)), (5, None, None), "single node, match")
+    assert_equal(_serialize(sol.searchBST(TreeNode(5), 3)), None, "single node, no match")
+    assert_equal(_serialize(sol.searchBST(root, 4)), _serialize(root), "match is the root itself")
+
+    right_chain = TreeNode(1, None, TreeNode(2, None, TreeNode(3, None, TreeNode(4))))
+    assert_equal(_serialize(sol.searchBST(right_chain, 4)), (4, None, None), "deepest leaf of a right-only chain")
+
+    assert_equal(
+        _serialize(sol.searchBST(root, 6)),
+        None,
+        "value falls in a gap, descends right then left before running off",
+    )

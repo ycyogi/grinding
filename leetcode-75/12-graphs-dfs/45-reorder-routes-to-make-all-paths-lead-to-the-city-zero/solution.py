@@ -40,7 +40,29 @@ class Solution:
         return changes
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.minReorder(6, [[0, 1], [1, 3], [2, 3], [4, 0], [4, 5]]))  # 3
     print(sol.minReorder(5, [[1, 0], [1, 2], [3, 2], [3, 4]]))  # 2
+
+    # Edge cases
+    assert_equal(sol.minReorder(1, []), 0, "n=1, no edges")
+    assert_equal(sol.minReorder(2, [[1, 0]]), 0, "n=2, single edge already toward city 0")
+    assert_equal(sol.minReorder(2, [[0, 1]]), 1, "n=2, single edge points away from city 0")
+    assert_equal(
+        sol.minReorder(5, [[1, 0], [2, 0], [3, 0], [4, 0]]),
+        0,
+        "star graph, every edge already points toward 0",
+    )
+    assert_equal(
+        sol.minReorder(5, [[0, 1], [0, 2], [0, 3], [0, 4]]),
+        4,
+        "star graph, every edge points away from 0",
+    )

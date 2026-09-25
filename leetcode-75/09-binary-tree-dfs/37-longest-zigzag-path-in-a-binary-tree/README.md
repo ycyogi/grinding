@@ -91,3 +91,12 @@ post-order DFS where each call reports both values up to its parent:
 - **Time:** `O(n)` — every node is visited exactly once.
 - **Space:** `O(h)` for the recursion stack, where `h` is the tree's
   height (`O(log n)` balanced, `O(n)` worst-case skewed).
+
+## Edge Cases
+
+| Input | Expected output | Why it matters |
+| --- | --- | --- |
+| Single node `[1]` | `0` | Minimum size (`n = 1`) — no moves possible, must return `0`, not `-1` (checks the `-1` base-case sentinel doesn't leak into the final answer). |
+| Root with only a left child | `1` | Smallest non-trivial path — one move, exercises the `left`/`right` length computation independently. |
+| Root with only a right child | `1` | Mirror of the above, checks no left/right asymmetry bug. |
+| 5-node pure zigzag chain (right, left, right, left) | `4` | A path that alternates direction at every step end-to-end — the true worst case the "zigzag" pattern is meant to detect. |

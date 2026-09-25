@@ -57,6 +57,16 @@ product during a left-to-right pass, then do a right-to-left pass
 multiplying in the suffix product using a single running variable instead
 of a separate `suffix` array.
 
+## Edge Cases
+
+| Input | Expected | Why it matters |
+|---|---|---|
+| `nums=[1,2,0,4]` | `[0,0,8,0]` | Exactly one zero — only the zero's own index gets a non-zero answer. |
+| `nums=[0,2,0,4]` | `[0,0,0,0]` | Two zeros — every answer is forced to zero, since excluding one index leaves the other zero in the product. |
+| `nums=[-1,-2,3]` | `[-6,-3,2]` | Negative numbers — sign must be handled correctly through both passes. |
+| `nums=[3,5]` | `[5,3]` | Minimum length `n=2`. |
+| `nums=[2,2,2,2]` | `[8,8,8,8]` | All-equal elements. |
+
 ## Complexity
 
 - **Time:** `O(n)` — two linear passes over `nums` (one left-to-right,
