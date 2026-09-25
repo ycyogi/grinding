@@ -51,7 +51,21 @@ class Solution:
         return total
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.totalCost([17, 12, 10, 2, 7, 2, 11, 20, 8], 3, 4))  # 11
     print(sol.totalCost([1, 2, 4, 1], 3, 3))  # 4
+
+    # Edge cases
+    assert_equal(sol.totalCost([1, 3, 5, 7, 9], 2, 3), 4, "candidates > n/2, windows overlap")
+    assert_equal(sol.totalCost([1, 3, 5, 7, 9], 5, 2), 25, "k=costs.length, hire everyone")
+    assert_equal(sol.totalCost([4, 2], 1, 2), 2, "candidates==costs.length, full overlap on round 1")
+    assert_equal(sol.totalCost([2, 5, 5, 2], 2, 1), 4, "tie in cost between front and back, index tie-break")
+    assert_equal(sol.totalCost([7], 1, 1), 7, "single worker array")

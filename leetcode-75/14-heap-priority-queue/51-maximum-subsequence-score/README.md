@@ -73,6 +73,16 @@ minimum of any subset drawn from what's been processed so far.
      everything currently in the heap). Update the running maximum.
 4. Return the maximum score found.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `nums1 = [1,2,3]`, `nums2 = [3,2,1]`, `k = 3` (`k == n`, must select every index) | `6` | With `k == n` there's no real "subset" choice — sum is forced to `1+2+3=6` and the min is forced to `1`; checks the heap never evicts anything when it can't exceed size `k`. |
+| `nums1 = [5,2,9]`, `nums2 = [1,10,2]`, `k = 1` (single index, score is just `nums1[i] * nums2[i]`) | `20` (from index 1: `2 * 10`) | With `k=1` the "sum" collapses to a single element, so the problem reduces to maximizing a pairwise product directly — a different code path than multi-element windows. |
+| `nums1 = [3,1,2]`, `nums2 = [5,5,5]`, `k = 2` (all `nums2` values tied) | `25` (pick the two largest `nums1` values, `3+2=5`, times min `5`) | Ties in the sort key: since the minimum is the same no matter which indices are chosen, the algorithm must still correctly pick the `k` largest `nums1` values among the tied group. |
+| `nums1 = [0,0,0]`, `nums2 = [3,1,2]`, `k = 2` (all `nums1` values are `0`) | `0` | Sum is always `0` regardless of which 2 indices are picked — guards against any code path that assumes a positive sum. |
+| `nums1 = [10,10]`, `nums2 = [0,5]`, `k = 2` (`nums2` includes the boundary value `0`) | `0` | `0` is a valid `nums2` value per the constraints; when it's forced into the selection (`k == n` here) the whole score collapses to `0` even though the `nums1` sum is large — checks no special-casing accidentally skips a `0` minimum. |
+
 ## Complexity
 
 - **Time:** `O(n log n)` — dominated by the initial sort; the heap

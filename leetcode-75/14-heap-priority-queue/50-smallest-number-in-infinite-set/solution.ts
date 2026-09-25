@@ -89,6 +89,16 @@ class SmallestInfiniteSet {
     }
   }
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   const s = new SmallestInfiniteSet();
@@ -98,6 +108,50 @@ if (require.main === module) {
   console.log(s.popSmallest()); // 3
   s.addBack(1);
   console.log(s.popSmallest()); // 1
+
+  // Edge cases
+  const s1 = new SmallestInfiniteSet();
+  assertEqual(
+    [s1.popSmallest(), s1.popSmallest(), s1.popSmallest()],
+    [1, 2, 3],
+    "no addBack, sequential pops return 1,2,3"
+  );
+
+  const s2 = new SmallestInfiniteSet();
+  s2.addBack(5); // never popped yet, must be a no-op
+  assertEqual(
+    [s2.popSmallest(), s2.popSmallest(), s2.popSmallest(), s2.popSmallest(), s2.popSmallest()],
+    [1, 2, 3, 4, 5],
+    "addBack a number never yet popped is a no-op"
+  );
+
+  const s3 = new SmallestInfiniteSet();
+  s3.addBack(1); // num == next (1), still a no-op
+  assertEqual(s3.popSmallest(), 1, "addBack equal to current frontier is a no-op");
+
+  const s4 = new SmallestInfiniteSet();
+  s4.popSmallest();
+  s4.popSmallest();
+  s4.popSmallest(); // consumes 1, 2, 3; next = 4
+  s4.addBack(1);
+  s4.addBack(1); // duplicate, should not double-insert
+  assertEqual(
+    [s4.popSmallest(), s4.popSmallest()],
+    [1, 4],
+    "duplicate addBack of already-popped number only re-adds once"
+  );
+
+  const s5 = new SmallestInfiniteSet();
+  s5.popSmallest();
+  s5.popSmallest();
+  s5.popSmallest(); // consumes 1, 2, 3; next = 4
+  s5.addBack(2);
+  s5.addBack(1);
+  assertEqual(
+    [s5.popSmallest(), s5.popSmallest(), s5.popSmallest()],
+    [1, 2, 4],
+    "re-added numbers come out in ascending order, frontier resumes correctly"
+  );
 }
 
 export { SmallestInfiniteSet };

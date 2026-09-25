@@ -74,10 +74,27 @@ function findKthLargest(nums: number[], k: number): number {
 
   return heap.peek();
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(findKthLargest([3,2,1,5,6,4], 2)); // 5
   console.log(findKthLargest([3,2,3,1,2,4,5,5,6], 4)); // 4
+
+  // Edge cases
+  assertEqual(findKthLargest([3, 1, 2], 1), 3, "k=1, plain maximum");
+  assertEqual(findKthLargest([3, 1, 2], 3), 1, "k=nums.length, plain minimum");
+  assertEqual(findKthLargest([7], 1), 7, "single-element array");
+  assertEqual(findKthLargest([1, 1, 1, 1], 2), 1, "all values equal, duplicates counted");
+  assertEqual(findKthLargest([-1, -2, -3, -4], 2), -2, "all negative values");
 }
 
 export { findKthLargest, MinHeap };

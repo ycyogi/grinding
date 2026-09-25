@@ -74,6 +74,16 @@ order.
    - If `num >= next`, it was never popped, so it's already "in" the
      set implicitly — do nothing.
 
+## Edge Cases
+
+| Input (sequence of calls) | Expected Output | Why it matters |
+|---|---|---|
+| new instance, `popSmallest() x3` (no `addBack` at all) | `1, 2, 3` | Baseline: the frontier watermark alone must correctly generate the sequence with an always-empty heap. |
+| new instance, `addBack(5)`, then `popSmallest() x5` | `1, 2, 3, 4, 5` (5 is *not* duplicated) | `addBack` on a number that was never popped yet (`num >= next`) must be a silent no-op — it's already implicitly in the set. |
+| new instance, `addBack(1)` (called when `next` is still `1`), then `popSmallest()` | `1` | Boundary of the "already popped" check: `num == next` (not `num > next`) must also be treated as "not yet popped" and ignored, not pushed onto the heap. |
+| new instance, `popSmallest() x3` (consumes 1,2,3), then `addBack(1)` twice in a row, then `popSmallest() x2` | `1, 4` (not `1, 1`) | A duplicate `addBack` call for the same already-popped number must not insert it into the heap twice — the membership set must prevent a double-pop of the same value. |
+| new instance, `popSmallest() x3` (consumes 1,2,3, `next` becomes 4), then `addBack(2)`, `addBack(1)`, then `popSmallest() x3` | `1, 2, 4` | Re-added numbers must come out of the heap in ascending order regardless of insertion order, and the frontier must resume correctly at `4` afterward — `3` (never re-added) is correctly skipped forever. |
+
 ## Complexity
 
 - **Time:** `O(log m)` per `popSmallest` / `addBack` call, where `m` is

@@ -85,10 +85,27 @@ function maxScore(nums1: number[], nums2: number[], k: number): number {
 
   return best;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(maxScore([1,3,3,2], [2,1,3,4], 3)); // 12
   console.log(maxScore([4,2,3,1,1], [7,5,10,9,6], 1)); // 30
+
+  // Edge cases
+  assertEqual(maxScore([1, 2, 3], [3, 2, 1], 3), 6, "k=n, must select every index");
+  assertEqual(maxScore([5, 2, 9], [1, 10, 2], 1), 20, "k=1, reduces to max pairwise product");
+  assertEqual(maxScore([3, 1, 2], [5, 5, 5], 2), 25, "all nums2 values tied");
+  assertEqual(maxScore([0, 0, 0], [3, 1, 2], 2), 0, "all nums1 values are 0");
+  assertEqual(maxScore([10, 10], [0, 5], 2), 0, "nums2 includes the boundary value 0");
 }
 
 export { maxScore, MinHeap };

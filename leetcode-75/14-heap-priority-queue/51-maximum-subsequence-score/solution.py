@@ -37,7 +37,21 @@ class Solution:
         return best
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.maxScore([1, 3, 3, 2], [2, 1, 3, 4], 3))  # 12
     print(sol.maxScore([4, 2, 3, 1, 1], [7, 5, 10, 9, 6], 1))  # 30
+
+    # Edge cases
+    assert_equal(sol.maxScore([1, 2, 3], [3, 2, 1], 3), 6, "k=n, must select every index")
+    assert_equal(sol.maxScore([5, 2, 9], [1, 10, 2], 1), 20, "k=1, reduces to max pairwise product")
+    assert_equal(sol.maxScore([3, 1, 2], [5, 5, 5], 2), 25, "all nums2 values tied")
+    assert_equal(sol.maxScore([0, 0, 0], [3, 1, 2], 2), 0, "all nums1 values are 0")
+    assert_equal(sol.maxScore([10, 10], [0, 5], 2), 0, "nums2 includes the boundary value 0")

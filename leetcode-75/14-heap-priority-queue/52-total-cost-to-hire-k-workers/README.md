@@ -85,6 +85,16 @@ windows have met (so we don't double count any worker).
      `right`, for the right heap).
 4. Return the running total.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `costs = [1,3,5,7,9]`, `k = 2`, `candidates = 3` (`candidates > n/2`, so the front and back windows overlap) | `4` (hire cost `1`, then cost `3`) | The front/back windows cover overlapping indices from the very first round; the `left <= right` priming guard must stop the back window from re-pushing an index the front window already claimed, so no worker is double-counted. |
+| `costs = [1,3,5,7,9]`, `k = 5` (`k == costs.length`, hire every worker) | `25` (the sum of every cost) | When every worker must eventually be hired, the total is forced to equal `sum(costs)` regardless of tie-breaking order — checks both heaps correctly drain to empty and the loop never tries to pop from an empty heap. |
+| `costs = [4,2]`, `candidates = 2` (`candidates == costs.length`, both windows fully cover the array on the very first round), `k = 1` | `2` | Maximal window-overlap boundary: both heaps are primed with the entire array between them (2 elements total, not 4), and the single hire must correctly find the global minimum. |
+| `costs = [2,5,5,2]`, `candidates = 1` (minimum allowed), `k = 2` (tie in cost between the front and back workers on round 1) | `4` (hire cost `2` at index 0, then cost `2` at index 3) | Exercises the tie-break rule directly: when the front window's cheapest and the back window's cheapest are equal, the smaller-index (front) worker must be chosen first. |
+| `costs = [7]`, `candidates = 1`, `k = 1` (smallest possible array, single worker) | `7` | Degenerate size: the back window ends up empty entirely (there's nothing left after the front window claims the only worker), so the algorithm must hire correctly using only the front heap. |
+
 ## Complexity
 
 - **Time:** `O(n + k log(candidates))` — priming the heaps takes

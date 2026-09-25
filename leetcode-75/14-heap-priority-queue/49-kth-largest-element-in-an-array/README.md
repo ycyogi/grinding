@@ -59,6 +59,16 @@ that must contain the answer, but it has `O(n^2)` worst case without
 randomization/median-of-medians safeguards. The heap approach is more
 predictable and is the standard choice for this problem category.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `nums = [3,1,2]`, `k = 1` | `3` | `k=1` is the minimum allowed and asks for the plain maximum — the heap should end up holding just that one element. |
+| `nums = [3,1,2]`, `k = 3` (`k == nums.length`) | `1` | `k` at its maximum possible value asks for the minimum of the whole array — the heap ends up holding *every* element. |
+| `nums = [7]`, `k = 1` (single-element array) | `7` | Smallest valid array size combined with the smallest `k`; only one possible answer exists. |
+| `nums = [1,1,1,1]`, `k = 2` (all values equal) | `1` | "Kth largest" counts duplicates as distinct positions in sorted order, not distinct values — must not collapse duplicates via a set-like structure. |
+| `nums = [-1,-2,-3,-4]`, `k = 2` (all negative, boundary-adjacent values) | `-2` | Confirms comparisons aren't implicitly assuming non-negative numbers (e.g. via `??`/falsy-zero bugs) — sorted descending is `[-1,-2,-3,-4]`, so the 2nd largest is `-2`. |
+
 ## Complexity
 
 - **Time:** `O(n log k)` — each of the `n` insertions/evictions on a

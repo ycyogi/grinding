@@ -107,10 +107,27 @@ function totalCost(costs: number[], k: number, candidates: number): number {
 
   return total;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(totalCost([17,12,10,2,7,2,11,20,8], 3, 4)); // 11
   console.log(totalCost([1,2,4,1], 3, 3)); // 4
+
+  // Edge cases
+  assertEqual(totalCost([1, 3, 5, 7, 9], 2, 3), 4, "candidates > n/2, windows overlap");
+  assertEqual(totalCost([1, 3, 5, 7, 9], 5, 2), 25, "k=costs.length, hire everyone");
+  assertEqual(totalCost([4, 2], 1, 2), 2, "candidates==costs.length, full overlap on round 1");
+  assertEqual(totalCost([2, 5, 5, 2], 2, 1), 4, "tie in cost between front and back, index tie-break");
+  assertEqual(totalCost([7], 1, 1), 7, "single worker array");
 }
 
 export { totalCost, MinHeap };
