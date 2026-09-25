@@ -54,10 +54,50 @@ function nearestExit(maze: string[][], entrance: number[]): number {
 
   return -1;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(nearestExit([["+","+",".","+"],[".",".",".","+"],["+","+","+","."]], [1,2])); // 1
   console.log(nearestExit([["+","+","+"],[".",".","."],["+","+","+"]], [1,0])); // 2
+
+  // Edge cases
+  assertEqual(nearestExit([["."]], [0, 0]), -1, "single-cell maze, entrance is the only cell");
+
+  assertEqual(
+    nearestExit([["+", "+", "+"], ["+", ".", "+"], ["+", "+", "+"]], [1, 1]),
+    -1,
+    "entrance boxed in on all 4 sides"
+  );
+
+  assertEqual(
+    nearestExit(
+      [
+        ["+", "+", "+", "+", "+"],
+        ["+", ".", ".", ".", "+"],
+        ["+", ".", "+", ".", "+"],
+        ["+", ".", ".", ".", "+"],
+        ["+", "+", "+", "+", "+"],
+      ],
+      [1, 1]
+    ),
+    -1,
+    "fully enclosed inner room, no path to the outer border"
+  );
+
+  assertEqual(
+    nearestExit([[".", ".", ".", ".", "."]], [0, 0]),
+    1,
+    "single-row maze, entrance is itself on the border but excluded"
+  );
 }
 
 export { nearestExit };

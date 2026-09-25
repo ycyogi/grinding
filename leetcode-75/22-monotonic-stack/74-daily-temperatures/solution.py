@@ -28,9 +28,33 @@ class Solution:
         return answer
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]))
     # [1, 1, 4, 2, 1, 1, 0, 0]
     print(sol.dailyTemperatures([30, 40, 50, 60]))
     # [1, 1, 1, 0]
+
+    # Edge cases
+    assert_equal(
+        sol.dailyTemperatures([100, 90, 80, 70]), [0, 0, 0, 0], "strictly decreasing"
+    )
+    assert_equal(
+        sol.dailyTemperatures([30, 40, 50, 60, 70]),
+        [1, 1, 1, 1, 0],
+        "strictly increasing",
+    )
+    assert_equal(sol.dailyTemperatures([50]), [0], "single element")
+    assert_equal(
+        sol.dailyTemperatures([70, 70, 70, 70]), [0, 0, 0, 0], "all equal temperatures"
+    )
+    assert_equal(
+        sol.dailyTemperatures([70, 70, 75]), [2, 1, 0], "plateau then rise"
+    )

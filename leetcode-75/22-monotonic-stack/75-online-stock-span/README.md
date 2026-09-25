@@ -79,3 +79,13 @@ collapse them into one entry.
   Brute force would be `O(n)` per call, `O(n²)` overall.
 - **Space:** `O(n)` for the stack in the worst case (e.g. strictly
   decreasing prices, where every call pushes without ever popping).
+
+## Edge Cases
+
+| `next(price)` calls | Expected spans | Why it matters |
+|---|---|---|
+| `10, 20, 30, 40` | `1, 2, 3, 4` | Strictly increasing prices — every call absorbs everything pushed so far, so spans grow by exactly one each time. |
+| `40, 30, 20, 10` | `1, 1, 1, 1` | Strictly decreasing prices — nothing is ever absorbed, so every span stays `1`. |
+| `50, 50, 50` | `1, 2, 3` | All-equal prices — the pop condition is `<=`, so an equal price *is* absorbed, not just a strictly smaller one. |
+| `100` (single call, fresh spanner) | `1` | Minimum case: the very first call always returns `1`. |
+| `50, 30, 50` | `1, 1, 3` | Down then back up to match the earlier price exactly — the third call must pop through *two* stack levels (the `30` entry, then the `50` entry) in one call. |

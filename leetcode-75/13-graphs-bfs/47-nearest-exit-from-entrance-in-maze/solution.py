@@ -51,6 +51,13 @@ class Solution:
         return -1
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(
@@ -59,3 +66,33 @@ if __name__ == "__main__":
         )
     )  # 1
     print(sol.nearestExit([["+", "+", "+"], [".", ".", "."], ["+", "+", "+"]], [1, 0]))  # 2
+
+    # Edge cases
+    assert_equal(sol.nearestExit([["."]], [0, 0]), -1, "single-cell maze, entrance is the only cell")
+
+    assert_equal(
+        sol.nearestExit([["+", "+", "+"], ["+", ".", "+"], ["+", "+", "+"]], [1, 1]),
+        -1,
+        "entrance boxed in on all 4 sides",
+    )
+
+    assert_equal(
+        sol.nearestExit(
+            [
+                ["+", "+", "+", "+", "+"],
+                ["+", ".", ".", ".", "+"],
+                ["+", ".", "+", ".", "+"],
+                ["+", ".", ".", ".", "+"],
+                ["+", "+", "+", "+", "+"],
+            ],
+            [1, 1],
+        ),
+        -1,
+        "fully enclosed inner room, no path to the outer border",
+    )
+
+    assert_equal(
+        sol.nearestExit([[".", ".", ".", ".", "."]], [0, 0]),
+        1,
+        "single-row maze, entrance is itself on the border but excluded",
+    )

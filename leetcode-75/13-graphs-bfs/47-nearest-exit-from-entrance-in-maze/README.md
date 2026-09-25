@@ -81,6 +81,15 @@ we reach any cell is via the shortest path to it (since all moves cost
        + 1)`.
 3. If the queue empties out without finding a border cell, return `-1`.
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `maze = [["."]]`, `entrance = [0,0]` (single-cell maze) | `-1` | The one cell is the entrance itself; it's technically on the border but explicitly excluded, and there is no other cell to move to — must not miscount the entrance as its own exit. |
+| `maze = [["+","+","+"],["+",".","+"],["+","+","+"]]`, `entrance = [1,1]` (entrance boxed in on all 4 sides) | `-1` | BFS from the entrance finds zero valid neighbors and the queue empties immediately — must not crash or default to `0`. |
+| `maze = [["+","+","+","+","+"],["+",".",".",".","+"],["+",".","+",".","+"],["+",".",".",".","+"],["+","+","+","+","+"]]`, `entrance = [1,1]` (a fully walled-off inner room with a pillar; 8 reachable cells, none touch the outer border) | `-1` | Exits exist nowhere in this maze, but plenty of interior cells *are* reachable — checks that exhausting a non-trivial reachable region still correctly falls through to `-1`, rather than only handling the "zero moves possible" case. |
+| `maze = [[".",".",".",".","."]]`, `entrance = [0,0]` (single row, `m = 1`, so every cell satisfies the "first row / last row" border rule) | `1` | Degenerate grid shape where the entrance is *also* technically on the border; the adjacent cell `[0,1]` must be recognized as a genuine exit at distance 1, while the entrance itself is still correctly excluded from being its own exit. |
+
 ## Complexity
 
 - **Time:** `O(m * n)` — each cell is enqueued and processed at most

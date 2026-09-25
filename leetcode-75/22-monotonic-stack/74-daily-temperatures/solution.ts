@@ -24,10 +24,35 @@ function dailyTemperatures(temperatures: number[]): number[] {
 
   return answer;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(dailyTemperatures([73,74,75,71,69,72,76,73])); // [1,1,4,2,1,1,0,0]
   console.log(dailyTemperatures([30,40,50,60])); // [1,1,1,0]
+
+  // Edge cases
+  assertEqual(dailyTemperatures([100, 90, 80, 70]), [0, 0, 0, 0], 'strictly decreasing');
+  assertEqual(
+    dailyTemperatures([30, 40, 50, 60, 70]),
+    [1, 1, 1, 1, 0],
+    'strictly increasing'
+  );
+  assertEqual(dailyTemperatures([50]), [0], 'single element');
+  assertEqual(
+    dailyTemperatures([70, 70, 70, 70]),
+    [0, 0, 0, 0],
+    'all equal temperatures'
+  );
+  assertEqual(dailyTemperatures([70, 70, 75]), [2, 1, 0], 'plateau then rise');
 }
 
 export { dailyTemperatures };

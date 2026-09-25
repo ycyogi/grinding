@@ -45,6 +45,13 @@ class Solution:
         return self.max_len
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     tree = TreeNode(
@@ -53,3 +60,16 @@ if __name__ == "__main__":
         TreeNode(1),
     )
     print(sol.longestZigZag(tree))  # 4
+
+    # Edge cases
+    assert_equal(sol.longestZigZag(TreeNode(1)), 0, "single node")
+    assert_equal(sol.longestZigZag(TreeNode(1, TreeNode(2))), 1, "root with only a left child")
+    assert_equal(sol.longestZigZag(TreeNode(1, None, TreeNode(2))), 1, "root with only a right child")
+
+    # Pure 5-node zigzag chain: root -right-> n1 -left-> n2 -right-> n3 -left-> n4
+    n4 = TreeNode(5)
+    n3 = TreeNode(4, n4)
+    n2 = TreeNode(3, None, n3)
+    n1 = TreeNode(2, n2)
+    zigzag_chain = TreeNode(1, None, n1)
+    assert_equal(sol.longestZigZag(zigzag_chain), 4, "5-node pure zigzag chain")

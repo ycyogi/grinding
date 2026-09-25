@@ -40,6 +40,16 @@ function lowestCommonAncestor(
 
   return dfs(root) as TreeNode;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   const n7 = new TreeNode(7), n4 = new TreeNode(4);
@@ -50,6 +60,22 @@ if (require.main === module) {
   const root = new TreeNode(3, n5, n1);
   console.log(lowestCommonAncestor(root, n5, n1).val); // 3
   console.log(lowestCommonAncestor(root, n5, n4).val); // 5
+
+  // Edge cases
+  // 2-node tree: p is the root itself.
+  const smallLeft = new TreeNode(20);
+  const smallRoot = new TreeNode(10, smallLeft);
+  assertEqual(lowestCommonAncestor(smallRoot, smallRoot, smallLeft).val, 10, '2-node tree, p is the root');
+
+  // Chain A -> B -> C, p ancestor of q.
+  const cNode = new TreeNode(3);
+  const bNode = new TreeNode(2, cNode);
+  const aNode = new TreeNode(1, bNode);
+  assertEqual(lowestCommonAncestor(aNode, bNode, cNode).val, 2, 'p is an ancestor of q');
+  assertEqual(lowestCommonAncestor(aNode, cNode, bNode).val, 2, 'p/q swapped, result unchanged');
+
+  // Cross-subtree pair from the README tree, different from the demo above.
+  assertEqual(lowestCommonAncestor(root, n7, n8).val, 3, 'p and q in different subtrees of the root');
 }
 
 export { lowestCommonAncestor, TreeNode };
