@@ -47,6 +47,13 @@ class Solution:
         return result
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     root = TreeNode(1, TreeNode(2, None, TreeNode(5)), TreeNode(3, None, TreeNode(4)))
@@ -54,3 +61,21 @@ if __name__ == "__main__":
 
     root2 = TreeNode(1, TreeNode(2, TreeNode(4, TreeNode(5))), TreeNode(3))
     print(sol.rightSideView(root2))  # [1, 3, 4, 5]
+
+    # Edge cases
+    assert_equal(sol.rightSideView(None), [], "empty tree")
+
+    assert_equal(sol.rightSideView(TreeNode(1)), [1], "single node")
+
+    left_chain = TreeNode(1, TreeNode(2, TreeNode(3, TreeNode(4))))
+    assert_equal(sol.rightSideView(left_chain), [1, 2, 3, 4], "pure left chain")
+
+    switch_over = TreeNode(
+        1,
+        TreeNode(2, None, TreeNode(6, None, TreeNode(7))),
+        TreeNode(3),
+    )
+    assert_equal(sol.rightSideView(switch_over), [1, 3, 6, 7], "visibility switches to deeper left branch")
+
+    negatives = TreeNode(-100, TreeNode(-50), TreeNode(-75))
+    assert_equal(sol.rightSideView(negatives), [-100, -75], "boundary negative values")

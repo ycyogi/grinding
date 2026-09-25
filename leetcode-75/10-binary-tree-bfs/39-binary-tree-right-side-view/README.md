@@ -68,6 +68,16 @@ tracking depth; the first time a given depth is reached, record that
 node's value (since right is visited first, the first node seen at each
 depth is the rightmost one).
 
+## Edge Cases
+
+| Input | Expected Output | Why it matters |
+|---|---|---|
+| `root = []` (empty tree) | `[]` | Constraint allows 0 nodes; must not crash on `null` root. |
+| `root = [1]` (single node) | `[1]` | Smallest non-empty tree; the one node is both leftmost and rightmost. |
+| `root = [1,2,null,3,null,4]` (pure left chain, no right children at all) | `[1,2,3,4]` | Every level has exactly one node (the left child); tests that "rightmost" still works when there's no actual right branch. |
+| `root = [1,2,3,null,6,null,null,null,7]` (right subtree stops early, left subtree goes deeper via a right-leaning zigzag) | `[1,3,6,7]` | After level 1 the right branch (`3`) has no children, so visibility must "switch over" to the deeper left branch (`6`, then `7`) — the classic case that breaks a naive "always take node.right" approach. |
+| `root = [-100,-50,-75]` (boundary negative values) | `[-100,-75]` | `Node.val` can be as low as `-100`; guards against any code path that treats `0` as a sentinel for "no value yet". |
+
 ## Complexity
 
 - **Time:** `O(n)` — every node is enqueued and dequeued exactly once.

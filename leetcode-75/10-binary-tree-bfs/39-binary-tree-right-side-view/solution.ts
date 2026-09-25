@@ -44,10 +44,38 @@ function rightSideView(root: TreeNode | null): number[] {
 
   return result;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   const root = new TreeNode(1, new TreeNode(2, null, new TreeNode(5)), new TreeNode(3, null, new TreeNode(4)));
   console.log(rightSideView(root)); // [1, 3, 4]
+
+  // Edge cases
+  assertEqual(rightSideView(null), [], "empty tree");
+
+  assertEqual(rightSideView(new TreeNode(1)), [1], "single node");
+
+  const leftChain = new TreeNode(1, new TreeNode(2, new TreeNode(3, new TreeNode(4))));
+  assertEqual(rightSideView(leftChain), [1, 2, 3, 4], "pure left chain");
+
+  const switchOver = new TreeNode(
+    1,
+    new TreeNode(2, null, new TreeNode(6, null, new TreeNode(7))),
+    new TreeNode(3)
+  );
+  assertEqual(rightSideView(switchOver), [1, 3, 6, 7], "visibility switches to deeper left branch");
+
+  const negatives = new TreeNode(-100, new TreeNode(-50), new TreeNode(-75));
+  assertEqual(rightSideView(negatives), [-100, -75], "boundary negative values");
 }
 
 export { rightSideView, TreeNode };
