@@ -61,7 +61,29 @@ class Solution:
         return minutes if fresh_count == 0 else -1
 
 
+def assert_equal(actual, expected, label):
+    if actual != expected:
+        print(f"FAIL [{label}]: got {actual}, expected {expected}")
+    else:
+        print(f"PASS [{label}]")
+
+
 if __name__ == "__main__":
     sol = Solution()
     print(sol.orangesRotting([[2, 1, 1], [1, 1, 0], [0, 1, 1]]))  # 4
     print(sol.orangesRotting([[2, 1, 1], [0, 1, 1], [1, 0, 1]]))  # -1
+
+    # Edge cases (each call uses a fresh grid literal since the function mutates its input)
+    assert_equal(sol.orangesRotting([[2, 0], [0, 2]]), 0, "no fresh oranges at all")
+
+    assert_equal(sol.orangesRotting([[1, 1], [1, 1]]), -1, "fresh oranges only, no rotten source")
+
+    assert_equal(sol.orangesRotting([[1, 0, 2]]), -1, "fresh orange isolated by an empty cell, can never rot")
+
+    assert_equal(sol.orangesRotting([[2]]), 0, "single-cell grid, already rotten")
+
+    assert_equal(
+        sol.orangesRotting([[2, 1, 1, 1, 2]]),
+        2,
+        "two rotten sources at both ends, multi-source BFS layering",
+    )

@@ -66,10 +66,35 @@ function orangesRotting(grid: number[][]): number {
 
   return freshCount === 0 ? minutes : -1;
 }
+function assertEqual(actual: unknown, expected: unknown, label: string): void {
+  const a = JSON.stringify(actual);
+  const e = JSON.stringify(expected);
+  if (a !== e) {
+    console.error(`FAIL [${label}]: got ${a}, expected ${e}`);
+  } else {
+    console.log(`PASS [${label}]`);
+  }
+}
+
 if (require.main === module) {
   // Example usage:
   console.log(orangesRotting([[2,1,1],[1,1,0],[0,1,1]])); // 4
   console.log(orangesRotting([[2,1,1],[0,1,1],[1,0,1]])); // -1
+
+  // Edge cases (each call uses a fresh grid literal since the function mutates its input)
+  assertEqual(orangesRotting([[2, 0], [0, 2]]), 0, "no fresh oranges at all");
+
+  assertEqual(orangesRotting([[1, 1], [1, 1]]), -1, "fresh oranges only, no rotten source");
+
+  assertEqual(orangesRotting([[1, 0, 2]]), -1, "fresh orange isolated by an empty cell, can never rot");
+
+  assertEqual(orangesRotting([[2]]), 0, "single-cell grid, already rotten");
+
+  assertEqual(
+    orangesRotting([[2, 1, 1, 1, 2]]),
+    2,
+    "two rotten sources at both ends, multi-source BFS layering"
+  );
 }
 
 export { orangesRotting };
