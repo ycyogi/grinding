@@ -33,21 +33,20 @@ right -> left -> right, giving a length of 3.
 ```
 Input:  root = [1,1,1,null,1,null,null,1,1,null,1]
 
-           1
-          / \
-         1   1
-          \
-           1
-          / \
-         1   1
-          \
-           1
-            \
-             1
+        1
+       / \
+      1   1
+       \
+        1
+       / \
+      1   1
+       \
+        1
 
 Output: 4
-Explanation: starting at the root and going left -> right -> left ->
-right visits 5 nodes, for a zigzag length of 4.
+Explanation: starting at the root's left child and going
+right -> left -> right visits 5 nodes total (root -> left child ->
+right -> left -> right), for a zigzag length of 4.
 ```
 
 **Constraints**

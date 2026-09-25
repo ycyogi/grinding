@@ -30,13 +30,10 @@ Input:  maze = [["+","+",".","+"],
                 ["+","+","+","."]],
         entrance = [1,2]
 Output: 1
-Explanation: The nearest exit is at [1,0] (step left) — wait, let's
-check border cells: [1,0] is on the border (first column) and empty,
-reached in 2 steps left; but [2,3] (last column, last row) is reached
-in 1 step (down-right is not allowed, only orthogonal moves) — actually
-the true nearest exit here is the cell directly below-right chain; the
-shortest path found by BFS has length 1 to the border cell adjacent to
-the entrance that is open and on the border.
+Explanation: There are 3 exits in this maze at [1,0], [0,2], and [2,3].
+Starting at entrance [1,2], you can reach [0,2] (first row, so it's on
+the border) by moving 1 step up. That is the nearest exit, so the
+answer is 1.
 ```
 
 **Example 2**
